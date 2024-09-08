@@ -1,0 +1,53 @@
+{
+  "name": "@aidc-toolkit/demo",
+  "version": "0.0.1",
+  "description": "Demonstration of AIDC Toolkit",
+  "type": "module",
+  "private": true,
+  "homepage": "https://github.com/aidc-toolkit",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidc-toolkit/gs1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aidc-toolkit/gs1/issues"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Kevin Dean",
+    "email": "Kevin.Dean@datadevelopment.com",
+    "url": "https://www.linkedin.com/in/kdean"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@aidc-toolkit/dev": "^0.0.1",
+    "@eslint/js": "^9.10.0",
+    "@stylistic/eslint-plugin": "^2.7.2",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint-config-love": "^64.0.0",
+    "eslint-plugin-jsdoc": "^50.2.2",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "globals": "^15.9.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0",
+    "vite": "^5.4.3"
+  },
+  "dependencies": {
+    "@aidc-toolkit/core": "^0.0.1",
+    "@aidc-toolkit/gs1": "^0.0.1",
+    "@aidc-toolkit/utility": "^0.0.1",
+    "bootstrap": "^5.3.3",
+    "i18next": "^23.14.0",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.4",
+    "react-dom": "^18.3.1"
+  }
+}

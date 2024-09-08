@@ -1,0 +1,15 @@
+{
+  "extends": "@aidc-toolkit/dev/tsconfig.json",
+  "compilerOptions": {
+    "lib": ["es2020"],
+
+    // Bundler support.
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true
+  },
+  "include": ["vite.config.ts"]
+}
