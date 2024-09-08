@@ -8,6 +8,9 @@ import { GS1IDKeyMenu } from "./GS1IDKey.tsx";
 import { StringMenu } from "./String.tsx";
 import "bootstrap/dist/css/bootstrap.css";
 
+// Package configuration provides application name and version.
+import packageConfig from "../package.json";
+
 enum I18NState {
     None,
     Initializing,
@@ -66,7 +69,7 @@ export default class App extends AppComponent<object, AppState> {
                             className="logo d-inline-block align-center"
                             alt="AIDC Toolkit logo"
                         />
-                        AIDC Toolkit
+                        {`AIDC Toolkit v${packageConfig.version}`}
                     </Navbar.Brand>
                     <Nav>
                         <StringMenu />
