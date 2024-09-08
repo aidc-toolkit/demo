@@ -57,7 +57,7 @@ export default class App extends AppComponent<object, AppState> {
             <></> :
             <appContext.Provider value={{
                 ...this.context,
-                setDemoElement: this.setDemoElement.bind(this)// as (demoElement: ReactElement | undefined) => void
+                setDemoElement: this.setDemoElement.bind(this)
             }}>
                 <Navbar className="d-flex" expand="lg">
                     <Navbar.Brand href="https://github.com/aidc-toolkit">
