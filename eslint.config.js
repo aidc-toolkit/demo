@@ -9,6 +9,9 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default tseslint.config(
+    {
+        ignores: ["eslint.config.js", "dist"]
+    },
     js.configs.recommended,
     ...tseslint.configs.strictTypeChecked,
     stylistic.configs["recommended-flat"],
