@@ -2,7 +2,7 @@
   "extends": "@aidc-toolkit/dev/tsconfig.json",
   "compilerOptions": {
     "outDir": "dest",
-    "lib": ["es2020", "DOM", "DOM.Iterable"],
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
 
     // Bundler support.
     "module": "es2022",
