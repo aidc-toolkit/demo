@@ -1,6 +1,6 @@
 {
   "name": "@aidc-toolkit/demo",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Demonstration of AIDC Toolkit",
   "type": "module",
   "private": true,
@@ -25,29 +25,29 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@aidc-toolkit/dev": "^0.9.0",
-    "@eslint/js": "^9.10.0",
+    "@aidc-toolkit/dev": "^0.9.1",
+    "@eslint/js": "^9.11.1",
     "@stylistic/eslint-plugin": "^2.8.0",
-    "@types/react": "^18.3.5",
+    "@types/react": "^18.3.9",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
-    "eslint-config-love": "^64.0.0",
-    "eslint-plugin-jsdoc": "^50.2.2",
+    "eslint-config-love": "^71.0.0",
+    "eslint-plugin-jsdoc": "^50.3.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.11",
+    "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
     "typescript": "^5.6.2",
-    "typescript-eslint": "^8.5.0",
-    "vite": "^5.4.4"
+    "typescript-eslint": "^8.7.0",
+    "vite": "^5.4.8"
   },
   "dependencies": {
-    "@aidc-toolkit/core": "^0.9.0",
-    "@aidc-toolkit/gs1": "^0.9.0",
-    "@aidc-toolkit/utility": "^0.9.0",
+    "@aidc-toolkit/core": "^0.9.1",
+    "@aidc-toolkit/gs1": "^0.9.1",
+    "@aidc-toolkit/utility": "^0.9.1",
     "bootstrap": "^5.3.3",
     "i18next": "^23.15.1",
     "react": "^18.3.1",
-    "react-bootstrap": "^2.10.4",
+    "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1"
   }
 }
