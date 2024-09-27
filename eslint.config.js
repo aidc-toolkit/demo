@@ -36,6 +36,13 @@ export default tseslint.config(
             ],
             "@stylistic/jsx-closing-bracket-location": "off",
             "@stylistic/jsx-closing-tag-location": "off",
+            "@stylistic/jsx-curly-spacing": [
+                "error",
+                {
+                    when: "never",
+                    children: true
+                }
+            ],
             "@stylistic/jsx-indent-props": ["error", 4],
             "@stylistic/jsx-wrap-multilines": "off"
         }
