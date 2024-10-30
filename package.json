@@ -19,9 +19,9 @@
     "url": "https://www.linkedin.com/in/kdean"
   },
   "scripts": {
-    "dev": "vite",
+    "eslint": "eslint .",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "dev": "vite",
     "preview": "vite preview"
   },
   "devDependencies": {
