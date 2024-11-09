@@ -25,7 +25,7 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
     /**
      * Form element.
      */
-    private _formElement?: HTMLFormElement;
+    private _formElement!: HTMLFormElement;
 
     /**
      * Get the title.
@@ -226,8 +226,7 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
      * Input element.
      */
     private getInputElement(elementName: string): HTMLInputElement {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Form element must be defined for this method to be called.
-        return this._formElement!.elements.namedItem(elementName) as HTMLInputElement;
+        return this._formElement.elements.namedItem(elementName) as HTMLInputElement;
     }
 
     /**
