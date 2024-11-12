@@ -5,7 +5,8 @@ import {
     CharacterSetCreator,
     Exclusion,
     HEXADECIMAL_CREATOR,
-    NUMERIC_CREATOR, Sequencer
+    NUMERIC_CREATOR,
+    Sequencer
 } from "@aidc-toolkit/utility";
 import { type ComponentClass, createElement, type ReactElement } from "react";
 import { NavDropdown } from "react-bootstrap";
