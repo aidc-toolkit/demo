@@ -21,7 +21,7 @@
   "scripts": {
     "eslint": "eslint .",
     "build": "tsc -b && vite build",
-    "build-doc": "npm run build",
+    "build-doc": "npm run build -- $*",
     "dev": "vite",
     "preview": "vite preview"
   },
