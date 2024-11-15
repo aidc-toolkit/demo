@@ -13,7 +13,7 @@ export interface AppContext {
     setDemoElement: (demoElement: ReactElement | undefined) => void;
 
     /**
-     * Cached input values, carried from form to form to simplify input.
+     * Cached input values, carried from form to simplify input.
      */
     inputValues: Map<string, string>;
 }
