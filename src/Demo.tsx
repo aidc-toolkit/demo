@@ -307,7 +307,9 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
             numberValue = parseInt(stringValue);
 
             if (Number.isNaN(numberValue)) {
-                this.addError(elementName, "Value is not a number.");
+                this.addError(elementName, i18next.t("Demo.valueIsNotANumber", {
+                    ns: demoNS
+                }));
             }
         }
 
@@ -327,7 +329,9 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
         let numberValue = this.optionalNumberInput(elementName);
 
         if (numberValue === undefined) {
-            this.addError(elementName, "Value is required.");
+            this.addError(elementName, i18next.t("Demo.valueIsRequired", {
+                ns: demoNS
+            }));
 
             numberValue = 0;
         }
@@ -410,8 +414,14 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
         } catch (e) {
             if (e instanceof Error) {
                 this.addError("", e.message);
+
+                if (e.name !== "RangeError") {
+                    console.error(e);
+                }
             } else {
+                // Can't localize this as source of error may be localization itself.
                 this.addError("", `Unknown error: ${String(e)}`);
+                console.error(e);
             }
         }
 

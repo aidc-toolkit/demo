@@ -7,6 +7,7 @@ export const localeStrings = {
     },
     Demo: {
         valueIsRequired: "Value is required.",
+        valueIsNotANumber: "Value is not a number.",
         confirmCreateStrings: "This will create {{count}} strings.\nAre you sure?"
     },
     String: {
