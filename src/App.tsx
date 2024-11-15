@@ -6,6 +6,7 @@ import "./App.css";
 import packageConfig from "../package.json";
 import { AppComponent, appContext } from "./app_context.ts";
 import { GS1IDKeyMenu } from "./GS1IDKey.tsx";
+import i18next, { demoNS } from "./locale/i18n.ts";
 import { StringMenu } from "./String.tsx";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -88,6 +89,10 @@ export default class App extends AppComponent<object, AppState> {
                     ...state,
                     i18nInitialized: initialized
                 }));
+
+                document.title = i18next.t("App.title", {
+                    ns: demoNS
+                });
             }
         }).catch((e: unknown) => {
             console.error(e);
@@ -102,7 +107,10 @@ export default class App extends AppComponent<object, AppState> {
      * Application.
      */
     override render(): ReactElement {
-        const title = `AIDC Toolkit v${packageConfig.version}`;
+        const title = i18next.t("App.titleVersion", {
+            ns: demoNS,
+            version: packageConfig.version
+        });
 
         return this.state.i18nInitialized ?
             <appContext.Provider value={{
@@ -125,7 +133,9 @@ export default class App extends AppComponent<object, AppState> {
                             <Image
                                 src={aidcToolkitIcon}
                                 className="logo d-inline-block align-center"
-                                alt="AIDC Toolkit logo"
+                                alt={i18next.t("App.logoAlt", {
+                                    ns: demoNS
+                                })}
                             />
                             {title}
                         </Navbar.Brand>
@@ -141,7 +151,9 @@ export default class App extends AppComponent<object, AppState> {
                                 <Nav.Link onClick={() => {
                                     this.reset();
                                 }}>
-                                    Reset
+                                    {i18next.t("App.reset", {
+                                        ns: demoNS
+                                    })}
                                 </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>

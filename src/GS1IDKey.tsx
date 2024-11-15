@@ -34,9 +34,10 @@ import {
 import { Exclusion, Sequencer } from "@aidc-toolkit/utility";
 import type { ReactElement } from "react";
 import { NavDropdown } from "react-bootstrap";
-
+import { gs1NS } from "../../gs1/src/locale/i18n.ts";
 import { AppComponent } from "./app_context.ts";
 import { DemoForm } from "./Demo.tsx";
+import i18next, { demoNS } from "./locale/i18n.js";
 
 /**
  * Identification key properties.
@@ -132,7 +133,17 @@ abstract class IdentificationKeyForm<V extends IdentificationKeyValidator = Iden
             prefixTypes = [PrefixType.GS1CompanyPrefix, PrefixType.UPCCompanyPrefix];
         }
 
-        return this.enumElement("prefixType", "Prefix type", prefixTypes, ["GS1 Company Prefix", "U.P.C. Company Prefix", "GS1-8 Prefix"], "Prefix type underlying the identification key.");
+        return this.enumElement("prefixType", i18next.t("GS1.prefixTypeLabel", {
+            ns: demoNS
+        }), prefixTypes, [i18next.t("Prefix.gs1CompanyPrefix", {
+            ns: gs1NS
+        }), i18next.t("Prefix.upcCompanyPrefix", {
+            ns: gs1NS
+        }), i18next.t("Prefix.gs18Prefix", {
+            ns: gs1NS
+        })], i18next.t("GS1.prefixTypeText", {
+            ns: demoNS
+        }));
     }
 
     /**
@@ -152,7 +163,11 @@ abstract class IdentificationKeyForm<V extends IdentificationKeyValidator = Iden
      * Text element.
      */
     protected prefixElement(): ReactElement {
-        return this.textElement("prefix", "Prefix", "Prefix underlying the identification key.");
+        return this.textElement("prefix", i18next.t("GS1.prefixLabel", {
+            ns: demoNS
+        }), i18next.t("GS1.prefixText", {
+            ns: demoNS
+        }));
     }
 
     /**
@@ -178,7 +193,10 @@ abstract class IdentificationKeyForm<V extends IdentificationKeyValidator = Iden
      * Text element.
      */
     protected identificationKeyElement(label?: string, text?: string): ReactElement {
-        return this.textElement("identificationKey", label ?? this.props.identificationKeyType, text ?? `${this.props.identificationKeyType} to be validated.`);
+        return this.textElement("identificationKey", label ?? this.props.identificationKeyType, text ?? i18next.t("GS1.identificationKeyText", {
+            ns: demoNS,
+            identificationKeyType: this.props.identificationKeyType
+        }));
     }
 
     /**
@@ -198,7 +216,11 @@ abstract class IdentificationKeyForm<V extends IdentificationKeyValidator = Iden
      * Text element.
      */
     protected valueElement(): ReactElement {
-        return this.textElement("value", "Value", "Numeric value to be converted to reference.");
+        return this.textElement("value", i18next.t("String.valueLabel", {
+            ns: demoNS
+        }), i18next.t("GS1.valueText", {
+            ns: demoNS
+        }));
     }
 
     /**
@@ -220,7 +242,9 @@ class IdentificationKeyValidateForm extends IdentificationKeyForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Validate";
+        return i18next.t("String.validateSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -232,7 +256,17 @@ class IdentificationKeyValidateForm extends IdentificationKeyForm {
         return <>
             {this.prefixTypeElement(this.props.identificationKeyType !== IdentificationKeyType.GTIN)}
             {this.identificationKeyElement()}
-            {this.enumElement("exclusion", "Exclusion", numeric ? [Exclusion.None] : [Exclusion.None, Exclusion.AllNumeric], ["None", "First zero", "All numeric"], "Type of reference to be excluded from validation.")}
+            {this.enumElement("exclusion", i18next.t("String.exclusionLabel", {
+                ns: demoNS
+            }), numeric ? [Exclusion.None] : [Exclusion.None, Exclusion.AllNumeric], [i18next.t("String.exclusionNoneLabel", {
+                ns: demoNS
+            }), i18next.t("String.exclusionFirstZeroLabel", {
+                ns: demoNS
+            }), i18next.t("String.exclusionAllNumericLabel", {
+                ns: demoNS
+            })], i18next.t("GS1.exclusionText", {
+                ns: demoNS
+            }))}
         </>;
     }
 
@@ -277,7 +311,9 @@ abstract class IdentificationKeySubMenu<V extends IdentificationKeyValidator, C 
                 />
             );
         }}>
-            Validate
+            {i18next.t("String.validateSubtitle", {
+                ns: demoNS
+            })}
         </NavDropdown.Item>;
     }
 
@@ -302,7 +338,11 @@ abstract class NumericIdentificationKeyForm<V extends NumericIdentificationKeyVa
      * Boolean element.
      */
     protected sparseElement(): ReactElement {
-        return this.booleanElement("sparse", "Sparse", "If true, the value is mapped to a sparse sequence resistant to discovery.");
+        return this.booleanElement("sparse", i18next.t("GS1.sparseLabel", {
+            ns: demoNS
+        }), i18next.t("GS1.sparseText", {
+            ns: demoNS
+        }));
     }
 
     /**
@@ -324,7 +364,9 @@ class NumericIdentificationKeyCreateForm extends NumericIdentificationKeyForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Create";
+        return i18next.t("String.createSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -367,7 +409,9 @@ class NumericIdentificationKeyCreateSequenceForm extends NumericIdentificationKe
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Create sequence";
+        return i18next.t("String.createSequenceSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -377,8 +421,16 @@ class NumericIdentificationKeyCreateSequenceForm extends NumericIdentificationKe
         return <>
             {this.prefixTypeElement(false)}
             {this.prefixElement()}
-            {this.textElement("startValue", "Start value", "Start of numeric values to be converted to references.")}
-            {this.textElement("count", "Count", "Count of numeric values to be converted to references.")}
+            {this.textElement("startValue", i18next.t("String.startValueLabel", {
+                ns: demoNS
+            }), i18next.t("GS1.startValueText", {
+                ns: demoNS
+            }))}
+            {this.textElement("count", i18next.t("String.countLabel", {
+                ns: demoNS
+            }), i18next.t("GS1.countText", {
+                ns: demoNS
+            }))}
             {this.sparseElement()}
         </>;
     }
@@ -405,7 +457,9 @@ class NumericIdentificationKeyCreateAllForm extends NumericIdentificationKeyForm
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Create all";
+        return i18next.t("GS1.createAllSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -457,7 +511,9 @@ class NumericIdentificationKeySubMenu<V extends NumericIdentificationKeyValidato
                     />
                 );
             }}>
-                Create
+                {i18next.t("String.createSubtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
                 this.setDemoElement(
@@ -467,7 +523,9 @@ class NumericIdentificationKeySubMenu<V extends NumericIdentificationKeyValidato
                     />
                 );
             }}>
-                Create sequence
+                {i18next.t("String.createSequenceSubtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
                 this.setDemoElement(
@@ -477,7 +535,9 @@ class NumericIdentificationKeySubMenu<V extends NumericIdentificationKeyValidato
                     />
                 );
             }}>
-                Create all
+                {i18next.t("GS1.createAllSubtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
         </>;
     }
@@ -491,7 +551,9 @@ class ZeroExpandGTIN12Form extends NumericIdentificationKeyForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Zero expand GTIN-12";
+        return i18next.t("GS1.zeroExpandGTIN12Subtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -506,7 +568,11 @@ class ZeroExpandGTIN12Form extends NumericIdentificationKeyForm {
      */
     protected renderParameters(): ReactElement {
         return <>
-            {this.textElement("zeroSuppressedGTIN12", "Zero-suppressed GTIN-12", "Zero-suppressed GTIN-12 to be expanded.")}
+            {this.textElement("zeroSuppressedGTIN12", i18next.t("GS1.zeroSuppressedGTIN12Label", {
+                ns: demoNS
+            }), i18next.t("GS1.zeroSuppressedGTIN12Text", {
+                ns: demoNS
+            }))}
         </>;
     }
 
@@ -528,7 +594,9 @@ class ZeroSuppressGTIN12Form extends NumericIdentificationKeyForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Zero suppress GTIN-12";
+        return i18next.t("GS1.zeroSuppressGTIN12Subtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -543,7 +611,11 @@ class ZeroSuppressGTIN12Form extends NumericIdentificationKeyForm {
      */
     protected renderParameters(): ReactElement {
         return <>
-            {this.identificationKeyElement("GTIN-12", "GTIN-12 to be zero-suppressed.")}
+            {this.identificationKeyElement(i18next.t("GS1.gtin12Label", {
+                ns: demoNS
+            }), i18next.t("GS1.gtin12ToBeZeroSuppressedText", {
+                ns: demoNS
+            }))}
         </>;
     }
 
@@ -565,7 +637,9 @@ class ValidateAnyGTINForm extends NumericIdentificationKeyForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Validate any";
+        return i18next.t("GS1.validateAnySubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -574,7 +648,17 @@ class ValidateAnyGTINForm extends NumericIdentificationKeyForm {
     protected renderParameters(): ReactElement {
         return <>
             {this.identificationKeyElement()}
-            {this.enumElement("gtinLevel", "Level", [GTINLevel.Any, GTINLevel.RetailConsumer, GTINLevel.OtherThanRetailConsumer], ["Any", "Retail consumer", "Other than retail consumer"], "Level at which the GTIN is applied.")}
+            {this.enumElement("gtinLevel", i18next.t("GS1.levelLabel", {
+                ns: demoNS
+            }), [GTINLevel.Any, GTINLevel.RetailConsumer, GTINLevel.OtherThanRetailConsumer], [i18next.t("GS1.levelAnyLabel", {
+                ns: demoNS
+            }), i18next.t("GS1.levelRetailConsumerLabel", {
+                ns: demoNS
+            }), i18next.t("GS1.levelOtherThanRetailConsumerLabel", {
+                ns: demoNS
+            })], i18next.t("GS1.levelText", {
+                ns: demoNS
+            }))}
         </>;
     }
 
@@ -601,7 +685,9 @@ class ValidateGTIN14Form extends NumericIdentificationKeyForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Validate GTIN-14";
+        return i18next.t("GS1.validateGTIN14Subtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -609,7 +695,11 @@ class ValidateGTIN14Form extends NumericIdentificationKeyForm {
      */
     protected renderParameters(): ReactElement {
         return <>
-            {this.identificationKeyElement("GTIN-14", "GTIN-14 to be validated.")}
+            {this.identificationKeyElement(i18next.t("GS1.gtin14Label", {
+                ns: demoNS
+            }), i18next.t("GS1.gtin14ToBeValidatedText", {
+                ns: demoNS
+            }))}
         </>;
     }
 
@@ -635,7 +725,9 @@ class ConvertToGTIN14Form extends NumericIdentificationKeyForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Convert to GTIN-14";
+        return i18next.t("GS1.convertToGTIN14Subtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -650,8 +742,16 @@ class ConvertToGTIN14Form extends NumericIdentificationKeyForm {
      */
     protected renderParameters(): ReactElement {
         return <>
-            {this.textElement("indicatorDigit", "Indicator digit", "If provided, indicator digit to apply to GTIN-14.")}
-            {this.identificationKeyElement("GTIN", "GTIN to be converted to GTIN-14.")}
+            {this.textElement("indicatorDigit", i18next.t("GS1.indicatorDigitLabel", {
+                ns: demoNS
+            }), i18next.t("GS1.indicatorDigitText", {
+                ns: demoNS
+            }))}
+            {this.identificationKeyElement(i18next.t("GS1.gtinLabel", {
+                ns: demoNS
+            }), i18next.t("GS1.gtinToBeConvertedToGTIN14Text", {
+                ns: demoNS
+            }))}
         </>;
     }
 
@@ -674,7 +774,9 @@ class NormalizeGTINForm extends NumericIdentificationKeyForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Normalize";
+        return i18next.t("GS1.normalizeGTINSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -689,7 +791,11 @@ class NormalizeGTINForm extends NumericIdentificationKeyForm {
      */
     protected renderParameters(): ReactElement {
         return <>
-            {this.identificationKeyElement("GTIN", "GTIN to be normalized.")}
+            {this.identificationKeyElement(i18next.t("GS1.gtinLabel", {
+                ns: demoNS
+            }), i18next.t("GS1.gtinToBeNormalizedText", {
+                ns: demoNS
+            }))}
         </>;
     }
 
@@ -722,7 +828,9 @@ class GTINSubMenu extends NumericIdentificationKeySubMenu<GTINValidator, GTINCre
                     />
                 );
             }}>
-                Zero expand GTIN-12
+                {i18next.t("GS1.zeroExpandGTIN12Subtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
                 this.setDemoElement(
@@ -732,7 +840,9 @@ class GTINSubMenu extends NumericIdentificationKeySubMenu<GTINValidator, GTINCre
                     />
                 );
             }}>
-                Zero suppress GTIN-12
+                {i18next.t("GS1.zeroSuppressGTIN12Subtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={() => {
@@ -743,7 +853,9 @@ class GTINSubMenu extends NumericIdentificationKeySubMenu<GTINValidator, GTINCre
                     />
                 );
             }}>
-                Validate any
+                {i18next.t("GS1.validateAnySubtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
                 this.setDemoElement(
@@ -753,7 +865,9 @@ class GTINSubMenu extends NumericIdentificationKeySubMenu<GTINValidator, GTINCre
                     />
                 );
             }}>
-                Validate GTIN-14
+                {i18next.t("GS1.validateGTIN14Subtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={() => {
@@ -764,7 +878,9 @@ class GTINSubMenu extends NumericIdentificationKeySubMenu<GTINValidator, GTINCre
                     />
                 );
             }}>
-                Convert to GTIN-14
+                {i18next.t("GS1.convertToGTIN14Subtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
                 this.setDemoElement(
@@ -774,7 +890,9 @@ class GTINSubMenu extends NumericIdentificationKeySubMenu<GTINValidator, GTINCre
                     />
                 );
             }}>
-                Normalize
+                {i18next.t("GS1.normalizeGTINSubtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
         </>;
     }
@@ -797,7 +915,11 @@ abstract class SerializableNumericIdentificationKeyForm extends NumericIdentific
      * Text element.
      */
     protected serialComponentElement(): ReactElement {
-        return this.textElement("serialComponent", "Serial component", "Serial component of the identification key.");
+        return this.textElement("serialComponent", i18next.t("GS1.serialComponentLabel", {
+            ns: demoNS
+        }), i18next.t("GS1.serialComponentText", {
+            ns: demoNS
+        }));
     }
 
     /**
@@ -819,7 +941,9 @@ class SerializableNumericIdentificationKeyCreateSerializedForm extends Serializa
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Create serialized";
+        return i18next.t("GS1.createSerializedSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -864,7 +988,9 @@ class SerializableNumericIdentificationKeyConcatenateForm extends SerializableNu
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Concatenate";
+        return i18next.t("GS1.concatenateSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -879,7 +1005,13 @@ class SerializableNumericIdentificationKeyConcatenateForm extends SerializableNu
      */
     protected renderParameters(): ReactElement {
         return <>
-            {this.identificationKeyElement(`Base ${this.props.identificationKeyType}`, `Base ${this.props.identificationKeyType} to which to concatenate serial component.`)}
+            {this.identificationKeyElement(i18next.t("GS1.baseIdentificationKeyLabel", {
+                ns: demoNS,
+                identificationKeyType: this.props.identificationKeyType
+            }), i18next.t("GS1.baseIdentificationKeyText", {
+                ns: demoNS,
+                identificationKeyType: this.props.identificationKeyType
+            }))}
             {this.serialComponentElement()}
         </>;
     }
@@ -914,7 +1046,9 @@ class SerializableNumericIdentificationKeySubMenu extends NumericIdentificationK
                     />
                 );
             }}>
-                Create serialized
+                {i18next.t("GS1.createSerializedSubtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
                 this.setDemoElement(
@@ -924,7 +1058,9 @@ class SerializableNumericIdentificationKeySubMenu extends NumericIdentificationK
                     />
                 );
             }}>
-                Concatenate
+                {i18next.t("GS1.concatenateSubtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
         </>;
     }
@@ -944,7 +1080,9 @@ class NonNumericIdentificationKeyCreateForm extends NonNumericIdentificationKeyF
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Create";
+        return i18next.t("String.createSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -961,7 +1099,11 @@ class NonNumericIdentificationKeyCreateForm extends NonNumericIdentificationKeyF
         return <>
             {this.prefixTypeElement(false)}
             {this.prefixElement()}
-            {this.textElement("reference", "Reference", "Reference to be appended to prefix.")}
+            {this.textElement("reference", i18next.t("GS1.referenceLabel", {
+                ns: demoNS
+            }), i18next.t("GS1.referenceText", {
+                ns: demoNS
+            }))}
         </>;
     }
 
@@ -995,7 +1137,9 @@ class NonNumericIdentificationKeySubMenu extends IdentificationKeySubMenu<NonNum
                     />
                 );
             }}>
-                Create
+                {i18next.t("String.createSubtitle", {
+                    ns: demoNS
+                })}
             </NavDropdown.Item>
         </>;
     }
@@ -1009,7 +1153,9 @@ export class GS1IDKeyMenu extends AppComponent {
      * @inheritDoc
      */
     override render(): ReactElement {
-        return <NavDropdown title="GS1 ID Key">
+        return <NavDropdown title={i18next.t("GS1.gs1IDKeyTitle", {
+            ns: demoNS
+        })}>
             <GTINSubMenu
                 identificationKeyType={IdentificationKeyType.GTIN}
                 validatorOrValidators={GTIN_VALIDATORS}

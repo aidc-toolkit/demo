@@ -10,18 +10,18 @@ import {
 } from "@aidc-toolkit/utility";
 import { type ComponentClass, createElement, type ReactElement } from "react";
 import { NavDropdown } from "react-bootstrap";
-
 import { AppComponent } from "./app_context.ts";
 import { DemoForm } from "./Demo.tsx";
+import i18next, { demoNS } from "./locale/i18n.js";
 
 /**
  * Character set properties.
  */
 interface CharacterSetProperties {
     /**
-     * Name.
+     * Resource name.
      */
-    name: string;
+    resourceName: string;
 
     /**
      * Creator.
@@ -37,7 +37,12 @@ abstract class CharacterSetForm extends DemoForm<CharacterSetProperties> {
      * @inheritDoc
      */
     protected get title(): string {
-        return `${this.props.name} String`;
+        return i18next.t("String.characterSetTitle", {
+            ns: demoNS,
+            name: i18next.t(this.props.resourceName, {
+                ns: demoNS
+            })
+        });
     }
 
     /**
@@ -70,7 +75,12 @@ abstract class CharacterSetForm extends DemoForm<CharacterSetProperties> {
      * Text element.
      */
     protected lengthElement(): ReactElement {
-        return this.textElement("length", "Length", `Length must be from 0-${CharacterSetCreator.MAXIMUM_STRING_LENGTH.toLocaleString()}.`);
+        return this.textElement("length", i18next.t("String.lengthLabel", {
+            ns: demoNS
+        }), i18next.t("String.lengthText", {
+            ns: demoNS,
+            maximumLength: CharacterSetCreator.MAXIMUM_STRING_LENGTH
+        }));
     }
 
     /**
@@ -90,7 +100,17 @@ abstract class CharacterSetForm extends DemoForm<CharacterSetProperties> {
      * Enumeration element.
      */
     protected exclusionElement(): ReactElement {
-        return this.enumElement("exclusion", "Exclusion", [Exclusion.None, ...this.props.creator.exclusionSupport], ["None", "First zero", "All numeric"], "Type of string to be excluded from creation.");
+        return this.enumElement("exclusion", i18next.t("String.exclusionLabel", {
+            ns: demoNS
+        }), [Exclusion.None, ...this.props.creator.exclusionSupport], [i18next.t("String.exclusionNoneLabel", {
+            ns: demoNS
+        }), i18next.t("String.exclusionFirstZeroLabel", {
+            ns: demoNS
+        }), i18next.t("String.exclusionAllNumericLabel", {
+            ns: demoNS
+        })], i18next.t("String.exclusionText", {
+            ns: demoNS
+        }));
     }
 
     /**
@@ -110,7 +130,11 @@ abstract class CharacterSetForm extends DemoForm<CharacterSetProperties> {
      * Text element.
      */
     protected tweakElement(): ReactElement {
-        return this.textElement("tweak", "Tweak", "If provided, the numerical value of the string \"tweaked\" by this value using an encryption transformer.");
+        return this.textElement("tweak", i18next.t("String.tweakLabel", {
+            ns: demoNS
+        }), i18next.t("String.tweakText", {
+            ns: demoNS
+        }));
     }
 
     /**
@@ -132,7 +156,9 @@ class CharacterSetValidateForm extends CharacterSetForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Validate";
+        return i18next.t("String.validateSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -140,9 +166,28 @@ class CharacterSetValidateForm extends CharacterSetForm {
      */
     protected renderParameters(): ReactElement {
         return <>
-            {this.sElement(`${this.props.name} string to validate.`)}
-            {this.textElement("minimumLength", "Minimum length", `If provided, the minimum length of the ${this.props.name.toLowerCase()} string.`)}
-            {this.textElement("maximumLength", "Maximum length", `If provided, the maximum length of the ${this.props.name.toLowerCase()} string.`)}
+            {this.sElement(i18next.t("String.stringToValidate", {
+                ns: demoNS,
+                name: i18next.t(this.props.resourceName, {
+                    ns: demoNS
+                })
+            }))}
+            {this.textElement("minimumLength", i18next.t("String.minimumLengthLabel", {
+                ns: demoNS
+            }), i18next.t("String.minimumLengthText", {
+                ns: demoNS,
+                name: i18next.t(this.props.resourceName, {
+                    ns: demoNS
+                })
+            }))}
+            {this.textElement("maximumLength", i18next.t("String.maximumLengthLabel", {
+                ns: demoNS
+            }), i18next.t("String.maximumLengthText", {
+                ns: demoNS,
+                name: i18next.t(this.props.resourceName, {
+                    ns: demoNS
+                })
+            }))}
             {this.exclusionElement()}
         </>;
     }
@@ -183,7 +228,9 @@ class CharacterSetCreateForm extends CharacterSetForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Create";
+        return i18next.t("String.createSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -192,7 +239,14 @@ class CharacterSetCreateForm extends CharacterSetForm {
     protected renderParameters(): ReactElement {
         return <>
             {this.lengthElement()}
-            {this.textElement("value", "Value", `Numeric value to be converted to equivalent ${this.props.name} string.`)}
+            {this.textElement("value", i18next.t("String.valueLabel", {
+                ns: demoNS
+            }), i18next.t("String.valueText", {
+                ns: demoNS,
+                name: i18next.t(this.props.resourceName, {
+                    ns: demoNS
+                })
+            }))}
             {this.exclusionElement()}
             {this.tweakElement()}
         </>;
@@ -219,7 +273,9 @@ class CharacterSetCreateSequenceForm extends CharacterSetForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Create sequence";
+        return i18next.t("String.createSequenceSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -228,8 +284,22 @@ class CharacterSetCreateSequenceForm extends CharacterSetForm {
     protected renderParameters(): ReactElement {
         return <>
             {this.lengthElement()}
-            {this.textElement("startValue", "Start value", `Start of numeric values to be converted to equivalent ${this.props.name} strings.`)}
-            {this.textElement("count", "Count", `Count of numeric values to be converted to equivalent ${this.props.name} strings.`)}
+            {this.textElement("startValue", i18next.t("String.startValueLabel", {
+                ns: demoNS
+            }), i18next.t("String.startValueText", {
+                ns: demoNS,
+                name: i18next.t(this.props.resourceName, {
+                    ns: demoNS
+                })
+            }))}
+            {this.textElement("count", i18next.t("String.countLabel", {
+                ns: demoNS
+            }), i18next.t("String.countText", {
+                ns: demoNS,
+                name: i18next.t(this.props.resourceName, {
+                    ns: demoNS
+                })
+            }))}
             {this.exclusionElement()}
             {this.tweakElement()}
         </>;
@@ -264,7 +334,9 @@ class CharacterSetValueForm extends CharacterSetForm {
      * @inheritDoc
      */
     protected get subtitle(): string {
-        return "Value";
+        return i18next.t("String.valueSubtitle", {
+            ns: demoNS
+        });
     }
 
     /**
@@ -272,7 +344,12 @@ class CharacterSetValueForm extends CharacterSetForm {
      */
     protected renderParameters(): ReactElement {
         return <>
-            {this.sElement(`${this.props.name} string to convert back to numeric value.`)}
+            {this.sElement(i18next.t("String.stringToConvert", {
+                ns: demoNS,
+                name: i18next.t(this.props.resourceName, {
+                    ns: demoNS
+                })
+            }))}
             {this.exclusionElement()}
             {this.tweakElement()}
         </>;
@@ -295,9 +372,9 @@ class CharacterSetValueForm extends CharacterSetForm {
  */
 interface CharacterSetFormDescriptor {
     /**
-     * Name.
+     * Resource name.
      */
-    name: string;
+    resourceName: string;
 
     /**
      * Form component class.
@@ -314,27 +391,27 @@ export class StringMenu extends AppComponent {
      */
     private static readonly CHARACTER_SETS_PROPERTIES: readonly CharacterSetProperties[] = [
         {
-            name: "Numeric",
+            resourceName: "String.numericCharacterSet",
             creator: NUMERIC_CREATOR
         },
         {
-            name: "Hexadecimal",
+            resourceName: "String.hexadecimalCharacterSet",
             creator: HEXADECIMAL_CREATOR
         },
         {
-            name: "Alphabetic",
+            resourceName: "String.alphabeticCharacterSet",
             creator: ALPHABETIC_CREATOR
         },
         {
-            name: "Alphanumeric",
+            resourceName: "String.alphanumericCharacterSet",
             creator: ALPHANUMERIC_CREATOR
         },
         {
-            name: "GS1 AI 82",
+            resourceName: "String.gs1AI82CharacterSet",
             creator: AI82_CREATOR
         },
         {
-            name: "GS1 AI 39",
+            resourceName: "String.gs1AI39CharacterSet",
             creator: AI39_CREATOR
         }
     ];
@@ -344,19 +421,19 @@ export class StringMenu extends AppComponent {
      */
     private static readonly CHARACTER_SET_FORM_DESCRIPTORS: readonly CharacterSetFormDescriptor[] = [
         {
-            name: "Validate",
+            resourceName: "String.validateSubtitle",
             form: CharacterSetValidateForm
         },
         {
-            name: "Create",
+            resourceName: "String.createSubtitle",
             form: CharacterSetCreateForm
         },
         {
-            name: "Create sequence",
+            resourceName: "String.createSequenceSubtitle",
             form: CharacterSetCreateSequenceForm
         },
         {
-            name: "Value",
+            resourceName: "String.valueSubtitle",
             form: CharacterSetValueForm
         }
     ];
@@ -365,24 +442,38 @@ export class StringMenu extends AppComponent {
      * @inheritDoc
      */
     override render(): ReactElement {
-        return <NavDropdown title="String">
+        return <NavDropdown title={i18next.t("String.stringTitle", {
+            ns: demoNS
+        })}>
             {
-                StringMenu.CHARACTER_SETS_PROPERTIES.map(characterSetDescriptor => <NavDropdown
-                    key={characterSetDescriptor.name}
-                    title={characterSetDescriptor.name}>
-                    {
-                        StringMenu.CHARACTER_SET_FORM_DESCRIPTORS.map(characterSetFormDescriptor => <NavDropdown.Item
-                            key={characterSetFormDescriptor.name}
-                            onClick={() => {
-                                this.setDemoElement(createElement(characterSetFormDescriptor.form, {
-                                    key: `${characterSetDescriptor.name}/${characterSetFormDescriptor.name}`,
-                                    ...characterSetDescriptor
-                                }));
-                            }}>
-                            {characterSetFormDescriptor.name}
-                        </NavDropdown.Item>)
-                    }
-                </NavDropdown>)
+                StringMenu.CHARACTER_SETS_PROPERTIES.map((characterSetDescriptor) => {
+                    const characterSetName = i18next.t(characterSetDescriptor.resourceName, {
+                        ns: demoNS
+                    });
+
+                    return <NavDropdown
+                        key={characterSetName}
+                        title={characterSetName}>
+                        {
+                            StringMenu.CHARACTER_SET_FORM_DESCRIPTORS.map((characterSetFormDescriptor) => {
+                                const characterSetFormName = i18next.t(characterSetFormDescriptor.resourceName, {
+                                    ns: demoNS
+                                });
+
+                                return <NavDropdown.Item
+                                    key={characterSetFormName}
+                                    onClick={() => {
+                                        this.setDemoElement(createElement(characterSetFormDescriptor.form, {
+                                            key: `${characterSetName}/${characterSetFormName}`,
+                                            ...characterSetDescriptor
+                                        }));
+                                    }}>
+                                    {characterSetFormName}
+                                </NavDropdown.Item>;
+                            })
+                        }
+                    </NavDropdown>;
+                })
             }
         </NavDropdown>;
     }

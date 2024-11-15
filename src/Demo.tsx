@@ -1,7 +1,7 @@
 import type { FormEvent, ReactElement } from "react";
 import { Alert, Button, Card, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
-
 import { AppComponent } from "./app_context.ts";
+import i18next, { demoNS } from "./locale/i18n.js";
 
 /**
  * Demo form state.
@@ -193,7 +193,9 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
                         {this.subtitle}
                     </Button>
                     <Button className="m-3" variant="secondary" type="reset">
-                        Reset
+                        {i18next.t("App.reset", {
+                            ns: demoNS
+                        })}
                     </Button>
                     <Alert className="mb-3" variant="danger" hidden={!errorsMap.has("")}>
                         {errorsMap.get("")}
@@ -279,7 +281,9 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
         const value = this.optionalStringInput(elementName).trim();
 
         if (value === "") {
-            this.addError(elementName, "Value is required.");
+            this.addError(elementName, i18next.t("Demo.valueIsRequired", {
+                ns: demoNS
+            }));
         }
 
         return value;
@@ -371,7 +375,10 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
      * True if strings should be created.
      */
     protected confirmCreateStrings(count: number): boolean {
-        return count <= 1000 || confirm(`This will create ${count.toLocaleString()} identification keys.\nAre you sure?`);
+        return count <= 1000 || confirm(i18next.t("Demo.confirmCreateStrings", {
+            ns: demoNS,
+            count
+        }));
     }
 
     /**
