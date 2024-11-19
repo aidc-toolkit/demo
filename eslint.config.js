@@ -8,11 +8,11 @@ export default tseslint.config(
     ...esLintConfigAIDCToolkit,
     {
         languageOptions: {
-            globals: globals.browser,
+            globals: globals.browser
         },
         plugins: {
             "react-hooks": reactHooks,
-            "react-refresh": reactRefresh,
+            "react-refresh": reactRefresh
         },
         rules: {
             ...reactHooks.configs.recommended.rules,
