@@ -228,6 +228,7 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
      * Input element.
      */
     private getInputElement(elementName: string): HTMLInputElement {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- All input elements accessed via this method are of type HTMLInputElement.
         return this._formElement.elements.namedItem(elementName) as HTMLInputElement;
     }
 
