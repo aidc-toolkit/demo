@@ -22,8 +22,8 @@
     "eslint": "eslint .",
     "build": "tsc -b && vite build",
     "build-doc": "npm run build -- $*",
-    "dev": "vite",
-    "preview": "vite preview"
+    "server": "vite",
+    "server-preview": "vite preview"
   },
   "devDependencies": {
     "@aidc-toolkit/dev": "^0.9.5",
