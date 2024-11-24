@@ -19,7 +19,7 @@
     "url": "https://www.linkedin.com/in/kdean"
   },
   "scripts": {
-    "eslint": "eslint .",
+    "lint": "eslint .",
     "build": "tsc -b && vite build",
     "build-doc": "npm run build -- $*",
     "server": "vite",
