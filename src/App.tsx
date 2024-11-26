@@ -56,26 +56,14 @@ export default class App extends AppComponent<object, AppState> {
     }
 
     /**
-     * Set the demo element and force refresh.
-     *
-     * @param demoElement
-     * Demo element or undefined to remove from view.
-     */
-    override setDemoElement(demoElement: ReactElement | undefined): void {
-        this.setState(state => ({
-            ...state,
-            // Force complete collapse of navigation bar.
-            navbarExpanded: false,
-            demoElement
-        }));
-    }
-
-    /**
      * Reset the application by clearing all cached input values and the demo element.
      */
     reset(): void {
         this.context.inputValues.clear();
-        this.setDemoElement(undefined);
+        this.setState(state => ({
+            ...state,
+            demoElement: undefined
+        }));
     }
 
     /**
@@ -112,11 +100,22 @@ export default class App extends AppComponent<object, AppState> {
             version: packageConfig.version
         });
 
+        const appState = this.state;
+        const appSetState = this.setState.bind(this);
+
         return this.state.i18nInitialized ?
             <appContext.Provider value={{
                 ...this.context,
-                setDemoElement: (demoElement) => {
-                    this.setDemoElement(demoElement);
+                get demoElement(): ReactElement | undefined {
+                    return appState.demoElement;
+                },
+                set demoElement(demoElement: ReactElement | undefined) {
+                    appSetState(state => ({
+                        ...state,
+                        // Force complete collapse of navigation bar.
+                        navbarExpanded: false,
+                        demoElement
+                    }));
                 }
             }}>
                 <title>{title}</title>

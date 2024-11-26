@@ -463,10 +463,10 @@ export class StringMenu extends AppComponent {
                                 return <NavDropdown.Item
                                     key={characterSetFormName}
                                     onClick={() => {
-                                        this.setDemoElement(createElement(characterSetFormDescriptor.form, {
+                                        this.context.demoElement = createElement(characterSetFormDescriptor.form, {
                                             key: `${characterSetName}/${characterSetFormName}`,
                                             ...characterSetDescriptor
-                                        }));
+                                        });
                                     }}>
                                     {characterSetFormName}
                                 </NavDropdown.Item>;

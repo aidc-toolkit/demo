@@ -304,12 +304,10 @@ abstract class IdentificationKeySubMenu<V extends IdentificationKeyValidator, C 
      */
     protected menuItems(): ReactElement {
         return <NavDropdown.Item onClick={() => {
-            this.setDemoElement(
-                <IdentificationKeyValidateForm
-                    key={`${this.props.identificationKeyType}/Validate`}
-                    {...this.props}
-                />
-            );
+            this.context.demoElement = <IdentificationKeyValidateForm
+                key={`${this.props.identificationKeyType}/Validate`}
+                {...this.props}
+            />;
         }}>
             {i18next.t("String.validateSubtitle", {
                 ns: demoNS
@@ -504,36 +502,30 @@ class NumericIdentificationKeySubMenu<V extends NumericIdentificationKeyValidato
         return <>
             {super.menuItems()}
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <NumericIdentificationKeyCreateForm
-                        key={`${this.props.identificationKeyType}/Create`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <NumericIdentificationKeyCreateForm
+                    key={`${this.props.identificationKeyType}/Create`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("String.createSubtitle", {
                     ns: demoNS
                 })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <NumericIdentificationKeyCreateSequenceForm
-                        key={`${this.props.identificationKeyType}/Create sequence`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <NumericIdentificationKeyCreateSequenceForm
+                    key={`${this.props.identificationKeyType}/Create sequence`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("String.createSequenceSubtitle", {
                     ns: demoNS
                 })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <NumericIdentificationKeyCreateAllForm
-                        key={`${this.props.identificationKeyType}/Create all`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <NumericIdentificationKeyCreateAllForm
+                    key={`${this.props.identificationKeyType}/Create all`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("GS1.createAllSubtitle", {
                     ns: demoNS
@@ -821,24 +813,20 @@ class GTINSubMenu extends NumericIdentificationKeySubMenu<GTINValidator, GTINCre
             {super.menuItems()}
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <ZeroExpandGTIN12Form
-                        key={`${this.props.identificationKeyType}/Zero expand GTIN-12`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <ZeroExpandGTIN12Form
+                    key={`${this.props.identificationKeyType}/Zero expand GTIN-12`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("GS1.zeroExpandGTIN12Subtitle", {
                     ns: demoNS
                 })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <ZeroSuppressGTIN12Form
-                        key={`${this.props.identificationKeyType}/Zero suppress GTIN-12`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <ZeroSuppressGTIN12Form
+                    key={`${this.props.identificationKeyType}/Zero suppress GTIN-12`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("GS1.zeroSuppressGTIN12Subtitle", {
                     ns: demoNS
@@ -846,24 +834,20 @@ class GTINSubMenu extends NumericIdentificationKeySubMenu<GTINValidator, GTINCre
             </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <ValidateAnyGTINForm
-                        key={`${this.props.identificationKeyType}/Validate any`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <ValidateAnyGTINForm
+                    key={`${this.props.identificationKeyType}/Validate any`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("GS1.validateAnySubtitle", {
                     ns: demoNS
                 })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <ValidateGTIN14Form
-                        key={`${this.props.identificationKeyType}/Validate GTIN-14`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <ValidateGTIN14Form
+                    key={`${this.props.identificationKeyType}/Validate GTIN-14`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("GS1.validateGTIN14Subtitle", {
                     ns: demoNS
@@ -871,24 +855,20 @@ class GTINSubMenu extends NumericIdentificationKeySubMenu<GTINValidator, GTINCre
             </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <ConvertToGTIN14Form
-                        key={`${this.props.identificationKeyType}/Convert to GTIN-14`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <ConvertToGTIN14Form
+                    key={`${this.props.identificationKeyType}/Convert to GTIN-14`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("GS1.convertToGTIN14Subtitle", {
                     ns: demoNS
                 })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <NormalizeGTINForm
-                        key={`${this.props.identificationKeyType}/Normalize`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <NormalizeGTINForm
+                    key={`${this.props.identificationKeyType}/Normalize`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("GS1.normalizeGTINSubtitle", {
                     ns: demoNS
@@ -1039,24 +1019,20 @@ class SerializableNumericIdentificationKeySubMenu extends NumericIdentificationK
             {super.menuItems()}
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <SerializableNumericIdentificationKeyCreateSerializedForm
-                        key={`${this.props.identificationKeyType}/Create serialized`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <SerializableNumericIdentificationKeyCreateSerializedForm
+                    key={`${this.props.identificationKeyType}/Create serialized`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("GS1.createSerializedSubtitle", {
                     ns: demoNS
                 })}
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <SerializableNumericIdentificationKeyConcatenateForm
-                        key={`${this.props.identificationKeyType}/Concatenate`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <SerializableNumericIdentificationKeyConcatenateForm
+                    key={`${this.props.identificationKeyType}/Concatenate`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("GS1.concatenateSubtitle", {
                     ns: demoNS
@@ -1130,12 +1106,10 @@ class NonNumericIdentificationKeySubMenu extends IdentificationKeySubMenu<NonNum
         return <>
             {super.menuItems()}
             <NavDropdown.Item onClick={() => {
-                this.setDemoElement(
-                    <NonNumericIdentificationKeyCreateForm
-                        key={`${this.props.identificationKeyType}/Create`}
-                        {...this.props}
-                    />
-                );
+                this.context.demoElement = <NonNumericIdentificationKeyCreateForm
+                    key={`${this.props.identificationKeyType}/Create`}
+                    {...this.props}
+                />;
             }}>
                 {i18next.t("String.createSubtitle", {
                     ns: demoNS

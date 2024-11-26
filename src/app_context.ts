@@ -5,15 +5,12 @@ import { Component, type ContextType, createContext, type ReactElement } from "r
  */
 export interface AppContext {
     /**
-     * Callback to set the demo element.
-     *
-     * @param demoElement
      * Demo element.
      */
-    setDemoElement: (demoElement: ReactElement | undefined) => void;
+    demoElement: ReactElement | undefined;
 
     /**
-     * Cached input values, carried from form to simplify input.
+     * Cached input values, carried between forms simplify input.
      */
     inputValues: Map<string, string>;
 }
@@ -22,8 +19,7 @@ export interface AppContext {
  * Application context.
  */
 export const appContext = createContext<AppContext>({
-    setDemoElement: () => {
-    },
+    demoElement: undefined,
     inputValues: new Map()
 });
 
@@ -41,14 +37,4 @@ export abstract class AppComponent<P = object, S = object> extends Component<P, 
      * Context redeclaration with overridden type.
      */
     declare context: ContextType<typeof AppComponent.contextType>;
-
-    /**
-     * Set the demo element.
-     *
-     * @param demoElement
-     * Demo element.
-     */
-    setDemoElement(demoElement: ReactElement): void {
-        this.context.setDemoElement(demoElement);
-    }
 }
