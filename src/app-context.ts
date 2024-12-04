@@ -3,24 +3,24 @@ import { Component, type ContextType, createContext, type ReactElement } from "r
 /**
  * Application context.
  */
-export interface AppContext {
+interface Context {
     /**
      * Demo element.
      */
     demoElement: ReactElement | undefined;
 
     /**
-     * Cached input values, carried between forms simplify input.
+     * Cached input values, carried between forms to simplify input.
      */
-    inputValues: Map<string, string>;
+    inputValuesMap: Map<string, string>;
 }
 
 /**
  * Application context.
  */
-export const appContext = createContext<AppContext>({
+export const AppContext = createContext<Context>({
     demoElement: undefined,
-    inputValues: new Map()
+    inputValuesMap: new Map()
 });
 
 /**
@@ -31,7 +31,7 @@ export abstract class AppComponent<P = object, S = object> extends Component<P, 
     /**
      * Context type (overridden).
      */
-    static override contextType = appContext;
+    static override contextType = AppContext;
 
     /**
      * Context redeclaration with overridden type.

@@ -71,7 +71,7 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
             <hr />
             <InputGroup className="mb-3">
                 {label.length !== 0 ? <InputGroup.Text>{label}</InputGroup.Text> : <></>}
-                <Form.Control type="text" defaultValue={this.context.inputValues.get(elementName)} isInvalid={this.state.errorsMap.has(elementName)} />
+                <Form.Control type="text" defaultValue={this.context.inputValuesMap.get(elementName)} isInvalid={this.state.errorsMap.has(elementName)} />
             </InputGroup>
             <Form.Text muted>{text}</Form.Text>
             <Form.Control.Feedback type="invalid">{this.state.errorsMap.get(elementName)}</Form.Control.Feedback>
@@ -101,7 +101,7 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
      * only one enumeration value.
      */
     protected enumElement<T extends number>(elementName: string, label: string, values: readonly T[], names: string[], text: string): ReactElement {
-        const defaultValueString = this.context.inputValues.get(elementName);
+        const defaultValueString = this.context.inputValuesMap.get(elementName);
         const defaultValue = defaultValueString !== undefined ? Number(defaultValueString) as T : values[0];
 
         return <Form.Group className="mb-3">
@@ -144,7 +144,7 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
      * Form group containing label and checkbox.
      */
     protected booleanElement(elementName: string, label: string, text: string): ReactElement {
-        const defaultValue = this.context.inputValues.get(elementName) === "true";
+        const defaultValue = this.context.inputValuesMap.get(elementName) === "true";
 
         return <Form.Group className="mb-3" controlId={elementName}>
             <hr />
@@ -264,7 +264,7 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
     protected optionalStringInput(elementName: string): string {
         const value = this.getInputElement(elementName).value;
 
-        this.context.inputValues.set(elementName, value);
+        this.context.inputValuesMap.set(elementName, value);
 
         return value;
     }
@@ -365,7 +365,7 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
     protected booleanInput(elementName: string): boolean {
         const value = this.getInputElement(elementName).checked;
 
-        this.context.inputValues.set(elementName, String(value));
+        this.context.inputValuesMap.set(elementName, String(value));
 
         return value;
     }
@@ -428,7 +428,7 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
 
         // String result is added back as an input value if result element name is defined.
         if (this.resultElementName !== undefined && typeof result === "string") {
-            this.context.inputValues.set(this.resultElementName, result);
+            this.context.inputValuesMap.set(this.resultElementName, result);
         }
 
         this.setState(state => ({

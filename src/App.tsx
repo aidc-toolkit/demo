@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import "./App.css";
 import packageConfig from "../package.json";
-import { AppComponent, appContext } from "./app-context.ts";
+import { AppComponent, AppContext } from "./app-context.ts";
 import { GS1IDKeyMenu } from "./GS1IDKey.tsx";
 import i18next, { demoNS } from "./locale/i18n.ts";
 import { StringMenu } from "./String.tsx";
@@ -59,7 +59,7 @@ export default class App extends AppComponent<object, AppState> {
      * Reset the application by clearing all cached input values and the demo element.
      */
     reset(): void {
-        this.context.inputValues.clear();
+        this.context.inputValuesMap.clear();
         this.setState(state => ({
             ...state,
             demoElement: undefined
@@ -104,7 +104,7 @@ export default class App extends AppComponent<object, AppState> {
         const appSetState = this.setState.bind(this);
 
         return this.state.i18nInitialized ?
-            <appContext.Provider value={{
+            <AppContext.Provider value={{
                 ...this.context,
                 get demoElement(): ReactElement | undefined {
                     return appState.demoElement;
@@ -159,7 +159,7 @@ export default class App extends AppComponent<object, AppState> {
                     </Container>
                 </Navbar>
                 {this.state.demoElement}
-            </appContext.Provider> :
+            </AppContext.Provider> :
             <></>;
     }
 }
