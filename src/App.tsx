@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import "./App.css";
 import packageConfig from "../package.json";
-import { AppComponent, appContext } from "./app_context.ts";
+import { AppComponent, appContext } from "./app-context.ts";
 import { GS1IDKeyMenu } from "./GS1IDKey.tsx";
 import i18next, { demoNS } from "./locale/i18n.ts";
 import { StringMenu } from "./String.tsx";

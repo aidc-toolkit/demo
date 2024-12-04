@@ -1,6 +1,6 @@
 import type { FormEvent, ReactElement } from "react";
 import { Alert, Button, Card, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
-import { AppComponent } from "./app_context.ts";
+import { AppComponent } from "./app-context.ts";
 import i18next, { demoNS } from "./locale/i18n.js";
 
 /**
