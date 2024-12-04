@@ -34,7 +34,7 @@ import {
 import { Exclusion, Sequencer } from "@aidc-toolkit/utility";
 import type { ReactElement } from "react";
 import { NavDropdown } from "react-bootstrap";
-import { gs1NS } from "../../gs1/src/locale/i18n.ts";
+import { gs1NS } from "@aidc-toolkit/gs1";
 import { AppComponent } from "./app-context.ts";
 import { DemoForm } from "./Demo.tsx";
 import i18next, { demoNS } from "./locale/i18n.js";
