@@ -1,398 +1,759 @@
-import type { FormEvent, ReactElement } from "react";
+import {
+    createContext,
+    type FormEvent,
+    type ReactElement,
+    type ReactNode,
+    useContext,
+    useEffect,
+    useState
+} from "react";
 import { Alert, Button, Card, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
-import { AppComponent } from "./app-context.ts";
+import { App } from "./App.tsx";
 import i18next, { demoNS } from "./locale/i18n.js";
 
+// TODO Review when https://github.com/microsoft/TypeScript/pull/56941 released.
+// Problem is in usage inside a function, e.g.,
+// function f<T extends number>(): void {
+//     const x: PrimitiveStringType<T> = "number";
+// }
+// /**
+//  * Map a primitive type to a string.
+//  */
+// type PrimitiveStringType<T extends string | number | boolean> =
+//     [T] extends [string] ? [string] extends [T] ? "string" : never :
+//         [T] extends [number] ? [number] extends [T] ? "number" : never :
+//             [T] extends [boolean] ? [boolean] extends [T] ? "boolean" : never :
+//                 never;
+
 /**
- * Demo form state.
+ * Map a string to its equivalent primitive type.
  */
-interface DemoFormState {
-    errorsMap: Map<string, string>;
-    result?: string | IterableIterator<string> | undefined;
+type PrimitiveType<T extends "string" | "number" | "boolean"> =
+    [T] extends ["string"] ? string : [T] extends ["number"] ? number : [T] extends ["boolean"] ? boolean : never;
+
+/**
+ * Map a type and boolean is required to input type.
+ */
+type InputType<T extends string | number | boolean, IsRequired extends boolean> =
+    IsRequired extends true ? T : T | undefined;
+
+/**
+ * Form-level hook to input manager. Defines input manager properties and methods used by form manager.
+ */
+interface FormInputHook {
+    /**
+     * String value.
+     */
+    stringValue: string;
+
+    /**
+     * Error.
+     */
+    error: string | undefined;
+
+    /**
+     * Validate the input.
+     */
+    validate: () => void;
+
+    /**
+     * Reset the input.
+     */
+    reset: () => void;
 }
 
 /**
- * Demo form.
+ * Input manager. Used to maintain form-level data for an input element.
  */
-export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState> {
+class InputManager<T extends string | number | boolean, IsRequired extends boolean> implements FormInputHook {
     /**
-     * Demo form state.
+     * Input type.
      */
-    override state: DemoFormState = {
-        errorsMap: new Map()
-    };
+    private readonly _type: "string" | "number" | "boolean";
 
     /**
-     * Form element.
+     * True if input is required.
      */
-    private _formElement!: HTMLFormElement;
+    private readonly _isRequired: IsRequired;
 
     /**
-     * Get the title.
+     * Default string value.
      */
-    protected abstract get title(): string;
+    private readonly _defaultStringValue: string;
 
     /**
-     * Get the subtitle.
+     * Callback to set the value when enclosing form is processed.
      */
-    protected abstract get subtitle(): string;
+    private readonly _onProcess: (inputValue: InputType<T, IsRequired>) => void;
 
     /**
-     * Get the result element name. If provided, result will be added to the application context input values map.
+     * Callback when value is reset.
      */
-    protected get resultElementName(): string | undefined {
-        return undefined;
-    }
+    private readonly _onReset: () => void;
 
     /**
-     * Get the validity state (true if valid).
+     * Callback to set the error for the input.
      */
-    get isValid(): boolean {
-        return this.state.errorsMap.size === 0;
-    }
+    private readonly _onError: ((error: string | undefined) => void) | undefined;
 
     /**
-     * Create a text element.
-     *
-     * @param elementName
-     * Element name.
-     *
-     * @param label
-     * Label.
-     *
-     * @param text
-     * Descriptive text.
-     *
-     * @returns
-     * Form group containing label and text input.
+     * String value.
      */
-    protected textElement(elementName: string, label: string, text: string): ReactElement {
-        return <Form.Group className="mb-3" controlId={elementName}>
-            <hr />
-            <InputGroup className="mb-3">
-                {label.length !== 0 ? <InputGroup.Text>{label}</InputGroup.Text> : <></>}
-                <Form.Control type="text" defaultValue={this.context.inputValuesMap.get(elementName)} isInvalid={this.state.errorsMap.has(elementName)} />
-            </InputGroup>
-            <Form.Text muted>{text}</Form.Text>
-            <Form.Control.Feedback type="invalid">{this.state.errorsMap.get(elementName)}</Form.Control.Feedback>
-        </Form.Group>;
-    }
+    private _stringValue: string;
 
     /**
-     * Create an enumeration (radio group) element.
-     *
-     * @param elementName
-     * Element name.
-     *
-     * @param label
-     * Label.
-     *
-     * @param values
-     * Enumeration values.
-     *
-     * @param names
-     * Enumeration value names.
-     *
-     * @param text
-     * Descriptive text.
-     *
-     * @returns
-     * Form group containing either label and radio group input if more than one enumeration value or hidden input if
-     * only one enumeration value.
-     */
-    protected enumElement<T extends number>(elementName: string, label: string, values: readonly T[], names: string[], text: string): ReactElement {
-        const defaultValueString = this.context.inputValuesMap.get(elementName);
-        const defaultValue = defaultValueString !== undefined ? Number(defaultValueString) as T : values[0];
-
-        return <Form.Group className="mb-3">
-            {
-                values.length !== 1 ?
-                    <>
-                        <hr />
-                        <Row className="justify-content-center">
-                            <Form.Label column={true}>{label}</Form.Label>
-                        </Row>
-                        {
-                            values.map((value) => {
-                                const key = `${elementName}-${value}`;
-
-                                return <Form.Check inline key={key} id={key} name={elementName} label={names[value]} type="radio" value={value} defaultChecked={value === defaultValue} />;
-                            })
-                        }
-                        <Row>
-                            <Form.Text muted>{text}</Form.Text>
-                        </Row>
-                    </> :
-                    <Form.Control id={elementName} type="hidden" defaultValue={defaultValue} />
-            }
-        </Form.Group>;
-    }
-
-    /**
-     * Create a boolean (checkbox) element.
-     *
-     * @param elementName
-     * Element name.
-     *
-     * @param label
-     * Label.
-     *
-     * @param text
-     * Descriptive text.
-     *
-     * @returns
-     * Form group containing label and checkbox.
-     */
-    protected booleanElement(elementName: string, label: string, text: string): ReactElement {
-        const defaultValue = this.context.inputValuesMap.get(elementName) === "true";
-
-        return <Form.Group className="mb-3" controlId={elementName}>
-            <hr />
-            <Form.Check inline name={elementName} label={label} type="checkbox" defaultChecked={defaultValue} />
-            <Row>
-                <Form.Text muted>{text}</Form.Text>
-            </Row>
-            <Form.Control.Feedback type="invalid">{this.state.errorsMap.get(elementName)}</Form.Control.Feedback>
-        </Form.Group>;
-    }
-
-    /**
-     * Render form parameters.
-     *
-     * @returns
-     * Form parameters.
-     */
-    protected abstract renderParameters(): ReactElement;
-
-    /**
-     * Render the demo form.
-     *
-     * @returns
-     * Demo form.
-     */
-    override render(): ReactElement {
-        const errorsMap = this.state.errorsMap;
-        const result = this.state.result;
-
-        return <Card>
-            <Card.Body>
-                <Card.Title>{this.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{this.subtitle}</Card.Subtitle>
-                <Form
-                    noValidate
-                    onSubmit={(event) => {
-                        this.onSubmit(event);
-                    }}
-                    onReset={(event) => {
-                        this.onReset(event);
-                    }}
-                >
-                    {this.renderParameters()}
-                    <hr />
-                    <Button className="m-3" variant="primary" type="submit">
-                        {this.subtitle}
-                    </Button>
-                    <Button className="m-3" variant="secondary" type="reset">
-                        {i18next.t("App.reset", {
-                            ns: demoNS
-                        })}
-                    </Button>
-                    <Alert className="mb-3" variant="danger" hidden={!errorsMap.has("")}>
-                        {errorsMap.get("")}
-                    </Alert>
-                    <Alert className="mb-3" variant="success" hidden={result === undefined}>
-                        {
-                            typeof result === "object" ?
-                                <ListGroup>
-                                    {
-                                        Array.from(result).map((s, index) => <ListGroup.Item key={`s-${index}`} variant="success">
-                                            {s}
-                                        </ListGroup.Item>)
-                                    }
-                                </ListGroup> :
-                                result
-                        }
-                    </Alert>
-                </Form>
-            </Card.Body>
-        </Card>;
-    }
-
-    /**
-     * Get an input element by name.
-     *
-     * @param elementName
-     * Element name.
-     *
-     * @returns
-     * Input element.
-     */
-    private getInputElement(elementName: string): HTMLInputElement {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- All input elements accessed via this method are of type HTMLInputElement.
-        return this._formElement.elements.namedItem(elementName) as HTMLInputElement;
-    }
-
-    /**
-     * Add an error to the map.
-     *
-     * @param elementName
-     * Element name to which error applies.
-     *
-     * @param error
      * Error.
      */
-    private addError(elementName: string, error: string): void {
-        // Only the first error matters.
-        if (!this.state.errorsMap.has(elementName)) {
-            if (elementName !== "") {
-                this.getInputElement(elementName).setCustomValidity(error);
+    private _error: string | undefined;
+
+    /**
+     * Constructor.
+     *
+     * @param type
+     * Input type.
+     *
+     * @param isRequired
+     * True if input is required.
+     *
+     * @param defaultStringValue
+     * Default string value.
+     *
+     * @param onProcess
+     * Callback to set the value when enclosing form is processed.
+     *
+     * @param onReset
+     * Callback when value is reset.
+     *
+     * @param onError
+     * Callback to set the error for the input.
+     *
+     * @param stringInitialValue
+     * String initial value.
+     */
+    constructor(type: "string" | "number" | "boolean", isRequired: IsRequired, defaultStringValue: string, onProcess: (inputValue: InputType<T, IsRequired>) => void, onReset: () => void, onError: ((error: (string | undefined)) => void) | undefined, stringInitialValue: string | undefined) {
+        this._type = type;
+        this._isRequired = isRequired;
+        this._defaultStringValue = defaultStringValue;
+        this._onProcess = onProcess;
+        this._onReset = onReset;
+        this._onError = onError;
+        this._stringValue = stringInitialValue !== undefined && stringInitialValue !== "" ? stringInitialValue : defaultStringValue;
+    }
+
+    /**
+     * Get the input type.
+     */
+    get type(): "string" | "number" | "boolean" {
+        return this._type;
+    }
+
+    /**
+     * Determine if input is required.
+     */
+    get isRequired(): boolean {
+        return this._isRequired;
+    }
+
+    /**
+     * Get the string value.
+     */
+    get stringValue(): string {
+        return this._stringValue;
+    }
+
+    /**
+     * Set the string value.
+     */
+    set stringValue(value: string) {
+        this._stringValue = value;
+    }
+
+    /**
+     * Get the error.
+     */
+    get error(): string | undefined {
+        return this._error;
+    }
+
+    /**
+     * Get the value.
+     */
+    get value(): InputType<T, IsRequired> {
+        if ((this.isRequired && this.stringValue === "") || this.error !== undefined) {
+            throw new Error("Attempted to retrieve value for input in initial or error state");
+        }
+
+        let value: string | number | boolean | undefined;
+
+        if (this._stringValue === "") {
+            value = undefined;
+        } else {
+            switch (this.type) {
+                case "string":
+                    value = this._stringValue;
+                    break;
+
+                case "number":
+                    value = parseInt(this._stringValue);
+                    break;
+
+                case "boolean":
+                    value = this._stringValue === String(true);
+                    break;
             }
-
-            this.state.errorsMap.set(elementName, error);
-        }
-    }
-
-    /**
-     * Get optional string input from an element.
-     *
-     * @param elementName
-     * Element name.
-     *
-     * @returns
-     * Possibly empty string.
-     */
-    protected optionalStringInput(elementName: string): string {
-        const value = this.getInputElement(elementName).value;
-
-        this.context.inputValuesMap.set(elementName, value);
-
-        return value;
-    }
-
-    /**
-     * Get required string input from an element; if string is empty, adds an error to the errors map.
-     *
-     * @param elementName
-     * Element name.
-     *
-     * @returns
-     * Possibly empty string.
-     */
-    protected requiredStringInput(elementName: string): string {
-        const value = this.optionalStringInput(elementName).trim();
-
-        if (value === "") {
-            this.addError(elementName, i18next.t("Demo.valueIsRequired", {
-                ns: demoNS
-            }));
         }
 
-        return value;
+        return value as InputType<T, IsRequired>;
     }
 
     /**
-     * Get optional number input from an element.
-     *
-     * @param elementName
-     * Element name.
-     *
-     * @returns
-     * Number or undefined.
+     * Set the value.
      */
-    protected optionalNumberInput(elementName: string): number | undefined {
-        const stringValue = this.optionalStringInput(elementName);
+    set value(value: InputType<T, IsRequired>) {
+        this._stringValue = value === undefined ? "" : value.toString();
+    }
 
-        let numberValue: number | undefined;
+    /**
+     * Validate the input.
+     */
+    validate(): void {
+        // Clear any prior error.
+        this._error = undefined;
 
-        if (stringValue !== "") {
-            numberValue = parseInt(stringValue);
+        // Trim the string value.
+        this._stringValue = this._stringValue.trim();
 
-            if (Number.isNaN(numberValue)) {
-                this.addError(elementName, i18next.t("Demo.valueIsNotANumber", {
+        if (this._stringValue === "") {
+            if (this.isRequired) {
+                this._error = i18next.t("Demo.valueIsRequired", {
                     ns: demoNS
-                }));
+                });
+            }
+        } else {
+            // Search for non-digit character if type is number.
+            if (this.type === "number" && /\D/.test(this._stringValue)) {
+                this._error = i18next.t("Demo.valueIsNotANumber", {
+                    ns: demoNS
+                });
             }
         }
 
-        return numberValue;
-    }
-
-    /**
-     * Get required number input from an element; if number is undefined, adds an error to the errors map and returns 0.
-     *
-     * @param elementName
-     * Element name.
-     *
-     * @returns
-     * Number.
-     */
-    protected requiredNumberInput(elementName: string): number {
-        let numberValue = this.optionalNumberInput(elementName);
-
-        if (numberValue === undefined) {
-            this.addError(elementName, i18next.t("Demo.valueIsRequired", {
-                ns: demoNS
-            }));
-
-            numberValue = 0;
+        if (this._error === undefined) {
+            this._onProcess(this.value);
         }
 
-        return numberValue;
+        // Call _onError if defined to set or clear the error at the input level.
+        if (this._onError !== undefined) {
+            this._onError(this._error);
+        }
     }
 
     /**
-     * Get enumeration input from an element.
-     *
-     * @param elementName
-     * Element name.
+     * Reset the input.
+     */
+    reset(): void {
+        this._stringValue = this._defaultStringValue;
+        this._error = undefined;
+
+        this._onReset();
+
+        if (this._onError !== undefined) {
+            this._onError(undefined);
+        }
+    }
+}
+
+/**
+ * Supported form result types.
+ */
+export type ResultType = string | IterableIterator<string>;
+
+/**
+ * Form manager.
+ */
+class FormManager<T extends ResultType> {
+    /**
+     * Input values map from application context.
+     */
+    private readonly _appInputValuesMap: Map<string, string>;
+
+    /**
+     * Callback to process the form.
      *
      * @returns
-     * Enumeration value.
+     * String or strings if valid or undefined if not.
      */
-    protected enumInput<T extends number>(elementName: string): T {
-        return this.requiredNumberInput(elementName) as T;
+    private readonly _onProcess: () => T | undefined;
+
+    /**
+     * Result name (optional). If defined, result is stored as input to another form.
+     */
+    private readonly _resultName: string | undefined;
+
+    /**
+     * Input hooks for current form.
+     */
+    private readonly _formInputHooksMap: Map<string, FormInputHook>;
+
+    /**
+     * Constructor.
+     *
+     * @param appInputValuesMap
+     * Input values map from application context.
+     *
+     * @param onProcess
+     * Callback to process the form.
+     *
+     * @param resultName
+     * Result name (optional).
+     */
+    constructor(appInputValuesMap: Map<string, string>, onProcess: () => T | undefined, resultName: string | undefined) {
+        this._appInputValuesMap = appInputValuesMap;
+        this._onProcess = onProcess;
+        this._resultName = resultName;
+        this._formInputHooksMap = new Map();
     }
 
     /**
-     * Get boolean input from an element.
+     * Add an input manager.
      *
-     * @param elementName
-     * Element name.
+     * @param name
+     * Input element name.
+     *
+     * @param type
+     * Input type.
+     *
+     * @param isRequired
+     * True if input is required.
+     *
+     * @param defaultStringValue
+     * Default string value.
+     *
+     * @param onProcess
+     * Callback to set the value when enclosing form is processed.
+     *
+     * @param onReset
+     * Callback when value is reset.
+     *
+     * @param onError
+     * Callback to set the error for the input.
      *
      * @returns
-     * Boolean value.
+     * Input manager.
      */
-    protected booleanInput(elementName: string): boolean {
-        const value = this.getInputElement(elementName).checked;
+    addInputManager<T extends string | number | boolean, IsRequired extends boolean>(name: string, type: "string" | "number" | "boolean", isRequired: IsRequired, defaultStringValue: string, onProcess: (inputValue: InputType<T, IsRequired>) => void, onReset: () => void, onError: ((error: string | undefined) => void) | undefined = undefined): InputManager<T, IsRequired> {
+        if (this._formInputHooksMap.has(name)) {
+            throw new Error(`Duplicate input manager for input "${name}"`);
+        }
 
-        this.context.inputValuesMap.set(elementName, String(value));
+        const inputManager = new InputManager(type, isRequired, defaultStringValue, onProcess, onReset, onError, this._appInputValuesMap.get(name));
 
-        return value;
+        this._formInputHooksMap.set(name, inputManager);
+
+        return inputManager;
     }
 
     /**
-     * Display a confirmation message if the number of strings to be created is greater than 1,000.
+     * Remove an input manager.
      *
-     * @param count
-     * Number of strings to be created.
-     *
-     * @returns
-     * True if strings should be created.
+     * @param name
+     * Input element name.
      */
-    protected confirmCreateStrings(count: number): boolean {
-        return count <= 1000 || confirm(i18next.t("Demo.confirmCreateStrings", {
-            ns: demoNS,
-            count
-        }));
+    removeInputManager(name: string): void {
+        this._formInputHooksMap.delete(name);
     }
 
     /**
      * Process the form.
      *
      * @returns
-     * Processing result.
+     * Result.
      */
-    protected abstract processForm(): string | IterableIterator<string> | undefined;
+    process(): T | undefined {
+        let result: T | undefined;
+
+        let isValid = true;
+
+        for (const [name, formInputManager] of this._formInputHooksMap.entries()) {
+            formInputManager.validate();
+
+            if (formInputManager.error === undefined) {
+                // Application context input values are stored as strings.
+                this._appInputValuesMap.set(name, formInputManager.stringValue);
+            } else {
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            result = this._onProcess();
+
+            if (this._resultName !== undefined) {
+                // Application context input values support only strings.
+                if (typeof result === "string") {
+                    this._appInputValuesMap.set(this._resultName, result);
+                } else {
+                    this._appInputValuesMap.delete(this._resultName);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Reset the form.
+     */
+    reset(): void {
+        for (const formInputManager of this._formInputHooksMap.values()) {
+            formInputManager.reset();
+        }
+    }
+}
+
+/**
+ * Context.
+ */
+const Context = createContext(new FormManager(new Map(), () => undefined, undefined));
+
+/**
+ * Input properties. All inputs require at least these properties to be set by the form.
+ */
+export interface InputProperties<T extends string | number | boolean | undefined> {
+    /**
+     * Callback to set the value when enclosing form is processed.
+     */
+    readonly onProcess: (inputValue: T) => void;
+}
+
+/**
+ * Hint input properties. Many inputs use common labels and custom hints.
+ */
+export interface HintInputProperties<T extends string | number | boolean | undefined> extends InputProperties<T> {
+    /**
+     * Hint to user.
+     */
+    readonly hint: string;
+}
+
+/**
+ * Base input properties.
+ */
+interface BaseInputProperties<IsLabelRequired extends boolean, T extends string | number | boolean | undefined> extends HintInputProperties<T> {
+    /**
+     * Element name.
+     */
+    readonly name: string;
+
+    /**
+     * Label, possibly optional; if undefined, no label is added.
+     */
+    readonly label: IsLabelRequired extends true ? string : string | undefined;
+}
+
+/**
+ * Text input properties. Primitive type is declared via the type string.
+ */
+interface TextInputProperties<T extends "string" | "number", IsRequired extends boolean> extends BaseInputProperties<false, InputType<PrimitiveType<T>, IsRequired>> {
+    /**
+     * Input type.
+     */
+    readonly type: T;
+
+    /**
+     * True if required.
+     */
+    readonly isRequired: IsRequired;
+}
+
+/**
+ * Text input. Renders an optional label and text control.
+ *
+ * @param properties
+ * Properties
+ *
+ * @returns
+ * React element.
+ */
+export function TextInput<T extends "string" | "number", IsRequired extends boolean>(properties: TextInputProperties<T, IsRequired>): ReactElement {
+    const formManager = useContext(Context);
+    const [inputManager, setInputManager] = useState<InputManager<PrimitiveType<T>, IsRequired>>();
+    const [value, setValue] = useState("");
+    const [error, setError] = useState<string | undefined>();
+
+    useEffect(() => {
+        /**
+         * Handle value being reset.
+         */
+        function reset(): void {
+            setValue("");
+        }
+
+        const inputManager = formManager.addInputManager(properties.name, properties.type, properties.isRequired, "", properties.onProcess, reset, setError);
+
+        setInputManager(inputManager);
+
+        // Update value from input manager.
+        setValue(inputManager.stringValue);
+
+        return () => {
+            formManager.removeInputManager(properties.name);
+        };
+    }, [formManager, properties.name, properties.type, properties.isRequired, properties.onProcess]);
+
+    return <Form.Group className="mb-3" controlId={properties.name}>
+        <hr />
+        <InputGroup className="mb-3">
+            {properties.label !== undefined ?
+                <InputGroup.Text>{properties.label}</InputGroup.Text> :
+                <></>}
+            <Form.Control
+                type="text"
+                value={value}
+                isInvalid={error !== undefined}
+                onChange={(event) => {
+                    if (inputManager !== undefined) {
+                        inputManager.stringValue = event.target.value;
+                        setValue(event.target.value);
+                    }
+                }}
+            />
+            <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+        </InputGroup>
+        <Form.Text muted>{properties.hint}</Form.Text>
+    </Form.Group>;
+}
+
+/**
+ * Enumeration input properties.
+ */
+interface EnumInputProperties<T extends number> extends BaseInputProperties<true, T> {
+    /**
+     * Enum values.
+     */
+    readonly values: readonly T[];
+
+    /**
+     * Enum names, aligned with values.
+     */
+    readonly names: string[];
+}
+
+/**
+ * Enumeration input. Renders radio group controls if multiple or a hidden control if single.
+ *
+ * @param properties
+ * Properties.
+ *
+ * @returns
+ * React element.
+ */
+export function EnumInput<T extends number>(properties: EnumInputProperties<T>): ReactElement {
+    const defaultValue = properties.values[0];
+
+    const formManager = useContext(Context);
+    const [inputManager, setInputManager] = useState<InputManager<T, true>>();
+    const [checkedValue, setCheckedValue] = useState(defaultValue);
+
+    useEffect(() => {
+        /**
+         * Handle value being reset.
+         */
+        function reset(): void {
+            setCheckedValue(defaultValue);
+        }
+
+        const inputManager = formManager.addInputManager(properties.name, "number", true, defaultValue.toString(), properties.onProcess, reset);
+
+        setInputManager(inputManager);
+
+        let checkedValue = inputManager.value;
+
+        // Value must be within range of acceptable values.
+        if (!properties.values.includes(checkedValue)) {
+            checkedValue = defaultValue;
+            inputManager.value = defaultValue;
+        }
+
+        // Update checked value from input manager.
+        setCheckedValue(checkedValue);
+
+        return () => {
+            formManager.removeInputManager(properties.name);
+        };
+    }, [formManager, properties.name, properties.values, properties.onProcess, defaultValue]);
+
+    return <Form.Group className="mb-3">
+        {properties.values.length !== 1 ?
+            <>
+                <hr />
+                <Row className="justify-content-center">
+                    <Form.Label column={true}>{properties.label}</Form.Label>
+                </Row>
+                {properties.values.map((value) => {
+                    const key = `${properties.name}-${value}`;
+
+                    return <Form.Check
+                        inline
+                        key={key}
+                        id={key}
+                        name={properties.name}
+                        label={properties.names[value]}
+                        type="radio"
+                        value={value}
+                        checked={value === checkedValue}
+                        onChange={(event) => {
+                            if (inputManager !== undefined) {
+                                inputManager.stringValue = event.target.value;
+                                setCheckedValue(inputManager.value);
+                            }
+                        }}
+                    />;
+                })}
+                <Row>
+                    <Form.Text muted>{properties.hint}</Form.Text>
+                </Row>
+            </> :
+            <Form.Control id={properties.name} type="hidden" value={checkedValue} />}
+    </Form.Group>;
+}
+
+/**
+ * Boolean properties.
+ */
+interface BooleanInputProperties extends BaseInputProperties<true, boolean> {
+}
+
+/**
+ * Boolean input. Renders a checkbox input.
+ *
+ * @param properties
+ * Properties.
+ *
+ * @returns
+ * React element.
+ */
+export function BooleanInput(properties: BooleanInputProperties): ReactElement {
+    const formManager = useContext(Context);
+    const [inputManager, setInputManager] = useState<InputManager<boolean, true>>();
+    const [value, setValue] = useState(false);
+
+    useEffect(() => {
+        /**
+         * Handle value being reset.
+         */
+        function reset(): void {
+            setValue(false);
+        }
+
+        const inputManager = formManager.addInputManager(properties.name, "boolean", true, String(false), properties.onProcess, reset);
+
+        setInputManager(inputManager);
+
+        // Update value from input manager.
+        setValue(inputManager.value);
+
+        return () => {
+            formManager.removeInputManager(properties.name);
+        };
+    }, [formManager, properties.name, properties.onProcess]);
+
+    return <Form.Group className="mb-3" controlId={properties.name}>
+        <hr />
+        <Form.Check
+            inline
+            name={properties.name}
+            label={properties.label}
+            type="checkbox"
+            checked={value}
+            onChange={(event) => {
+                if (inputManager !== undefined) {
+                    inputManager.value = event.target.checked;
+                    setValue(event.target.checked);
+                }
+            }}
+        />
+        <Row>
+            <Form.Text muted>{properties.hint}</Form.Text>
+        </Row>
+    </Form.Group>;
+}
+
+/**
+ * Form properties. All forms require at least these properties to be set.
+ */
+export interface FormProperties<T extends ResultType> {
+    /**
+     * Form resource name.
+     */
+    readonly resourceName: string;
+
+    /**
+     * Callback to process the form.
+     *
+     * @returns
+     * String or strings if valid or undefined if not.
+     */
+    readonly onProcess: () => T | undefined;
+
+    /**
+     * Result name (optional). If defined, result is stored as input for another form.
+     */
+    readonly resultName?: string | undefined;
+
+    /**
+     * Children.
+     */
+    readonly children?: ReactNode | undefined;
+}
+
+/**
+ * Base form properties.
+ */
+interface BaseFormProperties<T extends ResultType> extends FormProperties<T> {
+    /**
+     * Title.
+     */
+    readonly title: string;
+}
+
+/**
+ * Form state.
+ */
+interface FormState<T extends ResultType> {
+    /**
+     * Form manager.
+     */
+    formManager: FormManager<T>;
+
+    /**
+     * Result.
+     */
+    result: T | undefined;
+
+    /**
+     * Error.
+     */
+    error: string | undefined;
+}
+
+/**
+ * Base form.
+ *
+ * @param properties
+ * Properties.
+ *
+ * @returns
+ * React element.
+ */
+export function BaseForm<T extends ResultType>(properties: BaseFormProperties<T>): ReactElement {
+    const appContext = useContext(App.Context);
+
+    const [state, setState] = useState<FormState<T>>({
+        formManager: new FormManager(appContext.inputValuesMap, properties.onProcess, properties.resultName),
+        result: undefined,
+        error: undefined
+    });
 
     /**
      * Handle submit event.
@@ -400,40 +761,38 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
      * @param event
      * Event.
      */
-    private onSubmit(event: FormEvent<HTMLFormElement>): void {
+    function onSubmit(event: FormEvent<HTMLFormElement>): void {
         // Default behaviour clears the form.
         event.preventDefault();
 
-        this._formElement = event.currentTarget;
-
-        this.state.errorsMap.clear();
-
-        let result: string | IterableIterator<string> | undefined;
+        let result: T | undefined;
+        let error: string | undefined;
 
         try {
-            result = this.processForm();
+            result = state.formManager.process();
         } catch (e) {
             if (e instanceof Error) {
-                this.addError("", e.message);
+                error = e.message;
 
                 if (e.name !== "RangeError") {
                     console.error(e);
                 }
             } else {
                 // Can't localize this as source of error may be localization itself.
-                this.addError("", `Unknown error: ${String(e)}`);
+                error = `Unknown error: ${String(e)}`;
                 console.error(e);
             }
         }
 
-        // String result is added back as an input value if result element name is defined.
-        if (this.resultElementName !== undefined && typeof result === "string") {
-            this.context.inputValuesMap.set(this.resultElementName, result);
+        // String result is added back as an input value if result name is defined.
+        if (properties.resultName !== undefined && typeof result === "string") {
+            appContext.inputValuesMap.set(properties.resultName, result);
         }
 
-        this.setState(state => ({
+        setState(state => ({
             ...state,
-            result
+            result,
+            error
         }));
     }
 
@@ -443,14 +802,60 @@ export abstract class DemoForm<P = object> extends AppComponent<P, DemoFormState
      * @param event
      * Event.
      */
-    private onReset(event: FormEvent<HTMLFormElement>): void {
+    function onReset(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
 
-        this.state.errorsMap.clear();
+        state.formManager.reset();
 
-        this.setState(state => ({
+        setState(state => ({
             ...state,
-            result: undefined
+            result: undefined,
+            error: undefined
         }));
     }
+
+    const subtitle = i18next.t(properties.resourceName, {
+        ns: demoNS
+    });
+
+    return <Context.Provider value={state.formManager}>
+        <Card>
+            <Card.Body>
+                <Card.Title>{properties.title}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">{subtitle}</Card.Subtitle>
+                <Form
+                    noValidate
+                    onSubmit={onSubmit}
+                    onReset={onReset}
+                >
+                    {properties.children}
+                    <hr />
+                    <Button className="m-3" variant="primary" type="submit">
+                        {subtitle}
+                    </Button>
+                    <Button className="m-3" variant="secondary" type="reset">
+                        {i18next.t("App.reset", {
+                            ns: demoNS
+                        })}
+                    </Button>
+                    <Alert className="mb-3" variant="danger" hidden={state.error === undefined}>
+                        {state.error}
+                    </Alert>
+                    <Alert className="mb-3" variant="success" hidden={state.result === undefined}>
+                        {
+                            typeof state.result === "object" ?
+                                <ListGroup>
+                                    {
+                                        Array.from(state.result).map((s, index) => <ListGroup.Item key={`s-${index}`} variant="success">
+                                            {s}
+                                        </ListGroup.Item>)
+                                    }
+                                </ListGroup> :
+                                state.result
+                        }
+                    </Alert>
+                </Form>
+            </Card.Body>
+        </Card>
+    </Context.Provider>;
 }
