@@ -26,8 +26,8 @@ export function CreateSequenceForm(properties: String.FormProperties): ReactElem
      * @returns
      * Created strings or undefined if cancelled by user.
      */
-    function onProcess(): IterableIterator<string> | undefined {
-        return confirmCreateStrings(count) ? properties.creator.create(length, new Sequencer(startValue, count), exclusion, tweak) : undefined;
+    function onProcess(): Iterable<string> | undefined {
+        return confirmCreateStrings(count, () => properties.creator.create(length, new Sequencer(startValue, count), exclusion, tweak));
     }
 
     return <String.BaseForm

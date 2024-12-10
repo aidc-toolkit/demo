@@ -266,12 +266,12 @@ class InputManager<T extends string | number | boolean, IsRequired extends boole
 /**
  * Supported process result types.
  */
-export type ProcessResult = string | IterableIterator<string>;
+export type ProcessResult = string | Iterable<string> | undefined;
 
 /**
  * Form manager.
  */
-class FormManager<T extends ProcessResult> {
+class FormManager {
     /**
      * Input values map from application context.
      */
@@ -283,7 +283,7 @@ class FormManager<T extends ProcessResult> {
      * @returns
      * String or strings if valid or undefined if not.
      */
-    private readonly _onProcess: () => T | undefined;
+    private readonly _onProcess: () => ProcessResult;
 
     /**
      * Result name (optional). If defined, result is stored as input to another form.
@@ -307,7 +307,7 @@ class FormManager<T extends ProcessResult> {
      * @param resultName
      * Result name (optional).
      */
-    constructor(appInputValuesMap: Map<string, string>, onProcess: () => T | undefined, resultName: string | undefined) {
+    constructor(appInputValuesMap: Map<string, string>, onProcess: () => ProcessResult, resultName: string | undefined) {
         this._appInputValuesMap = appInputValuesMap;
         this._onProcess = onProcess;
         this._resultName = resultName;
@@ -369,8 +369,8 @@ class FormManager<T extends ProcessResult> {
      * @returns
      * Result.
      */
-    process(): T | undefined {
-        let result: T | undefined;
+    process(): ProcessResult {
+        let result: ProcessResult;
 
         let isValid = true;
 
@@ -682,7 +682,7 @@ export function BooleanInput(properties: BooleanInputProperties): ReactElement {
 /**
  * Form properties. All forms require at least these properties to be set.
  */
-export interface FormProperties<T extends ProcessResult> {
+export interface FormProperties {
     /**
      * Form subtitle resource name.
      */
@@ -694,7 +694,7 @@ export interface FormProperties<T extends ProcessResult> {
      * @returns
      * String or strings if valid or undefined if not.
      */
-    readonly onProcess: () => T | undefined;
+    readonly onProcess: () => ProcessResult;
 
     /**
      * Result name (optional). If defined, result is stored as input for another form.
@@ -710,7 +710,7 @@ export interface FormProperties<T extends ProcessResult> {
 /**
  * Base form properties.
  */
-interface BaseFormProperties<T extends ProcessResult> extends FormProperties<T> {
+interface BaseFormProperties extends FormProperties {
     /**
      * Title.
      */
@@ -720,16 +720,16 @@ interface BaseFormProperties<T extends ProcessResult> extends FormProperties<T> 
 /**
  * Form state.
  */
-interface FormState<T extends ProcessResult> {
+interface FormState {
     /**
      * Form manager.
      */
-    formManager: FormManager<T>;
+    formManager: FormManager;
 
     /**
      * Result.
      */
-    result: T | undefined;
+    result: string | string[] | undefined;
 
     /**
      * Error.
@@ -746,10 +746,10 @@ interface FormState<T extends ProcessResult> {
  * @returns
  * React element.
  */
-export function BaseForm<T extends ProcessResult>(properties: BaseFormProperties<T>): ReactElement {
+export function BaseForm(properties: BaseFormProperties): ReactElement {
     const appContext = useContext(App.Context);
 
-    const [state, setState] = useState<FormState<T>>({
+    const [state, setState] = useState<FormState>({
         formManager: new FormManager(appContext.inputValuesMap, properties.onProcess, properties.resultName),
         result: undefined,
         error: undefined
@@ -765,7 +765,7 @@ export function BaseForm<T extends ProcessResult>(properties: BaseFormProperties
         // Default behaviour clears the form.
         event.preventDefault();
 
-        let result: T | undefined;
+        let result: ProcessResult;
         let error: string | undefined;
 
         try {
@@ -791,7 +791,10 @@ export function BaseForm<T extends ProcessResult>(properties: BaseFormProperties
 
         setState(state => ({
             ...state,
-            result,
+            // Iterable result is iterated twice in development (strict) mode, which may exhaust it the first time, so convert to array.
+            result: typeof result === "object" ?
+                Array.isArray(result) ? result : Array.from(result) :
+                result,
             error
         }));
     }
@@ -846,7 +849,7 @@ export function BaseForm<T extends ProcessResult>(properties: BaseFormProperties
                             typeof state.result === "object" ?
                                 <ListGroup>
                                     {
-                                        Array.from(state.result).map((s, index) => <ListGroup.Item key={`s-${index}`} variant="success">
+                                        state.result.map((s, index) => <ListGroup.Item key={`s-${index}`} variant="success">
                                             {s}
                                         </ListGroup.Item>)
                                     }

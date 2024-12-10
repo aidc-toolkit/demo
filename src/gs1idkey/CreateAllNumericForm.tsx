@@ -23,10 +23,10 @@ export function CreateAllNumericForm(properties: NumericIdentificationKey.FormPr
      * @returns
      * All identification keys for prefix or undefined if cancelled by user.
      */
-    function onProcess(): IterableIterator<string> | undefined {
+    function onProcess(): Iterable<string> | undefined {
         const creator = properties.getCreator(PrefixManager.get(prefixType, prefix));
 
-        return confirmCreateStrings(creator.capacity) ? creator.createAll() : undefined;
+        return confirmCreateStrings(creator.capacity, () => creator.createAll());
     }
 
     return <IdentificationKey.BaseForm

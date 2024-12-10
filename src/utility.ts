@@ -6,12 +6,17 @@ import i18next, { demoNS } from "./locale/i18n.ts";
  * @param count
  * Number of strings to be created.
  *
+ * @param createStrings
+ * Callback to create the strings.
+ *
  * @returns
- * True if strings should be created.
+ * Callback result if strings should be created or undefined if not.
  */
-export function confirmCreateStrings(count: number): boolean {
+export function confirmCreateStrings(count: number, createStrings: () => Iterable<string>): Iterable<string> | undefined {
     return count <= 1000 || confirm(i18next.t("Demo.confirmCreateStrings", {
         ns: demoNS,
         count
-    }));
+    })) ?
+        createStrings() :
+        undefined;
 }

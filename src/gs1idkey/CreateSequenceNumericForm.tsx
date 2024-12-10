@@ -29,8 +29,8 @@ export function CreateSequenceNumericForm(properties: NumericIdentificationKey.F
      * @returns
      * Created identification keys or undefined if cancelled by user.
      */
-    function onProcess(): IterableIterator<string> | undefined {
-        return confirmCreateStrings(count) ? properties.getCreator(PrefixManager.get(prefixType, prefix)).create(new Sequencer(startValue, count), sparse) : undefined;
+    function onProcess(): Iterable<string> | undefined {
+        return confirmCreateStrings(count, () => properties.getCreator(PrefixManager.get(prefixType, prefix)).create(new Sequencer(startValue, count), sparse));
     }
 
     return <IdentificationKey.BaseForm
