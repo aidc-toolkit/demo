@@ -204,7 +204,7 @@ export interface FormProperties<V extends IdentificationKeyValidator = Identific
 /**
  * Base form properties.
  */
-interface BaseFormProperties extends Demo.FormProperties, FormProperties {
+interface BaseFormProperties<V extends IdentificationKeyValidator, C extends V & IdentificationKeyCreator> extends Demo.FormProperties, FormProperties<V, C> {
 }
 
 /**
@@ -216,7 +216,7 @@ interface BaseFormProperties extends Demo.FormProperties, FormProperties {
  * @returns
  * React element.
  */
-export function BaseForm(properties: BaseFormProperties): ReactElement {
+export function BaseForm<V extends IdentificationKeyValidator, C extends V & IdentificationKeyCreator>(properties: BaseFormProperties<V, C>): ReactElement {
     return <Demo.BaseForm
         {...properties}
         title={properties.identificationKeyType}
