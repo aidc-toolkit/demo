@@ -684,9 +684,9 @@ export function BooleanInput(properties: BooleanInputProperties): ReactElement {
  */
 export interface FormProperties<T extends ProcessResult> {
     /**
-     * Form resource name.
+     * Form subtitle resource name.
      */
-    readonly resourceName: string;
+    readonly subtitleResourceName: string;
 
     /**
      * Callback to process the form.
@@ -814,7 +814,7 @@ export function BaseForm<T extends ProcessResult>(properties: BaseFormProperties
         }));
     }
 
-    const subtitle = i18next.t(properties.resourceName, {
+    const subtitle = i18next.t(properties.subtitleResourceName, {
         ns: demoNS
     });
 

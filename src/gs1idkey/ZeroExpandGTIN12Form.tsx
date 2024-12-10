@@ -29,7 +29,7 @@ export function ZeroExpandGTIN12Form(properties: GTIN.FormProperties): ReactElem
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={ZeroExpandGTIN12Form.resourceName}
+        subtitleResourceName={ZeroExpandGTIN12Form.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >

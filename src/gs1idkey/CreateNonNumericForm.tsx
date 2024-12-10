@@ -31,7 +31,7 @@ export function CreateNonNumericForm(properties: NonNumericIdentificationKey.For
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={CreateNonNumericForm.resourceName}
+        subtitleResourceName={CreateNonNumericForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >

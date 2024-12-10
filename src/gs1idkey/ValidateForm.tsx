@@ -64,7 +64,7 @@ export function ValidateForm(properties: IdentificationKey.FormProperties): Reac
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={ValidateForm.resourceName}
+        subtitleResourceName={ValidateForm.resourceName}
         onProcess={onProcess}
     >
         <IdentificationKey.PrefixTypeAndPrefixInput

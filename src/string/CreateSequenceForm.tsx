@@ -32,7 +32,7 @@ export function CreateSequenceForm(properties: String.FormProperties): ReactElem
 
     return <String.BaseForm
         {...properties}
-        resourceName={CreateSequenceForm.resourceName}
+        subtitleResourceName={CreateSequenceForm.resourceName}
         onProcess={onProcess}
     >
         <String.LengthInput

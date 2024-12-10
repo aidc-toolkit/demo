@@ -30,7 +30,7 @@ export function CreateForm(properties: String.FormProperties): ReactElement {
 
     return <String.BaseForm
         {...properties}
-        resourceName={CreateForm.resourceName}
+        subtitleResourceName={CreateForm.resourceName}
         onProcess={onProcess}
         resultName="s"
     >

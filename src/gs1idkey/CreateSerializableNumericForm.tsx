@@ -32,7 +32,7 @@ export function CreateSerializableNumericForm(properties: SerializableNumericIde
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={CreateSerializableNumericForm.resourceName}
+        subtitleResourceName={CreateSerializableNumericForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >

@@ -35,7 +35,7 @@ export function CreateSequenceNumericForm(properties: NumericIdentificationKey.F
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={CreateSequenceNumericForm.resourceName}
+        subtitleResourceName={CreateSequenceNumericForm.resourceName}
         onProcess={onProcess}
     >
         <IdentificationKey.PrefixTypeAndPrefixInput

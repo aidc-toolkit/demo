@@ -30,7 +30,7 @@ export function ValidateGTIN14Form(properties: GTIN.FormProperties): ReactElemen
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={ValidateGTIN14Form.resourceName}
+        subtitleResourceName={ValidateGTIN14Form.resourceName}
         onProcess={onProcess}
     >
         <IdentificationKey.IdentificationKeyInput

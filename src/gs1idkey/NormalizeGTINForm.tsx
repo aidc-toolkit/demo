@@ -28,7 +28,7 @@ export function NormalizeGTINForm(properties: GTIN.FormProperties): ReactElement
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={NormalizeGTINForm.resourceName}
+        subtitleResourceName={NormalizeGTINForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >

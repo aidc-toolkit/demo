@@ -29,7 +29,7 @@ export function ConcatenateSerializableNumericForm(properties: SerializableNumer
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={ConcatenateSerializableNumericForm.resourceName}
+        subtitleResourceName={ConcatenateSerializableNumericForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >

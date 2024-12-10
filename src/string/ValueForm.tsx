@@ -29,7 +29,7 @@ export function ValueForm(properties: String.FormProperties): ReactElement {
 
     return <String.BaseForm
         {...properties}
-        resourceName={ValueForm.resourceName}
+        subtitleResourceName={ValueForm.resourceName}
         onProcess={onProcess}
         resultName="value"
     >

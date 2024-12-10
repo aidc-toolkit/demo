@@ -30,7 +30,7 @@ export function CreateNumericForm(properties: NumericIdentificationKey.FormPrope
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={CreateNumericForm.resourceName}
+        subtitleResourceName={CreateNumericForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >

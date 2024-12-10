@@ -30,7 +30,7 @@ export function ConvertToGTIN14Form(properties: GTIN.FormProperties): ReactEleme
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={ConvertToGTIN14Form.resourceName}
+        subtitleResourceName={ConvertToGTIN14Form.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >

@@ -40,7 +40,7 @@ export function ValidateAnyGTINForm(properties: GTIN.FormProperties): ReactEleme
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={ValidateAnyGTINForm.resourceName}
+        subtitleResourceName={ValidateAnyGTINForm.resourceName}
         onProcess={onProcess}
     >
         <IdentificationKey.IdentificationKeyInput

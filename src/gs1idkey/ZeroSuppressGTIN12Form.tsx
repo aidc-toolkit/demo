@@ -28,7 +28,7 @@ export function ZeroSuppressGTIN12Form(properties: GTIN.FormProperties): ReactEl
 
     return <IdentificationKey.BaseForm
         {...properties}
-        resourceName={ZeroSuppressGTIN12Form.resourceName}
+        subtitleResourceName={ZeroSuppressGTIN12Form.resourceName}
         onProcess={onProcess}
         resultName="zeroSuppressedGTIN12"
     >

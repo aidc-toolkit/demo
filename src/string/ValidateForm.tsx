@@ -37,7 +37,7 @@ export function ValidateForm(properties: String.FormProperties): ReactElement {
 
     return <String.BaseForm
         {...properties}
-        resourceName={ValidateForm.resourceName}
+        subtitleResourceName={ValidateForm.resourceName}
         onProcess={onProcess}
     >
         <String.SInput
