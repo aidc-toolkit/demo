@@ -68,4 +68,4 @@ export function CreateSerializableNumericForm(properties: SerializableNumericIde
     </IdentificationKey.BaseForm>;
 }
 
-CreateSerializableNumericForm.resourceName = "String.createSubtitle";
+CreateSerializableNumericForm.resourceName = "GS1.createSerializedSubtitle";

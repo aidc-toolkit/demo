@@ -55,4 +55,4 @@ export function ConcatenateSerializableNumericForm(properties: SerializableNumer
     </IdentificationKey.BaseForm>;
 }
 
-ConcatenateSerializableNumericForm.resourceName = "GS1.concatenateSubtitle";
+ConcatenateSerializableNumericForm.resourceName = "GS1.concatenateSerializedSubtitle";

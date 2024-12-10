@@ -84,7 +84,7 @@ export const localeStrings = {
         serialComponentLabel: "Serial component",
         serialComponentHint: "Serial component of the identification key.",
         createSerializedSubtitle: "Create serialized",
-        concatenateSubtitle: "Concatenate",
+        concatenateSerializedSubtitle: "Concatenate serialized",
         baseIdentificationKeyLabel: "Base {{identificationKeyType}}",
         baseIdentificationKeyHint: "Base {{identificationKeyType}} to which to concatenate serial component.",
         referenceLabel: "Reference",
