@@ -19,7 +19,7 @@ import i18next, { demoNS } from "./locale/i18n.js";
 // /**
 //  * Map a primitive type to a string.
 //  */
-// type PrimitiveStringType<T extends string | number | boolean> =
+// type PrimitiveString<T extends string | number | boolean> =
 //     [T] extends [string] ? [string] extends [T] ? "string" : never :
 //         [T] extends [number] ? [number] extends [T] ? "number" : never :
 //             [T] extends [boolean] ? [boolean] extends [T] ? "boolean" : never :
@@ -28,13 +28,13 @@ import i18next, { demoNS } from "./locale/i18n.js";
 /**
  * Map a string to its equivalent primitive type.
  */
-type PrimitiveType<T extends "string" | "number" | "boolean"> =
+type Primitive<T extends "string" | "number" | "boolean"> =
     [T] extends ["string"] ? string : [T] extends ["number"] ? number : [T] extends ["boolean"] ? boolean : never;
 
 /**
- * Map a type and boolean is required to input type.
+ * Map a primitive type and boolean is required to input value type.
  */
-type InputType<T extends string | number | boolean, IsRequired extends boolean> =
+type InputValue<T extends string | number | boolean, IsRequired extends boolean> =
     IsRequired extends true ? T : T | undefined;
 
 /**
@@ -84,7 +84,7 @@ class InputManager<T extends string | number | boolean, IsRequired extends boole
     /**
      * Callback to set the value when enclosing form is processed.
      */
-    private readonly _onProcess: (inputValue: InputType<T, IsRequired>) => void;
+    private readonly _onProcess: (inputValue: InputValue<T, IsRequired>) => void;
 
     /**
      * Callback when value is reset.
@@ -130,7 +130,7 @@ class InputManager<T extends string | number | boolean, IsRequired extends boole
      * @param stringInitialValue
      * String initial value.
      */
-    constructor(type: "string" | "number" | "boolean", isRequired: IsRequired, defaultStringValue: string, onProcess: (inputValue: InputType<T, IsRequired>) => void, onReset: () => void, onError: ((error: (string | undefined)) => void) | undefined, stringInitialValue: string | undefined) {
+    constructor(type: "string" | "number" | "boolean", isRequired: IsRequired, defaultStringValue: string, onProcess: (inputValue: InputValue<T, IsRequired>) => void, onReset: () => void, onError: ((error: (string | undefined)) => void) | undefined, stringInitialValue: string | undefined) {
         this._type = type;
         this._isRequired = isRequired;
         this._defaultStringValue = defaultStringValue;
@@ -178,7 +178,7 @@ class InputManager<T extends string | number | boolean, IsRequired extends boole
     /**
      * Get the value.
      */
-    get value(): InputType<T, IsRequired> {
+    get value(): InputValue<T, IsRequired> {
         if ((this.isRequired && this.stringValue === "") || this.error !== undefined) {
             throw new Error("Attempted to retrieve value for input in initial or error state");
         }
@@ -203,13 +203,13 @@ class InputManager<T extends string | number | boolean, IsRequired extends boole
             }
         }
 
-        return value as InputType<T, IsRequired>;
+        return value as InputValue<T, IsRequired>;
     }
 
     /**
      * Set the value.
      */
-    set value(value: InputType<T, IsRequired>) {
+    set value(value: InputValue<T, IsRequired>) {
         this._stringValue = value === undefined ? "" : value.toString();
     }
 
@@ -264,14 +264,14 @@ class InputManager<T extends string | number | boolean, IsRequired extends boole
 }
 
 /**
- * Supported form result types.
+ * Supported process result types.
  */
-export type ResultType = string | IterableIterator<string>;
+export type ProcessResult = string | IterableIterator<string>;
 
 /**
  * Form manager.
  */
-class FormManager<T extends ResultType> {
+class FormManager<T extends ProcessResult> {
     /**
      * Input values map from application context.
      */
@@ -341,7 +341,7 @@ class FormManager<T extends ResultType> {
      * @returns
      * Input manager.
      */
-    addInputManager<T extends string | number | boolean, IsRequired extends boolean>(name: string, type: "string" | "number" | "boolean", isRequired: IsRequired, defaultStringValue: string, onProcess: (inputValue: InputType<T, IsRequired>) => void, onReset: () => void, onError: ((error: string | undefined) => void) | undefined = undefined): InputManager<T, IsRequired> {
+    addInputManager<T extends string | number | boolean, IsRequired extends boolean>(name: string, type: "string" | "number" | "boolean", isRequired: IsRequired, defaultStringValue: string, onProcess: (inputValue: InputValue<T, IsRequired>) => void, onReset: () => void, onError: ((error: string | undefined) => void) | undefined = undefined): InputManager<T, IsRequired> {
         if (this._formInputHooksMap.has(name)) {
             throw new Error(`Duplicate input manager for input "${name}"`);
         }
@@ -454,7 +454,7 @@ interface BaseInputProperties<IsLabelRequired extends boolean, T extends string 
 /**
  * Text input properties. Primitive type is declared via the type string.
  */
-interface TextInputProperties<T extends "string" | "number", IsRequired extends boolean> extends BaseInputProperties<false, InputType<PrimitiveType<T>, IsRequired>> {
+interface TextInputProperties<T extends "string" | "number", IsRequired extends boolean> extends BaseInputProperties<false, InputValue<Primitive<T>, IsRequired>> {
     /**
      * Input type.
      */
@@ -477,7 +477,7 @@ interface TextInputProperties<T extends "string" | "number", IsRequired extends 
  */
 export function TextInput<T extends "string" | "number", IsRequired extends boolean>(properties: TextInputProperties<T, IsRequired>): ReactElement {
     const formManager = useContext(Context);
-    const [inputManager, setInputManager] = useState<InputManager<PrimitiveType<T>, IsRequired>>();
+    const [inputManager, setInputManager] = useState<InputManager<Primitive<T>, IsRequired>>();
     const [value, setValue] = useState("");
     const [error, setError] = useState<string | undefined>();
 
@@ -682,7 +682,7 @@ export function BooleanInput(properties: BooleanInputProperties): ReactElement {
 /**
  * Form properties. All forms require at least these properties to be set.
  */
-export interface FormProperties<T extends ResultType> {
+export interface FormProperties<T extends ProcessResult> {
     /**
      * Form resource name.
      */
@@ -710,7 +710,7 @@ export interface FormProperties<T extends ResultType> {
 /**
  * Base form properties.
  */
-interface BaseFormProperties<T extends ResultType> extends FormProperties<T> {
+interface BaseFormProperties<T extends ProcessResult> extends FormProperties<T> {
     /**
      * Title.
      */
@@ -720,7 +720,7 @@ interface BaseFormProperties<T extends ResultType> extends FormProperties<T> {
 /**
  * Form state.
  */
-interface FormState<T extends ResultType> {
+interface FormState<T extends ProcessResult> {
     /**
      * Form manager.
      */
@@ -746,7 +746,7 @@ interface FormState<T extends ResultType> {
  * @returns
  * React element.
  */
-export function BaseForm<T extends ResultType>(properties: BaseFormProperties<T>): ReactElement {
+export function BaseForm<T extends ProcessResult>(properties: BaseFormProperties<T>): ReactElement {
     const appContext = useContext(App.Context);
 
     const [state, setState] = useState<FormState<T>>({

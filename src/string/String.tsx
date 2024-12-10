@@ -224,7 +224,7 @@ export interface FormProperties {
 /**
  * Base form properties.
  */
-interface BaseFormProperties<T extends Demo.ResultType> extends Demo.FormProperties<T>, FormProperties {
+interface BaseFormProperties<T extends Demo.ProcessResult> extends Demo.FormProperties<T>, FormProperties {
 }
 
 /**
@@ -236,7 +236,7 @@ interface BaseFormProperties<T extends Demo.ResultType> extends Demo.FormPropert
  * @returns
  * React element.
  */
-export function BaseForm<T extends Demo.ResultType>(properties: BaseFormProperties<T>): ReactElement {
+export function BaseForm<T extends Demo.ProcessResult>(properties: BaseFormProperties<T>): ReactElement {
     return <Demo.BaseForm
         {...properties}
         title={i18next.t("String.characterSetTitle", {
