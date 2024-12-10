@@ -14,7 +14,7 @@ import * as IdentificationKey from "./IdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function ValidateAnyGTINForm(properties: GTIN.FormProperties): ReactElement {
+export function GTINValidateAnyForm(properties: GTIN.FormProperties): ReactElement {
     let identificationKey: string;
     let gtinLevel: GTINLevel;
 
@@ -40,7 +40,7 @@ export function ValidateAnyGTINForm(properties: GTIN.FormProperties): ReactEleme
 
     return <IdentificationKey.BaseForm
         {...properties}
-        subtitleResourceName={ValidateAnyGTINForm.resourceName}
+        subtitleResourceName={GTINValidateAnyForm.resourceName}
         onProcess={onProcess}
     >
         <IdentificationKey.IdentificationKeyInput
@@ -66,4 +66,4 @@ export function ValidateAnyGTINForm(properties: GTIN.FormProperties): ReactEleme
     </IdentificationKey.BaseForm>;
 }
 
-ValidateAnyGTINForm.resourceName = "GS1.validateAnySubtitle";
+GTINValidateAnyForm.resourceName = "GS1.validateAnySubtitle";

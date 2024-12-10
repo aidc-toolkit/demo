@@ -2,9 +2,10 @@ import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
 import * as IdentificationKey from "./IdentificationKey.tsx";
 import * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
+import * as SerializableNumericIdentificationKey from "./SerializableNumericIdentificationKey.tsx";
 
 /**
- * Create numeric identification key form.
+ * Create serializable numeric identification key form.
  *
  * @param properties
  * Properties.
@@ -12,11 +13,12 @@ import * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function CreateNumericForm(properties: NumericIdentificationKey.FormProperties): ReactElement {
+export function SerializableNumericCreateForm(properties: SerializableNumericIdentificationKey.FormProperties): ReactElement {
     let prefixType: PrefixType;
     let prefix: string;
     let value: number;
     let sparse: boolean;
+    let serialComponent: string;
 
     /**
      * Process the form.
@@ -25,12 +27,12 @@ export function CreateNumericForm(properties: NumericIdentificationKey.FormPrope
      * Created identification key.
      */
     function onProcess(): string {
-        return properties.getCreator(PrefixManager.get(prefixType, prefix)).create(value, sparse);
+        return properties.getCreator(PrefixManager.get(prefixType, prefix)).createSerialized(value, serialComponent, sparse);
     }
 
     return <IdentificationKey.BaseForm
         {...properties}
-        subtitleResourceName={CreateNumericForm.resourceName}
+        subtitleResourceName={SerializableNumericCreateForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
@@ -58,7 +60,12 @@ export function CreateNumericForm(properties: NumericIdentificationKey.FormPrope
                 sparse = inputValue;
             }}
         />
+        <SerializableNumericIdentificationKey.SerialComponentInput
+            onProcess={(inputValue) => {
+                serialComponent = inputValue;
+            }}
+        />
     </IdentificationKey.BaseForm>;
 }
 
-CreateNumericForm.resourceName = "String.createSubtitle";
+SerializableNumericCreateForm.resourceName = "GS1.createSerializedSubtitle";

@@ -14,7 +14,7 @@ import * as IdentificationKey from "./IdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function ZeroExpandGTIN12Form(properties: GTIN.FormProperties): ReactElement {
+export function GTIN12ZeroExpandForm(properties: GTIN.FormProperties): ReactElement {
     let zeroSuppressedGTIN12: string;
 
     /**
@@ -29,7 +29,7 @@ export function ZeroExpandGTIN12Form(properties: GTIN.FormProperties): ReactElem
 
     return <IdentificationKey.BaseForm
         {...properties}
-        subtitleResourceName={ZeroExpandGTIN12Form.resourceName}
+        subtitleResourceName={GTIN12ZeroExpandForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
@@ -50,4 +50,4 @@ export function ZeroExpandGTIN12Form(properties: GTIN.FormProperties): ReactElem
     </IdentificationKey.BaseForm>;
 }
 
-ZeroExpandGTIN12Form.resourceName = "GS1.zeroExpandGTIN12Subtitle";
+GTIN12ZeroExpandForm.resourceName = "GS1.zeroExpandGTIN12Subtitle";

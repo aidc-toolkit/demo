@@ -16,7 +16,7 @@ import * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function CreateSequenceNumericForm(properties: NumericIdentificationKey.FormProperties): ReactElement {
+export function NumericCreateSequenceForm(properties: NumericIdentificationKey.FormProperties): ReactElement {
     let prefixType: PrefixType;
     let prefix: string;
     let startValue: number;
@@ -35,7 +35,7 @@ export function CreateSequenceNumericForm(properties: NumericIdentificationKey.F
 
     return <IdentificationKey.BaseForm
         {...properties}
-        subtitleResourceName={CreateSequenceNumericForm.resourceName}
+        subtitleResourceName={NumericCreateSequenceForm.resourceName}
         onProcess={onProcess}
     >
         <IdentificationKey.PrefixTypeAndPrefixInput
@@ -78,4 +78,4 @@ export function CreateSequenceNumericForm(properties: NumericIdentificationKey.F
     </IdentificationKey.BaseForm>;
 }
 
-CreateSequenceNumericForm.resourceName = "String.createSequenceSubtitle";
+NumericCreateSequenceForm.resourceName = "String.createSequenceSubtitle";

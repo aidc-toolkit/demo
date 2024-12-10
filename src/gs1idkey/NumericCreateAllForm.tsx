@@ -13,7 +13,7 @@ import type * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function CreateAllNumericForm(properties: NumericIdentificationKey.FormProperties): ReactElement {
+export function NumericCreateAllForm(properties: NumericIdentificationKey.FormProperties): ReactElement {
     let prefixType: PrefixType;
     let prefix: string;
 
@@ -31,7 +31,7 @@ export function CreateAllNumericForm(properties: NumericIdentificationKey.FormPr
 
     return <IdentificationKey.BaseForm
         {...properties}
-        subtitleResourceName={CreateAllNumericForm.resourceName}
+        subtitleResourceName={NumericCreateAllForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
@@ -52,4 +52,4 @@ export function CreateAllNumericForm(properties: NumericIdentificationKey.FormPr
     </IdentificationKey.BaseForm>;
 }
 
-CreateAllNumericForm.resourceName = "GS1.createAllSubtitle";
+NumericCreateAllForm.resourceName = "GS1.createAllSubtitle";

@@ -13,7 +13,7 @@ import * as SerializableNumericIdentificationKey from "./SerializableNumericIden
  * @returns
  * React element.
  */
-export function ConcatenateSerializableNumericForm(properties: SerializableNumericIdentificationKey.FormProperties): ReactElement {
+export function SerializableNumericConcatenateForm(properties: SerializableNumericIdentificationKey.FormProperties): ReactElement {
     let identificationKey: string;
     let serialComponent: string;
 
@@ -29,7 +29,7 @@ export function ConcatenateSerializableNumericForm(properties: SerializableNumer
 
     return <IdentificationKey.BaseForm
         {...properties}
-        subtitleResourceName={ConcatenateSerializableNumericForm.resourceName}
+        subtitleResourceName={SerializableNumericConcatenateForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
@@ -55,4 +55,4 @@ export function ConcatenateSerializableNumericForm(properties: SerializableNumer
     </IdentificationKey.BaseForm>;
 }
 
-ConcatenateSerializableNumericForm.resourceName = "GS1.concatenateSerializedSubtitle";
+SerializableNumericConcatenateForm.resourceName = "GS1.concatenateSerializedSubtitle";

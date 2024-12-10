@@ -13,7 +13,7 @@ import * as IdentificationKey from "./IdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function ValidateGTIN14Form(properties: GTIN.FormProperties): ReactElement {
+export function GTIN14ValidateForm(properties: GTIN.FormProperties): ReactElement {
     let identificationKey: string;
 
     /**
@@ -30,7 +30,7 @@ export function ValidateGTIN14Form(properties: GTIN.FormProperties): ReactElemen
 
     return <IdentificationKey.BaseForm
         {...properties}
-        subtitleResourceName={ValidateGTIN14Form.resourceName}
+        subtitleResourceName={GTIN14ValidateForm.resourceName}
         onProcess={onProcess}
     >
         <IdentificationKey.IdentificationKeyInput
@@ -48,4 +48,4 @@ export function ValidateGTIN14Form(properties: GTIN.FormProperties): ReactElemen
     </IdentificationKey.BaseForm>;
 }
 
-ValidateGTIN14Form.resourceName = "GS1.validateGTIN14Subtitle";
+GTIN14ValidateForm.resourceName = "GS1.validateGTIN14Subtitle";

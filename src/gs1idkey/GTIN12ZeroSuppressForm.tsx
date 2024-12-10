@@ -13,7 +13,7 @@ import * as IdentificationKey from "./IdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function ZeroSuppressGTIN12Form(properties: GTIN.FormProperties): ReactElement {
+export function GTIN12ZeroSuppressForm(properties: GTIN.FormProperties): ReactElement {
     let identificationKey: string;
 
     /**
@@ -28,7 +28,7 @@ export function ZeroSuppressGTIN12Form(properties: GTIN.FormProperties): ReactEl
 
     return <IdentificationKey.BaseForm
         {...properties}
-        subtitleResourceName={ZeroSuppressGTIN12Form.resourceName}
+        subtitleResourceName={GTIN12ZeroSuppressForm.resourceName}
         onProcess={onProcess}
         resultName="zeroSuppressedGTIN12"
     >
@@ -47,4 +47,4 @@ export function ZeroSuppressGTIN12Form(properties: GTIN.FormProperties): ReactEl
     </IdentificationKey.BaseForm>;
 }
 
-ZeroSuppressGTIN12Form.resourceName = "GS1.zeroSuppressGTIN12Subtitle";
+GTIN12ZeroSuppressForm.resourceName = "GS1.zeroSuppressGTIN12Subtitle";

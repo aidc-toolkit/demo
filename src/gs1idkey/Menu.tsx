@@ -16,25 +16,25 @@ import {
 import type { ReactElement } from "react";
 import i18next, { demoNS } from "../locale/i18n.ts";
 import { type FormDescriptor, Menu as DemoMenu, type SubMenuProperties } from "../Menu.tsx";
-import { ConcatenateSerializableNumericForm } from "./ConcatenateSerializableNumericForm.tsx";
-import { ConvertToGTIN14Form } from "./ConvertToGTIN14Form.tsx";
-import { CreateAllNumericForm } from "./CreateAllNumericForm.tsx";
-import { CreateNonNumericForm } from "./CreateNonNumericForm.tsx";
-import { CreateNumericForm } from "./CreateNumericForm.tsx";
-import { CreateSequenceNumericForm } from "./CreateSequenceNumericForm.tsx";
-import { CreateSerializableNumericForm } from "./CreateSerializableNumericForm.tsx";
+import { SerializableNumericConcatenateForm } from "./SerializableNumericConcatenateForm.tsx";
+import { GTIN14ConvertToForm } from "./GTIN14ConvertToForm.tsx";
+import { NumericCreateAllForm } from "./NumericCreateAllForm.tsx";
+import { NonNumericCreateForm } from "./NonNumericCreateForm.tsx";
+import { NumericCreateForm } from "./NumericCreateForm.tsx";
+import { NumericCreateSequenceForm } from "./NumericCreateSequenceForm.tsx";
+import { SerializableNumericCreateForm } from "./SerializableNumericCreateForm.tsx";
 import type * as GTIN from "./GTIN.tsx";
 import type * as IdentificationKey from "./IdentificationKey.tsx";
 import type * as NonGTINNumericIdentificationKey from "./NonGTINNumericIdentificationKey.tsx";
 import type * as NonNumericIdentificationKey from "./NonNumericIdentificationKey.tsx";
-import { NormalizeGTINForm } from "./NormalizeGTINForm.tsx";
+import { GTINNormalizeForm } from "./GTINNormalizeForm.tsx";
 import type * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
 import type * as SerializableNumericIdentificationKey from "./SerializableNumericIdentificationKey.tsx";
-import { ValidateAnyGTINForm } from "./ValidateAnyGTINForm.tsx";
+import { GTINValidateAnyForm } from "./GTINValidateAnyForm.tsx";
 import { ValidateForm } from "./ValidateForm.tsx";
-import { ValidateGTIN14Form } from "./ValidateGTIN14Form.tsx";
-import { ZeroExpandGTIN12Form } from "./ZeroExpandGTIN12Form.tsx";
-import { ZeroSuppressGTIN12Form } from "./ZeroSuppressGTIN12Form.tsx";
+import { GTIN14ValidateForm } from "./GTIN14ValidateForm.tsx";
+import { GTIN12ZeroExpandForm } from "./GTIN12ZeroExpandForm.tsx";
+import { GTIN12ZeroSuppressForm } from "./GTIN12ZeroSuppressForm.tsx";
 
 const IdentificationKeyFormDescriptors: ReadonlyArray<FormDescriptor<IdentificationKey.FormProperties>> = [
     ValidateForm
@@ -42,22 +42,22 @@ const IdentificationKeyFormDescriptors: ReadonlyArray<FormDescriptor<Identificat
 
 const NumericIdentificationKeyFormDescriptors: ReadonlyArray<FormDescriptor<NumericIdentificationKey.FormProperties>> = [
     ...IdentificationKeyFormDescriptors,
-    CreateNumericForm,
-    CreateSequenceNumericForm,
-    CreateAllNumericForm
+    NumericCreateForm,
+    NumericCreateSequenceForm,
+    NumericCreateAllForm
 ];
 
 const GTINFormDescriptors: ReadonlyArray<FormDescriptor<GTIN.FormProperties> | null> = [
     ...NumericIdentificationKeyFormDescriptors,
     null,
-    ZeroExpandGTIN12Form,
-    ZeroSuppressGTIN12Form,
+    GTIN12ZeroExpandForm,
+    GTIN12ZeroSuppressForm,
     null,
-    ValidateAnyGTINForm,
-    ValidateGTIN14Form,
+    GTINValidateAnyForm,
+    GTIN14ValidateForm,
     null,
-    ConvertToGTIN14Form,
-    NormalizeGTINForm
+    GTIN14ConvertToForm,
+    GTINNormalizeForm
 ];
 
 const NonGTINNumericIdentificationKeyFormDescriptors: ReadonlyArray<FormDescriptor<NonGTINNumericIdentificationKey.FormProperties>> = [
@@ -67,13 +67,13 @@ const NonGTINNumericIdentificationKeyFormDescriptors: ReadonlyArray<FormDescript
 const SerializableNumericIdentificationKeyFormDescriptors: ReadonlyArray<FormDescriptor<SerializableNumericIdentificationKey.FormProperties> | null> = [
     ...NonGTINNumericIdentificationKeyFormDescriptors,
     null,
-    CreateSerializableNumericForm,
-    ConcatenateSerializableNumericForm
+    SerializableNumericCreateForm,
+    SerializableNumericConcatenateForm
 ];
 
 const NonNumericIdentificationKeyFormDescriptors: ReadonlyArray<FormDescriptor<NonNumericIdentificationKey.FormProperties>> = [
     ...IdentificationKeyFormDescriptors,
-    CreateNonNumericForm
+    NonNumericCreateForm
 ];
 
 const GTIN_SUB_MENU: SubMenuProperties<GTIN.FormProperties> = {

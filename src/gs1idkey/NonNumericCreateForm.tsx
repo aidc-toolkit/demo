@@ -14,7 +14,7 @@ import type * as NonNumericIdentificationKey from "./NonNumericIdentificationKey
  * @returns
  * React element.
  */
-export function CreateNonNumericForm(properties: NonNumericIdentificationKey.FormProperties): ReactElement {
+export function NonNumericCreateForm(properties: NonNumericIdentificationKey.FormProperties): ReactElement {
     let prefixType: PrefixType;
     let prefix: string;
     let reference: string;
@@ -31,7 +31,7 @@ export function CreateNonNumericForm(properties: NonNumericIdentificationKey.For
 
     return <IdentificationKey.BaseForm
         {...properties}
-        subtitleResourceName={CreateNonNumericForm.resourceName}
+        subtitleResourceName={NonNumericCreateForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
@@ -66,4 +66,4 @@ export function CreateNonNumericForm(properties: NonNumericIdentificationKey.For
     </IdentificationKey.BaseForm>;
 }
 
-CreateNonNumericForm.resourceName = "String.createSubtitle";
+NonNumericCreateForm.resourceName = "String.createSubtitle";
