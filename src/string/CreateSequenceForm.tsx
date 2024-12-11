@@ -44,7 +44,7 @@ export function CreateSequenceForm(properties: String.FormProperties): ReactElem
             startValue={{
                 hint: i18next.t("String.startValueHint", {
                     ns: demoNS,
-                    name: i18next.t(properties.resourceName, {
+                    name: i18next.t(properties.characterSetResourceName, {
                         ns: demoNS
                     })
                 }),
@@ -55,7 +55,7 @@ export function CreateSequenceForm(properties: String.FormProperties): ReactElem
             count={{
                 hint: i18next.t("String.countHint", {
                     ns: demoNS,
-                    name: i18next.t(properties.resourceName, {
+                    name: i18next.t(properties.characterSetResourceName, {
                         ns: demoNS
                     })
                 }),

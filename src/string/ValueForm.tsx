@@ -36,7 +36,7 @@ export function ValueForm(properties: String.FormProperties): ReactElement {
         <String.SInput
             hint={i18next.t("String.stringToConvert", {
                 ns: demoNS,
-                name: i18next.t(properties.resourceName, {
+                name: i18next.t(properties.characterSetResourceName, {
                     ns: demoNS
                 })
             })}

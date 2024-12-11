@@ -213,7 +213,7 @@ export interface FormProperties {
     /**
      * Character set resource name.
      */
-    readonly resourceName: string;
+    readonly characterSetResourceName: string;
 
     /**
      * Character set creator.
@@ -241,7 +241,7 @@ export function BaseForm(properties: BaseFormProperties): ReactElement {
         {...properties}
         title={i18next.t("String.characterSetTitle", {
             ns: demoNS,
-            name: i18next.t(properties.resourceName, {
+            name: i18next.t(properties.characterSetResourceName, {
                 ns: demoNS
             })
         })}

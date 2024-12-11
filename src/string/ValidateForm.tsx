@@ -43,7 +43,7 @@ export function ValidateForm(properties: String.FormProperties): ReactElement {
         <String.SInput
             hint={i18next.t("String.stringToValidate", {
                 ns: demoNS,
-                name: i18next.t(properties.resourceName, {
+                name: i18next.t(properties.characterSetResourceName, {
                     ns: demoNS
                 })
             })}
@@ -58,7 +58,7 @@ export function ValidateForm(properties: String.FormProperties): ReactElement {
             })}
             hint={i18next.t("String.minimumLengthHint", {
                 ns: demoNS,
-                name: i18next.t(properties.resourceName, {
+                name: i18next.t(properties.characterSetResourceName, {
                     ns: demoNS
                 })
             })}
@@ -75,7 +75,7 @@ export function ValidateForm(properties: String.FormProperties): ReactElement {
             })}
             hint={i18next.t("String.maximumLengthHint", {
                 ns: demoNS,
-                name: i18next.t(properties.resourceName, {
+                name: i18next.t(properties.characterSetResourceName, {
                     ns: demoNS
                 })
             })}

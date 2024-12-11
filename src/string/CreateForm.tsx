@@ -42,7 +42,7 @@ export function CreateForm(properties: String.FormProperties): ReactElement {
         <String.ValueInput
             hint={i18next.t("String.valueHint", {
                 ns: demoNS,
-                name: i18next.t(properties.resourceName, {
+                name: i18next.t(properties.characterSetResourceName, {
                     ns: demoNS
                 })
             })}

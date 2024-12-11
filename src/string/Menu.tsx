@@ -14,27 +14,27 @@ import { ValueForm } from "./ValueForm.tsx";
  */
 const STRING_FORMS_PROPERTIES: readonly String.FormProperties[] = [
     {
-        resourceName: "String.numericCharacterSet",
+        characterSetResourceName: "String.numericCharacterSet",
         creator: NUMERIC_CREATOR
     },
     {
-        resourceName: "String.hexadecimalCharacterSet",
+        characterSetResourceName: "String.hexadecimalCharacterSet",
         creator: HEXADECIMAL_CREATOR
     },
     {
-        resourceName: "String.alphabeticCharacterSet",
+        characterSetResourceName: "String.alphabeticCharacterSet",
         creator: ALPHABETIC_CREATOR
     },
     {
-        resourceName: "String.alphanumericCharacterSet",
+        characterSetResourceName: "String.alphanumericCharacterSet",
         creator: ALPHANUMERIC_CREATOR
     },
     {
-        resourceName: "String.gs1AI82CharacterSet",
+        characterSetResourceName: "String.gs1AI82CharacterSet",
         creator: AI82_CREATOR
     },
     {
-        resourceName: "String.gs1AI39CharacterSet",
+        characterSetResourceName: "String.gs1AI39CharacterSet",
         creator: AI39_CREATOR
     }
 ];
@@ -61,7 +61,7 @@ export function Menu(): ReactElement {
             ns: demoNS
         })}
         subMenus={STRING_FORMS_PROPERTIES.map(stringsProperty => ({
-            title: i18next.t(stringsProperty.resourceName, {
+            title: i18next.t(stringsProperty.characterSetResourceName, {
                 ns: demoNS
             }),
             formProperties: stringsProperty,
