@@ -8,6 +8,7 @@ import {
     useState
 } from "react";
 import { Alert, Button, Card, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
+import { transformIterable } from "../../utility";
 import { App } from "./App.tsx";
 import i18next, { demoNS } from "./locale/i18n.js";
 
@@ -729,7 +730,7 @@ interface FormState {
     /**
      * Result.
      */
-    result: string | string[] | undefined;
+    result: ProcessResult;
 
     /**
      * Error.
@@ -791,8 +792,7 @@ export function BaseForm(properties: BaseFormProperties): ReactElement {
 
         setState(state => ({
             ...state,
-            // Iterable result is iterated twice in development (strict) mode, which may exhaust it the first time, so convert to array.
-            result: typeof result !== "object" || Array.isArray(result) ? result : Array.from(result),
+            result,
             error
         }));
     }
@@ -847,8 +847,8 @@ export function BaseForm(properties: BaseFormProperties): ReactElement {
                             typeof state.result === "object" ?
                                 <ListGroup>
                                     {
-                                        state.result.map((s, index) => <ListGroup.Item key={`s-${index}`} variant="success">
-                                            {s}
+                                        transformIterable(state.result, (input, index) => <ListGroup.Item key={`result-${index}`} variant="success">
+                                            {input}
                                         </ListGroup.Item>)
                                     }
                                 </ListGroup> :
