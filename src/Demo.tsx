@@ -792,9 +792,7 @@ export function BaseForm(properties: BaseFormProperties): ReactElement {
         setState(state => ({
             ...state,
             // Iterable result is iterated twice in development (strict) mode, which may exhaust it the first time, so convert to array.
-            result: typeof result === "object" ?
-                Array.isArray(result) ? result : Array.from(result) :
-                result,
+            result: typeof result !== "object" || Array.isArray(result) ? result : Array.from(result),
             error
         }));
     }
