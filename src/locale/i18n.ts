@@ -1,7 +1,7 @@
 import { i18nAssertValidResources, i18nCoreInit, type I18NEnvironment } from "@aidc-toolkit/core";
 import { gs1Resources, i18nGS1Init } from "@aidc-toolkit/gs1";
 import { i18nUtilityInit, utilityResources } from "@aidc-toolkit/utility";
-import i18next from "i18next";
+import i18next, { type i18n } from "i18next";
 import { localeStrings as enLocaleStrings } from "./en/locale-strings.js";
 import { localeStrings as frLocaleStrings } from "./fr/locale-strings.js";
 
@@ -26,7 +26,8 @@ const demoResources = {
     }
 };
 
-export const i18nextDemo = i18next.createInstance();
+// Explicit type is necessary to work around bug in type discovery with linked packages.
+export const i18nextDemo: i18n = i18next.createInstance();
 
 /**
  * Initialize internationalization.
