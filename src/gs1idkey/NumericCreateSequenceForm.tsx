@@ -1,7 +1,8 @@
 import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
 import { Sequencer } from "@aidc-toolkit/utility";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import * as String from "../string/String.tsx";
 import { confirmCreateStrings } from "../utility.ts";
 import * as IdentificationKey from "./IdentificationKey.tsx";
@@ -54,17 +55,13 @@ export function NumericCreateSequenceForm(properties: NumericIdentificationKey.F
         />
         <String.StartValueAndCountInput
             startValue={{
-                hint: i18next.t("GS1.startValueHint", {
-                    ns: demoNS
-                }),
+                hint: i18nextDemo.t("GS1.startValueHint"),
                 onProcess: (inputValue) => {
                     startValue = inputValue;
                 }
             }}
             count={{
-                hint: i18next.t("GS1.countHint", {
-                    ns: demoNS
-                }),
+                hint: i18nextDemo.t("GS1.countHint"),
                 onProcess: (inputValue) => {
                     count = inputValue;
                 }
@@ -78,4 +75,4 @@ export function NumericCreateSequenceForm(properties: NumericIdentificationKey.F
     </IdentificationKey.BaseForm>;
 }
 
-NumericCreateSequenceForm.resourceName = "String.createSequenceSubtitle";
+NumericCreateSequenceForm.resourceName = "String.createSequenceSubtitle" as ParseKeys;

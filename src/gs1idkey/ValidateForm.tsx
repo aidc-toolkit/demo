@@ -7,8 +7,9 @@ import {
     PrefixType
 } from "@aidc-toolkit/gs1";
 import { Exclusion } from "@aidc-toolkit/utility";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import * as String from "../string/String.tsx";
 import * as IdentificationKey from "./IdentificationKey.tsx";
 
@@ -83,9 +84,7 @@ export function ValidateForm(properties: IdentificationKey.FormProperties): Reac
             }}
         />
         <String.ExclusionInput
-            hint={i18next.t("GS1.exclusionHint", {
-                ns: demoNS
-            })}
+            hint={i18nextDemo.t("GS1.exclusionHint")}
             exclusionSupport={isNumeric ? [Exclusion.None] : [Exclusion.None, Exclusion.AllNumeric]}
             onProcess={(inputValue) => {
                 exclusion = inputValue;
@@ -94,4 +93,4 @@ export function ValidateForm(properties: IdentificationKey.FormProperties): Reac
     </IdentificationKey.BaseForm>;
 }
 
-ValidateForm.resourceName = "String.validateSubtitle";
+ValidateForm.resourceName = "String.validateSubtitle" as ParseKeys;

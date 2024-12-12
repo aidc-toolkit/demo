@@ -1,6 +1,7 @@
 import { PrefixManager, PrefixType } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import * as IdentificationKey from "./IdentificationKey.tsx";
 import * as SerializableNumericIdentificationKey from "./SerializableNumericIdentificationKey.tsx";
 
@@ -35,12 +36,10 @@ export function SerializableNumericConcatenateForm(properties: SerializableNumer
     >
         <IdentificationKey.IdentificationKeyInput
             identificationKeyType={properties.identificationKeyType}
-            label={i18next.t("GS1.baseIdentificationKeyLabel", {
-                ns: demoNS,
+            label={i18nextDemo.t("GS1.baseIdentificationKeyLabel", {
                 identificationKeyType: properties.identificationKeyType
             })}
-            hint={i18next.t("GS1.baseIdentificationKeyHint", {
-                ns: demoNS,
+            hint={i18nextDemo.t("GS1.baseIdentificationKeyHint", {
                 identificationKeyType: properties.identificationKeyType
             })}
             onProcess={(inputValue) => {
@@ -55,4 +54,4 @@ export function SerializableNumericConcatenateForm(properties: SerializableNumer
     </IdentificationKey.BaseForm>;
 }
 
-SerializableNumericConcatenateForm.resourceName = "GS1.concatenateSerializedSubtitle";
+SerializableNumericConcatenateForm.resourceName = "GS1.concatenateSerializedSubtitle" as ParseKeys;

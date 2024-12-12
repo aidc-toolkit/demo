@@ -14,27 +14,27 @@ import {
     SSCC_VALIDATOR
 } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import { type FormDescriptor, Menu as DemoMenu, type SubMenuProperties } from "../Menu.tsx";
-import { SerializableNumericConcatenateForm } from "./SerializableNumericConcatenateForm.tsx";
-import { GTIN14ConvertToForm } from "./GTIN14ConvertToForm.tsx";
-import { NumericCreateAllForm } from "./NumericCreateAllForm.tsx";
-import { NonNumericCreateForm } from "./NonNumericCreateForm.tsx";
-import { NumericCreateForm } from "./NumericCreateForm.tsx";
-import { NumericCreateSequenceForm } from "./NumericCreateSequenceForm.tsx";
-import { SerializableNumericCreateForm } from "./SerializableNumericCreateForm.tsx";
 import type * as GTIN from "./GTIN.tsx";
-import type * as IdentificationKey from "./IdentificationKey.tsx";
-import type * as NonGTINNumericIdentificationKey from "./NonGTINNumericIdentificationKey.tsx";
-import type * as NonNumericIdentificationKey from "./NonNumericIdentificationKey.tsx";
-import { GTINNormalizeForm } from "./GTINNormalizeForm.tsx";
-import type * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
-import type * as SerializableNumericIdentificationKey from "./SerializableNumericIdentificationKey.tsx";
-import { GTINValidateAnyForm } from "./GTINValidateAnyForm.tsx";
-import { ValidateForm } from "./ValidateForm.tsx";
-import { GTIN14ValidateForm } from "./GTIN14ValidateForm.tsx";
 import { GTIN12ZeroExpandForm } from "./GTIN12ZeroExpandForm.tsx";
 import { GTIN12ZeroSuppressForm } from "./GTIN12ZeroSuppressForm.tsx";
+import { GTIN14ConvertToForm } from "./GTIN14ConvertToForm.tsx";
+import { GTIN14ValidateForm } from "./GTIN14ValidateForm.tsx";
+import { GTINNormalizeForm } from "./GTINNormalizeForm.tsx";
+import { GTINValidateAnyForm } from "./GTINValidateAnyForm.tsx";
+import type * as IdentificationKey from "./IdentificationKey.tsx";
+import type * as NonGTINNumericIdentificationKey from "./NonGTINNumericIdentificationKey.tsx";
+import { NonNumericCreateForm } from "./NonNumericCreateForm.tsx";
+import type * as NonNumericIdentificationKey from "./NonNumericIdentificationKey.tsx";
+import { NumericCreateAllForm } from "./NumericCreateAllForm.tsx";
+import { NumericCreateForm } from "./NumericCreateForm.tsx";
+import { NumericCreateSequenceForm } from "./NumericCreateSequenceForm.tsx";
+import type * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
+import { SerializableNumericConcatenateForm } from "./SerializableNumericConcatenateForm.tsx";
+import { SerializableNumericCreateForm } from "./SerializableNumericCreateForm.tsx";
+import type * as SerializableNumericIdentificationKey from "./SerializableNumericIdentificationKey.tsx";
+import { ValidateForm } from "./ValidateForm.tsx";
 
 const IdentificationKeyFormDescriptors: ReadonlyArray<FormDescriptor<IdentificationKey.FormProperties>> = [
     ValidateForm
@@ -204,9 +204,7 @@ const GMN_SUB_MENU: SubMenuProperties<NonNumericIdentificationKey.FormProperties
  */
 export function Menu(): ReactElement {
     return <DemoMenu<GTIN.FormProperties | NonGTINNumericIdentificationKey.FormProperties | SerializableNumericIdentificationKey.FormProperties | NonNumericIdentificationKey.FormProperties>
-        title={i18next.t("GS1.gs1IDKeyTitle", {
-            ns: demoNS
-        })}
+        title={i18nextDemo.t("GS1.gs1IDKeyTitle")}
         subMenus={[
             GTIN_SUB_MENU,
             GLN_SUB_MENU,

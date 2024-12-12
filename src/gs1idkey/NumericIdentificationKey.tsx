@@ -1,7 +1,7 @@
 import type { NumericIdentificationKeyCreator, NumericIdentificationKeyValidator } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
 import * as Demo from "../Demo.tsx";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import type * as IdentificationKey from "./IdentificationKey.tsx";
 
 /**
@@ -23,12 +23,8 @@ export function SparseInput(properties: SparseProperties): ReactElement {
     return <Demo.BooleanInput
         {...properties}
         name="sparse"
-        label={i18next.t("GS1.sparseLabel", {
-            ns: demoNS
-        })}
-        hint={i18next.t("GS1.sparseHint", {
-            ns: demoNS
-        })}
+        label={i18nextDemo.t("GS1.sparseLabel")}
+        hint={i18nextDemo.t("GS1.sparseHint")}
     />;
 }
 

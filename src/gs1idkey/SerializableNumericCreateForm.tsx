@@ -1,4 +1,5 @@
 import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import * as IdentificationKey from "./IdentificationKey.tsx";
 import * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
@@ -68,4 +69,4 @@ export function SerializableNumericCreateForm(properties: SerializableNumericIde
     </IdentificationKey.BaseForm>;
 }
 
-SerializableNumericCreateForm.resourceName = "GS1.createSerializedSubtitle";
+SerializableNumericCreateForm.resourceName = "GS1.createSerializedSubtitle" as ParseKeys;

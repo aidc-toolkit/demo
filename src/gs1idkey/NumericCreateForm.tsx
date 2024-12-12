@@ -1,4 +1,5 @@
 import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import * as IdentificationKey from "./IdentificationKey.tsx";
 import * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
@@ -61,4 +62,4 @@ export function NumericCreateForm(properties: NumericIdentificationKey.FormPrope
     </IdentificationKey.BaseForm>;
 }
 
-NumericCreateForm.resourceName = "String.createSubtitle";
+NumericCreateForm.resourceName = "String.createSubtitle" as ParseKeys;

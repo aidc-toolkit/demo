@@ -9,7 +9,7 @@ import {
 } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
 import * as Demo from "../Demo.tsx";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import * as String from "../string/String.tsx";
 
 /**
@@ -74,18 +74,14 @@ export function PrefixTypeAndPrefixInput<IsValidate extends boolean>(properties:
         <Demo.EnumInput
             {...properties.prefixType}
             name="prefixType"
-            label={i18next.t("GS1.prefixTypeLabel", {
-                ns: demoNS
-            })}
-            hint={i18next.t("GS1.prefixTypeHint", {
-                ns: demoNS
-            })}
+            label={i18nextDemo.t("GS1.prefixTypeLabel")}
+            hint={i18nextDemo.t("GS1.prefixTypeHint")}
             values={prefixTypes}
-            names={[i18next.t("Prefix.gs1CompanyPrefix", {
+            names={[i18nextDemo.t("Prefix.gs1CompanyPrefix", {
                 ns: gs1NS
-            }), i18next.t("Prefix.upcCompanyPrefix", {
+            }), i18nextDemo.t("Prefix.upcCompanyPrefix", {
                 ns: gs1NS
-            }), i18next.t("Prefix.gs18Prefix", {
+            }), i18nextDemo.t("Prefix.gs18Prefix", {
                 ns: gs1NS
             })]}
         />
@@ -95,12 +91,8 @@ export function PrefixTypeAndPrefixInput<IsValidate extends boolean>(properties:
                 <Demo.TextInput
                     {...properties.prefix}
                     name="prefix"
-                    label={i18next.t("GS1.prefixLabel", {
-                        ns: demoNS
-                    })}
-                    hint={i18next.t("GS1.prefixHint", {
-                        ns: demoNS
-                    })}
+                    label={i18nextDemo.t("GS1.prefixLabel")}
+                    hint={i18nextDemo.t("GS1.prefixHint")}
                     type="string"
                     isRequired={true}
                 />
@@ -142,8 +134,7 @@ export function IdentificationKeyInput(properties: IdentificationKeyInputPropert
         {...properties}
         name="identificationKey"
         label={properties.label ?? properties.identificationKeyType}
-        hint={properties.hint ?? i18next.t("GS1.identificationKeyHint", {
-            ns: demoNS,
+        hint={properties.hint ?? i18nextDemo.t("GS1.identificationKeyHint", {
             identificationKeyType: properties.identificationKeyType
         })}
         type="string"
@@ -169,9 +160,7 @@ interface ValueInputProperties extends Demo.InputProperties<number> {
 export function ValueInput(properties: ValueInputProperties): ReactElement {
     return <String.ValueInput
         {...properties}
-        hint={i18next.t("GS1.valueHint", {
-            ns: demoNS
-        })}
+        hint={i18nextDemo.t("GS1.valueHint")}
     />;
 }
 

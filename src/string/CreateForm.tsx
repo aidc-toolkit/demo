@@ -1,6 +1,7 @@
 import type { Exclusion } from "@aidc-toolkit/utility";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import * as String from "./String.tsx";
 
 /**
@@ -40,20 +41,15 @@ export function CreateForm(properties: String.FormProperties): ReactElement {
             }}
         />
         <String.ValueInput
-            hint={i18next.t("String.valueHint", {
-                ns: demoNS,
-                name: i18next.t(properties.characterSetResourceName, {
-                    ns: demoNS
-                })
+            hint={i18nextDemo.t("String.valueHint", {
+                name: i18nextDemo.t(properties.characterSetResourceName)
             })}
             onProcess={(inputValue) => {
                 value = inputValue;
             }}
         />
         <String.ExclusionInput
-            hint={i18next.t("String.exclusionHint", {
-                ns: demoNS
-            })}
+            hint={i18nextDemo.t("String.exclusionHint")}
             exclusionSupport={properties.creator.exclusionSupport}
             onProcess={(inputValue) => {
                 exclusion = inputValue;
@@ -67,4 +63,4 @@ export function CreateForm(properties: String.FormProperties): ReactElement {
     </String.BaseForm>;
 }
 
-CreateForm.resourceName = "String.createSubtitle";
+CreateForm.resourceName = "String.createSubtitle" as ParseKeys;

@@ -4,7 +4,7 @@ import type {
 } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
 import * as Demo from "../Demo.tsx";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import type * as NonGTINNumericIdentificationKey from "./NonGTINNumericIdentificationKey.tsx";
 
 /**
@@ -25,12 +25,8 @@ interface SerialComponentInputProperties extends Demo.InputProperties<string> {
 export function SerialComponentInput(properties: SerialComponentInputProperties): ReactElement {
     return <Demo.TextInput
         name="serialComponent"
-        label={i18next.t("GS1.serialComponentLabel", {
-            ns: demoNS
-        })}
-        hint={i18next.t("GS1.serialComponentHint", {
-            ns: demoNS
-        })}
+        label={i18nextDemo.t("GS1.serialComponentLabel")}
+        hint={i18nextDemo.t("GS1.serialComponentHint")}
         type="string"
         isRequired={true}
         onProcess={properties.onProcess}

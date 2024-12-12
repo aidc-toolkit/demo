@@ -1,11 +1,12 @@
-import { I18NEnvironment, i18nInit } from "@aidc-toolkit/core";
+import { I18NEnvironment } from "@aidc-toolkit/core";
 import aidcToolkitIcon from "@aidc-toolkit/core/resource/icon-288.png";
+import i18next from "i18next";
 import { createContext, type ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import "./App.css";
 import packageConfig from "../package.json";
 import { Menu as GS1IDKeyMenu } from "./gs1idkey/Menu.tsx";
-import i18next, { demoNS } from "./locale/i18n.ts";
+import { i18nDemoInit, i18nextDemo } from "./locale/i18n.ts";
 import "bootstrap/dist/css/bootstrap.css";
 import { Menu as StringMenu } from "./string/Menu.tsx";
 
@@ -85,18 +86,14 @@ export function App(): ReactElement {
 
     useEffect(() => {
         if (!state.isI18nInitialized) {
-            i18nInit(I18NEnvironment.Browser, true).then((initialized) => {
-                if (initialized) {
-                    // Force refresh.
-                    setState(state => ({
-                        ...state,
-                        isI18nInitialized: true
-                    }));
+            i18nDemoInit(I18NEnvironment.Browser, true).then(() => {
+                // Force refresh.
+                setState(state => ({
+                    ...state,
+                    isI18nInitialized: true
+                }));
 
-                    document.title = i18next.t("App.title", {
-                        ns: demoNS
-                    });
-                }
+                document.title = i18nextDemo.t("App.title");
             }).catch((e: unknown) => {
                 console.error(e);
                 alert(e);
@@ -132,12 +129,9 @@ export function App(): ReactElement {
                         <Image
                             src={aidcToolkitIcon}
                             className="logo d-inline-block align-center"
-                            alt={i18next.t("App.logoAlt", {
-                                ns: demoNS
-                            })}
+                            alt={i18nextDemo.t("App.logoAlt")}
                         />
-                        {i18next.t("App.titleVersion", {
-                            ns: demoNS,
+                        {i18nextDemo.t("App.titleVersion", {
                             version: packageConfig.version
                         })}
                     </Navbar.Brand>
@@ -153,9 +147,7 @@ export function App(): ReactElement {
                             <Nav.Link onClick={() => {
                                 reset();
                             }}>
-                                {i18next.t("App.reset", {
-                                    ns: demoNS
-                                })}
+                                {i18nextDemo.t("App.reset")}
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

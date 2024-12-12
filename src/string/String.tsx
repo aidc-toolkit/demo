@@ -1,7 +1,8 @@
 import { CharacterSetCreator, Exclusion } from "@aidc-toolkit/utility";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import * as Demo from "../Demo.tsx";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 
 /**
  * S input properties.
@@ -51,20 +52,12 @@ export function ExclusionInput<T extends Exclusion>(properties: ExclusionInputPr
     return <Demo.EnumInput
         {...properties}
         name="exclusion"
-        label={i18next.t("String.exclusionLabel", {
-            ns: demoNS
-        })}
+        label={i18nextDemo.t("String.exclusionLabel")}
         values={properties.exclusionSupport.includes(Exclusion.None) ? properties.exclusionSupport : [Exclusion.None, ...properties.exclusionSupport]}
         names={[
-            i18next.t("String.exclusionNoneLabel", {
-                ns: demoNS
-            }),
-            i18next.t("String.exclusionFirstZeroLabel", {
-                ns: demoNS
-            }),
-            i18next.t("String.exclusionAllNumericLabel", {
-                ns: demoNS
-            })
+            i18nextDemo.t("String.exclusionNoneLabel"),
+            i18nextDemo.t("String.exclusionFirstZeroLabel"),
+            i18nextDemo.t("String.exclusionAllNumericLabel")
         ]}
     />;
 }
@@ -88,11 +81,8 @@ export function LengthInput(properties: LengthInputProperties): ReactElement {
     return <Demo.TextInput
         {...properties}
         name="length"
-        label={i18next.t("String.lengthLabel", {
-            ns: demoNS
-        })}
-        hint={i18next.t("String.lengthHint", {
-            ns: demoNS,
+        label={i18nextDemo.t("String.lengthLabel")}
+        hint={i18nextDemo.t("String.lengthHint", {
             maximumLength: CharacterSetCreator.MAXIMUM_STRING_LENGTH
         })}
         type="number"
@@ -119,9 +109,7 @@ export function ValueInput(properties: ValueInputProperties): ReactElement {
     return <Demo.TextInput
         {...properties}
         name="value"
-        label={i18next.t("String.valueLabel", {
-            ns: demoNS
-        })}
+        label={i18nextDemo.t("String.valueLabel")}
         hint={properties.hint}
         type="number"
         isRequired={true}
@@ -158,18 +146,14 @@ export function StartValueAndCountInput(properties: StartValueAndCountInputPrope
         <Demo.TextInput
             {...properties.startValue}
             name="startValue"
-            label={i18next.t("String.startValueLabel", {
-                ns: demoNS
-            })}
+            label={i18nextDemo.t("String.startValueLabel")}
             type="number"
             isRequired={true}
         />
         <Demo.TextInput
             {...properties.count}
             name="count"
-            label={i18next.t("String.countLabel", {
-                ns: demoNS
-            })}
+            label={i18nextDemo.t("String.countLabel")}
             type="number"
             isRequired={true}
         />
@@ -195,12 +179,8 @@ export function TweakInput(properties: TweakInputProperties): ReactElement {
     return <Demo.TextInput
         {...properties}
         name="tweak"
-        label={i18next.t("String.tweakLabel", {
-            ns: demoNS
-        })}
-        hint={i18next.t("String.tweakHint", {
-            ns: demoNS
-        })}
+        label={i18nextDemo.t("String.tweakLabel")}
+        hint={i18nextDemo.t("String.tweakHint")}
         type="number"
         isRequired={false}
     />;
@@ -213,7 +193,7 @@ export interface FormProperties {
     /**
      * Character set resource name.
      */
-    readonly characterSetResourceName: string;
+    readonly characterSetResourceName: ParseKeys;
 
     /**
      * Character set creator.
@@ -239,11 +219,8 @@ interface BaseFormProperties extends Demo.FormProperties, FormProperties {
 export function BaseForm(properties: BaseFormProperties): ReactElement {
     return <Demo.BaseForm
         {...properties}
-        title={i18next.t("String.characterSetTitle", {
-            ns: demoNS,
-            name: i18next.t(properties.characterSetResourceName, {
-                ns: demoNS
-            })
+        title={i18nextDemo.t("String.characterSetTitle", {
+            name: i18nextDemo.t(properties.characterSetResourceName)
         })}
     />;
 }

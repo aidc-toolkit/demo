@@ -1,7 +1,8 @@
 import { GTINLevel, GTINValidator, IdentificationKeyType } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import * as Demo from "../Demo.tsx";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import type * as GTIN from "./GTIN.tsx";
 import * as IdentificationKey from "./IdentificationKey.tsx";
 
@@ -18,13 +19,7 @@ export function GTINValidateAnyForm(properties: GTIN.FormProperties): ReactEleme
     let identificationKey: string;
     let gtinLevel: GTINLevel;
 
-    const gtinLevelNames = [i18next.t("GS1.levelAnyLabel", {
-        ns: demoNS
-    }), i18next.t("GS1.levelRetailConsumerLabel", {
-        ns: demoNS
-    }), i18next.t("GS1.levelOtherThanRetailConsumerLabel", {
-        ns: demoNS
-    })];
+    const gtinLevelNames = [i18nextDemo.t("GS1.levelAnyLabel"), i18nextDemo.t("GS1.levelRetailConsumerLabel"), i18nextDemo.t("GS1.levelOtherThanRetailConsumerLabel")];
 
     /**
      * Process the form.
@@ -51,12 +46,8 @@ export function GTINValidateAnyForm(properties: GTIN.FormProperties): ReactEleme
         />
         <Demo.EnumInput
             name="gtinLevel"
-            label={i18next.t("GS1.levelLabel", {
-                ns: demoNS
-            })}
-            hint={i18next.t("GS1.levelHint", {
-                ns: demoNS
-            })}
+            label={i18nextDemo.t("GS1.levelLabel")}
+            hint={i18nextDemo.t("GS1.levelHint")}
             values={[GTINLevel.Any, GTINLevel.RetailConsumer, GTINLevel.OtherThanRetailConsumer]}
             names={gtinLevelNames}
             onProcess={(inputValue) => {
@@ -66,4 +57,4 @@ export function GTINValidateAnyForm(properties: GTIN.FormProperties): ReactEleme
     </IdentificationKey.BaseForm>;
 }
 
-GTINValidateAnyForm.resourceName = "GS1.validateAnySubtitle";
+GTINValidateAnyForm.resourceName = "GS1.validateAnySubtitle" as ParseKeys;

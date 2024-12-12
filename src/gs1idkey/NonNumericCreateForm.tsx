@@ -1,7 +1,8 @@
 import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import * as Demo from "../Demo.tsx";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import * as IdentificationKey from "./IdentificationKey.tsx";
 import type * as NonNumericIdentificationKey from "./NonNumericIdentificationKey.tsx";
 
@@ -51,12 +52,8 @@ export function NonNumericCreateForm(properties: NonNumericIdentificationKey.For
         />
         <Demo.TextInput
             name="reference"
-            label={i18next.t("GS1.referenceLabel", {
-                ns: demoNS
-            })}
-            hint={i18next.t("GS1.referenceHint", {
-                ns: demoNS
-            })}
+            label={i18nextDemo.t("GS1.referenceLabel")}
+            hint={i18nextDemo.t("GS1.referenceHint")}
             type="string"
             isRequired={true}
             onProcess={(inputValue) => {
@@ -66,4 +63,4 @@ export function NonNumericCreateForm(properties: NonNumericIdentificationKey.For
     </IdentificationKey.BaseForm>;
 }
 
-NonNumericCreateForm.resourceName = "String.createSubtitle";
+NonNumericCreateForm.resourceName = "String.createSubtitle" as ParseKeys;

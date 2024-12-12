@@ -43,6 +43,7 @@
     "@aidc-toolkit/gs1": "^0.9.7-beta",
     "@aidc-toolkit/utility": "^0.9.7-beta",
     "bootstrap": "^5.3.3",
+    "i18next": "^24.1.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.6",
     "react-dom": "^19.0.0"

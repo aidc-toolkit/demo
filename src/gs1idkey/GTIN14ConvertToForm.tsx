@@ -1,7 +1,8 @@
 import { GTINCreator, IdentificationKeyType } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import * as Demo from "../Demo.tsx";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import type * as GTIN from "./GTIN.tsx";
 import * as IdentificationKey from "./IdentificationKey.tsx";
 
@@ -36,12 +37,8 @@ export function GTIN14ConvertToForm(properties: GTIN.FormProperties): ReactEleme
     >
         <Demo.TextInput
             name="indicatorDigit"
-            label={i18next.t("GS1.indicatorDigitLabel", {
-                ns: demoNS
-            })}
-            hint={i18next.t("GS1.indicatorDigitHint", {
-                ns: demoNS
-            })}
+            label={i18nextDemo.t("GS1.indicatorDigitLabel")}
+            hint={i18nextDemo.t("GS1.indicatorDigitHint")}
             type="string"
             isRequired={true}
             onProcess={(inputValue) => {
@@ -50,12 +47,8 @@ export function GTIN14ConvertToForm(properties: GTIN.FormProperties): ReactEleme
         />
         <IdentificationKey.IdentificationKeyInput
             identificationKeyType={IdentificationKeyType.GTIN}
-            label={i18next.t("GS1.gtinLabel", {
-                ns: demoNS
-            })}
-            hint={i18next.t("GS1.gtinToBeConvertedToGTIN14Hint", {
-                ns: demoNS
-            })}
+            label={i18nextDemo.t("GS1.gtinLabel")}
+            hint={i18nextDemo.t("GS1.gtinToBeConvertedToGTIN14Hint")}
             onProcess={(inputValue) => {
                 identificationKey = inputValue;
             }}
@@ -63,4 +56,4 @@ export function GTIN14ConvertToForm(properties: GTIN.FormProperties): ReactEleme
     </IdentificationKey.BaseForm>;
 }
 
-GTIN14ConvertToForm.resourceName = "GS1.convertToGTIN14Subtitle";
+GTIN14ConvertToForm.resourceName = "GS1.convertToGTIN14Subtitle" as ParseKeys;

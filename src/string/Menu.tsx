@@ -1,7 +1,7 @@
 import { AI39_CREATOR, AI82_CREATOR } from "@aidc-toolkit/gs1";
 import { ALPHABETIC_CREATOR, ALPHANUMERIC_CREATOR, HEXADECIMAL_CREATOR, NUMERIC_CREATOR } from "@aidc-toolkit/utility";
 import type { ReactElement } from "react";
-import i18next, { demoNS } from "../locale/i18n.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
 import { type FormDescriptor, Menu as DemoMenu, type SubMenuProperties } from "../Menu.tsx";
 import { CreateForm } from "./CreateForm.tsx";
 import { CreateSequenceForm } from "./CreateSequenceForm.tsx";
@@ -57,13 +57,9 @@ const FORM_DESCRIPTORS: ReadonlyArray<FormDescriptor<String.FormProperties>> = [
  */
 export function Menu(): ReactElement {
     return <DemoMenu
-        title={i18next.t("String.stringTitle", {
-            ns: demoNS
-        })}
+        title={i18nextDemo.t("String.stringTitle")}
         subMenus={STRING_FORMS_PROPERTIES.map(stringsProperty => ({
-            title: i18next.t(stringsProperty.characterSetResourceName, {
-                ns: demoNS
-            }),
+            title: i18nextDemo.t(stringsProperty.characterSetResourceName),
             formProperties: stringsProperty,
             FormDescriptors: FORM_DESCRIPTORS
         }) satisfies SubMenuProperties<String.FormProperties>)}

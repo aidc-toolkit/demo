@@ -1,3 +1,4 @@
+import type { ParseKeys } from "i18next";
 import {
     createContext,
     type FormEvent,
@@ -10,7 +11,7 @@ import {
 import { Alert, Button, Card, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
 import { transformIterable } from "../../utility";
 import { App } from "./App.tsx";
-import i18next, { demoNS } from "./locale/i18n.js";
+import { i18nextDemo } from "./locale/i18n.js";
 
 // TODO Review when https://github.com/microsoft/TypeScript/pull/56941 released.
 // Problem is in usage inside a function, e.g.,
@@ -226,16 +227,12 @@ class InputManager<T extends string | number | boolean, IsRequired extends boole
 
         if (this._stringValue === "") {
             if (this.isRequired) {
-                this._error = i18next.t("Demo.valueIsRequired", {
-                    ns: demoNS
-                });
+                this._error = i18nextDemo.t("Demo.valueIsRequired");
             }
         } else {
             // Search for non-digit character if type is number.
             if (this.type === "number" && /\D/.test(this._stringValue)) {
-                this._error = i18next.t("Demo.valueIsNotANumber", {
-                    ns: demoNS
-                });
+                this._error = i18nextDemo.t("Demo.valueIsNotANumber");
             }
         }
 
@@ -687,7 +684,7 @@ export interface FormProperties {
     /**
      * Form subtitle resource name.
      */
-    readonly subtitleResourceName: string;
+    readonly subtitleResourceName: ParseKeys;
 
     /**
      * Callback to process the form.
@@ -815,9 +812,7 @@ export function BaseForm(properties: BaseFormProperties): ReactElement {
         }));
     }
 
-    const subtitle = i18next.t(properties.subtitleResourceName, {
-        ns: demoNS
-    });
+    const subtitle = i18nextDemo.t(properties.subtitleResourceName);
 
     return <Context.Provider value={state.formManager}>
         <Card>
@@ -835,9 +830,7 @@ export function BaseForm(properties: BaseFormProperties): ReactElement {
                         {subtitle}
                     </Button>
                     <Button className="m-3" variant="secondary" type="reset">
-                        {i18next.t("App.reset", {
-                            ns: demoNS
-                        })}
+                        {i18nextDemo.t("App.reset")}
                     </Button>
                     <Alert className="mb-3" variant="danger" hidden={state.error === undefined}>
                         {state.error}

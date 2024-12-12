@@ -1,7 +1,8 @@
+import type { ParseKeys } from "i18next";
 import { type ReactElement, useContext } from "react";
 import { NavDropdown } from "react-bootstrap";
 import { App } from "./App.tsx";
-import i18next, { demoNS } from "./locale/i18n.ts";
+import { i18nextDemo } from "./locale/i18n.ts";
 
 /**
  * Form descriptor.
@@ -10,7 +11,7 @@ export interface FormDescriptor<T> {
     /**
      * Form resource name.
      */
-    readonly resourceName: string;
+    readonly resourceName: ParseKeys;
 
     /**
      * Form.
@@ -85,9 +86,7 @@ export function Menu<T>(properties: MenuProperties<T>): ReactElement {
                     let result: ReactElement;
 
                     if (FormDescriptor !== null) {
-                        const formName = i18next.t(FormDescriptor.resourceName, {
-                            ns: demoNS
-                        });
+                        const formName = i18nextDemo.t(FormDescriptor.resourceName);
 
                         result = <NavDropdown.Item
                             key={formName}
