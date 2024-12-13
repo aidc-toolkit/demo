@@ -1,6 +1,5 @@
 import { I18NEnvironment } from "@aidc-toolkit/core";
 import aidcToolkitIcon from "@aidc-toolkit/core/resource/icon-288.png";
-import i18next from "i18next";
 import { createContext, type ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import "./App.css";
@@ -55,7 +54,7 @@ export function App(): ReactElement {
     const appContext = useContext(App.Context);
 
     const [state, setState] = useState<State>({
-        isI18nInitialized: i18next.isInitialized,
+        isI18nInitialized: i18nextDemo.isInitialized,
         navbarExpanded: false
     });
 
@@ -86,7 +85,7 @@ export function App(): ReactElement {
 
     useEffect(() => {
         if (!state.isI18nInitialized) {
-            i18nDemoInit(I18NEnvironment.Browser, true).then(() => {
+            i18nDemoInit(I18NEnvironment.Browser).then(() => {
                 // Force refresh.
                 setState(state => ({
                     ...state,
