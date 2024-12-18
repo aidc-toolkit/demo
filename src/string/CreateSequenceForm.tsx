@@ -1,4 +1,4 @@
-import { type Exclusion, Sequencer } from "@aidc-toolkit/utility";
+import { type Exclusion, Sequence } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
@@ -28,7 +28,7 @@ export function CreateSequenceForm(properties: String.FormProperties): ReactElem
      * Created strings or undefined if cancelled by user.
      */
     function onProcess(): Iterable<string> | undefined {
-        return confirmCreateStrings(count, () => properties.creator.create(length, new Sequencer(startValue, count), exclusion, tweak));
+        return confirmCreateStrings(count, () => properties.creator.create(length, new Sequence(startValue, count), exclusion, tweak));
     }
 
     return <String.BaseForm

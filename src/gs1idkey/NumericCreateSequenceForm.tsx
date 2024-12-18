@@ -1,5 +1,5 @@
 import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
-import { Sequencer } from "@aidc-toolkit/utility";
+import { Sequence } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
@@ -31,7 +31,7 @@ export function NumericCreateSequenceForm(properties: NumericIdentificationKey.F
      * Created identification keys or undefined if cancelled by user.
      */
     function onProcess(): Iterable<string> | undefined {
-        return confirmCreateStrings(count, () => properties.getCreator(PrefixManager.get(prefixType, prefix)).create(new Sequencer(startValue, count), sparse));
+        return confirmCreateStrings(count, () => properties.getCreator(PrefixManager.get(prefixType, prefix)).create(new Sequence(startValue, count), sparse));
     }
 
     return <IdentificationKey.BaseForm
