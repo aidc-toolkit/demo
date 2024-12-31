@@ -185,6 +185,7 @@ class InputManager<T extends string | number | boolean, IsRequired extends boole
             throw new Error("Attempted to retrieve value for input in initial or error state");
         }
 
+        // TODO Refactor type when https://github.com/microsoft/TypeScript/pull/56941 released.
         let value: string | number | boolean | undefined;
 
         if (this._stringValue === "") {
@@ -205,6 +206,7 @@ class InputManager<T extends string | number | boolean, IsRequired extends boole
             }
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type determination is handled above.
         return value as InputValue<T, IsRequired>;
     }
 
