@@ -167,7 +167,7 @@ export function ValueInput(properties: ValueInputProperties): ReactElement {
 /**
  * Form properties. All identification key forms require these properties to be set.
  */
-export interface FormProperties<V extends IdentificationKeyValidator = IdentificationKeyValidator, C extends V & IdentificationKeyCreator = V & IdentificationKeyCreator> {
+export interface FormProperties<TIdentificationKeyValidator extends IdentificationKeyValidator = IdentificationKeyValidator, TIdentificationKeyCreator extends TIdentificationKeyValidator & IdentificationKeyCreator = TIdentificationKeyValidator & IdentificationKeyCreator> {
     /**
      * Identification key type.
      */
@@ -176,7 +176,7 @@ export interface FormProperties<V extends IdentificationKeyValidator = Identific
     /**
      * Validators (GTIN) or validator (non-GTIN).
      */
-    readonly validatorOrValidators: V extends GTINValidator ? V[] : V;
+    readonly validatorOrValidators: TIdentificationKeyValidator extends GTINValidator ? TIdentificationKeyValidator[] : TIdentificationKeyValidator;
 
     /**
      * Get creator from prefix manager.
@@ -187,13 +187,13 @@ export interface FormProperties<V extends IdentificationKeyValidator = Identific
      * @returns
      * Identification key creator.
      */
-    readonly getCreator: (prefixManager: PrefixManager) => C;
+    readonly getCreator: (prefixManager: PrefixManager) => TIdentificationKeyCreator;
 }
 
 /**
  * Base form properties.
  */
-interface BaseFormProperties<V extends IdentificationKeyValidator, C extends V & IdentificationKeyCreator> extends Demo.FormProperties, FormProperties<V, C> {
+interface BaseFormProperties<TIdentificationKeyValidator extends IdentificationKeyValidator, TIdentificationKeyCreator extends TIdentificationKeyValidator & IdentificationKeyCreator> extends Demo.FormProperties, FormProperties<TIdentificationKeyValidator, TIdentificationKeyCreator> {
 }
 
 /**
@@ -205,7 +205,7 @@ interface BaseFormProperties<V extends IdentificationKeyValidator, C extends V &
  * @returns
  * React element.
  */
-export function BaseForm<V extends IdentificationKeyValidator, C extends V & IdentificationKeyCreator>(properties: BaseFormProperties<V, C>): ReactElement {
+export function BaseForm<TIdentificationKeyValidator extends IdentificationKeyValidator, TIdentificationKeyCreator extends TIdentificationKeyValidator & IdentificationKeyCreator>(properties: BaseFormProperties<TIdentificationKeyValidator, TIdentificationKeyCreator>): ReactElement {
     return <Demo.BaseForm
         {...properties}
         title={properties.identificationKeyType}

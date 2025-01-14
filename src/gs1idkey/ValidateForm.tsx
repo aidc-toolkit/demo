@@ -25,7 +25,7 @@ import * as IdentificationKey from "./IdentificationKey.tsx";
  * @returns
  * Identification key validator.
  */
-function getValidator<V extends IdentificationKeyValidator>(validatorOrValidators: Array<GTINValidator & V> | V, prefixType: PrefixType): V {
+function getValidator<TIdentificationKeyValidator extends IdentificationKeyValidator>(validatorOrValidators: Array<GTINValidator & TIdentificationKeyValidator> | TIdentificationKeyValidator, prefixType: PrefixType): TIdentificationKeyValidator {
     return !Array.isArray(validatorOrValidators) ? validatorOrValidators : validatorOrValidators[prefixType];
 }
 

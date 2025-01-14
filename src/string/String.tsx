@@ -32,11 +32,11 @@ export function SInput(properties: SInputProperties): ReactElement {
 /**
  * Exclusion input properties.
  */
-interface ExclusionInputProperties<T extends Exclusion> extends Demo.HintInputProperties<Exclusion.None | T> {
+interface ExclusionInputProperties<TExclusion extends Exclusion> extends Demo.HintInputProperties<Exclusion.None | TExclusion> {
     /**
      * Exclusion support.
      */
-    readonly exclusionSupport: ReadonlyArray<Exclusion.None | T>;
+    readonly exclusionSupport: ReadonlyArray<Exclusion.None | TExclusion>;
 }
 
 /**
@@ -48,7 +48,7 @@ interface ExclusionInputProperties<T extends Exclusion> extends Demo.HintInputPr
  * @returns
  * React element.
  */
-export function ExclusionInput<T extends Exclusion>(properties: ExclusionInputProperties<T>): ReactElement {
+export function ExclusionInput<TExclusion extends Exclusion>(properties: ExclusionInputProperties<TExclusion>): ReactElement {
     return <Demo.EnumInput
         {...properties}
         name="exclusion"

@@ -7,4 +7,5 @@ import type * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
 /**
  * Form properties.
  */
-export type FormProperties<V extends NonGTINNumericIdentificationKeyValidator = NonGTINNumericIdentificationKeyValidator, C extends V & NonGTINNumericIdentificationKeyCreator = V & NonGTINNumericIdentificationKeyCreator> = NumericIdentificationKey.FormProperties<V, C>;
+export type FormProperties<TNonGTINNumericIdentificationKeyValidator extends NonGTINNumericIdentificationKeyValidator = NonGTINNumericIdentificationKeyValidator, TNonGTINNumericIdentificationKeyCreator extends TNonGTINNumericIdentificationKeyValidator & NonGTINNumericIdentificationKeyCreator = TNonGTINNumericIdentificationKeyValidator & NonGTINNumericIdentificationKeyCreator> =
+    NumericIdentificationKey.FormProperties<TNonGTINNumericIdentificationKeyValidator, TNonGTINNumericIdentificationKeyCreator>;
