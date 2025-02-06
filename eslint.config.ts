@@ -1,8 +1,10 @@
-import tseslint from "typescript-eslint";
 import { esLintConfigAIDCToolkit } from "@aidc-toolkit/dev";
-import globals from "globals";
+import type { TSESLint } from "@typescript-eslint/utils";
+// @ts-expect-error -- No .d.ts file available.
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
     ...esLintConfigAIDCToolkit,
@@ -11,11 +13,16 @@ export default tseslint.config(
             globals: globals.browser
         },
         plugins: {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- No .d.ts file available.
             "react-hooks": reactHooks,
             "react-refresh": reactRefresh
         },
         rules: {
-            ...reactHooks.configs.recommended.rules,
+            "no-alert": "off",
+            "no-console": "off",
+
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion,@typescript-eslint/no-unsafe-member-access -- No .d.ts file available.
+            ...(reactHooks.configs.recommended.rules as Record<string, TSESLint.FlatConfig.RuleEntry>),
             "react-refresh/only-export-components": [
                 "warn",
                 {
