@@ -5,7 +5,7 @@ import i18next, { type i18n } from "i18next";
 import { localeStrings as enLocaleStrings } from "./en/locale-strings.js";
 import { localeStrings as frLocaleStrings } from "./fr/locale-strings.js";
 
-export const demoNS = "aidct_demo";
+const demoNS = "aidct_demo";
 
 /**
  * Locale strings type is extracted from the English locale strings object.
