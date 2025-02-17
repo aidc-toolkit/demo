@@ -9,7 +9,7 @@ import {
     useState
 } from "react";
 import { Alert, Button, Card, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
-import { transformIterable } from "../../utility";
+import { transformIterable } from "@aidc-toolkit/utility";
 import { App } from "./App.tsx";
 import { i18nextDemo } from "./locale/i18n.js";
 
