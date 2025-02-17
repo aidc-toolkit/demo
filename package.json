@@ -27,7 +27,7 @@
     "server-preview": "npm run build:core && vite preview"
   },
   "devDependencies": {
-    "@aidc-toolkit/dev": "^0.9.14-beta",
+    "@aidc-toolkit/dev": "alpha",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
@@ -37,9 +37,9 @@
     "vite": "^6.1.0"
   },
   "dependencies": {
-    "@aidc-toolkit/core": "^0.9.14-beta",
-    "@aidc-toolkit/gs1": "^0.9.14-beta",
-    "@aidc-toolkit/utility": "^0.9.14-beta",
+    "@aidc-toolkit/core": "alpha",
+    "@aidc-toolkit/gs1": "alpha",
+    "@aidc-toolkit/utility": "alpha",
     "bootstrap": "^5.3.3",
     "i18next": "^24.2.2",
     "react": "^19.0.0",
