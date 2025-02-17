@@ -19,12 +19,12 @@
     "url": "https://www.linkedin.com/in/kdean"
   },
   "scripts": {
-    "lint": "eslint .",
-    "build:core": "tsc -b && vite build",
-    "build:dev": "npm run build:core -- $*",
-    "build:release": "npm run build:core -- $*",
+    "update-aidc-toolkit": "npm update @aidc-toolkit/dev @aidc-toolkit/core @aidc-toolkit/utility @aidc-toolkit/gs1",
+    "lint": "eslint",
+    "build:core": "tsc --build && vite build",
+    "build:doc": "npm run build:core -- $*",
     "server": "vite",
-    "server-preview": "vite preview"
+    "server-preview": "npm run build:core && vite preview"
   },
   "devDependencies": {
     "@aidc-toolkit/dev": "alpha",
