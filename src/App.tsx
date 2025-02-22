@@ -1,5 +1,5 @@
 import { I18NEnvironment } from "@aidc-toolkit/core";
-import aidcToolkitIcon from "@aidc-toolkit/core/resource/icon-288.png";
+import aidcToolkitIcon from "@aidc-toolkit/core/resource/icon-256.png";
 import { createContext, type ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import "./App.css";
