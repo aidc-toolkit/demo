@@ -3,7 +3,6 @@
   "compilerOptions": {
     "lib": ["ESNext"],
 
-    // Bundler support.
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",

@@ -4,7 +4,6 @@
     "outDir": "dist",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
 
-    // Bundler support.
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
