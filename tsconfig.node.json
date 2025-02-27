@@ -3,10 +3,17 @@
   "compilerOptions": {
     "lib": ["ES2022"],
 
+    // Modules.
     "allowImportingTsExtensions": true,
+
+    // Emit.
+    "noEmit": true,
+
+    // Interop constraints.
     "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true
+
+    // Language and environment.
+    "moduleDetection": "force"
   },
   "include": ["vite.config.ts"]
 }

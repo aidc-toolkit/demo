@@ -4,10 +4,17 @@
     "outDir": "dist",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
 
+    // Modules.
     "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
+
+    // Emit.
     "noEmit": true,
+
+    // Interop constraints.
+    "isolatedModules": true,
+
+    // Language and environment.
+    "moduleDetection": "force",
     "jsx": "react-jsx"
   }
 }
