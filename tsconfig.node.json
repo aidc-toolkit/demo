@@ -1,7 +1,7 @@
 {
   "extends": "@aidc-toolkit/dev/tsconfig.json",
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "lib": ["ES2022"],
 
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
