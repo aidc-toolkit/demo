@@ -1,5 +1,6 @@
-/dist/
-/node_modules/
-/package-lock.json
-/tsconfig.node.tsbuildinfo
+/**/.DS_Store
 /.npmrc
+/package-lock.json
+/node_modules/
+/dist/
+/tsconfig.node.tsbuildinfo

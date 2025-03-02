@@ -19,7 +19,6 @@
     "url": "https://www.linkedin.com/in/kdean"
   },
   "scripts": {
-    "update-aidc-toolkit": "npm update @aidc-toolkit/dev @aidc-toolkit/core @aidc-toolkit/utility @aidc-toolkit/gs1",
     "lint": "eslint",
     "build:core": "tsc --build && vite build",
     "build:doc": "npm run build:core -- $*",
