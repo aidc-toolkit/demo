@@ -8,13 +8,13 @@ export const localeStrings = {
     Demo: {
         valueIsRequired: "La valeur est requise.",
         valueIsNotANumber: "La valeur n'est pas un nombre.",
-        confirmCreateStrings: "Cela créera {{count}} chaînes.\nÊtes-vous sûr?"
+        confirmCreateStrings: "Cela créera {{count, number}} chaînes.\nÊtes-vous sûr?"
     },
     String: {
         stringTitle: "Chaîne",
         characterSetTitle: "Chaîne {{name, toLowerCase}}",
         lengthLabel: "Longueur",
-        lengthHint: "La longueur doit être comprise entre 0 et {{maximumLength}}.",
+        lengthHint: "La longueur doit être comprise entre 0 et {{maximumLength, number}}.",
         exclusionLabel: "Exclusion",
         exclusionNoneLabel: "Aucune",
         exclusionFirstZeroLabel: "Premier zéro",

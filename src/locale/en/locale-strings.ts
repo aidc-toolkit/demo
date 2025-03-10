@@ -8,13 +8,13 @@ export const localeStrings = {
     Demo: {
         valueIsRequired: "Value is required.",
         valueIsNotANumber: "Value is not a number.",
-        confirmCreateStrings: "This will create {{count}} strings.\nAre you sure?"
+        confirmCreateStrings: "This will create {{count, number}} strings.\nAre you sure?"
     },
     String: {
         stringTitle: "String",
         characterSetTitle: "{{name}} String",
         lengthLabel: "Length",
-        lengthHint: "Length must be from 0-{{maximumLength}}.",
+        lengthHint: "Length must be from 0-{{maximumLength, number}}.",
         exclusionLabel: "Exclusion",
         exclusionNoneLabel: "None",
         exclusionFirstZeroLabel: "First zero",
