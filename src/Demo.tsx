@@ -9,7 +9,7 @@ import {
     useState
 } from "react";
 import { Alert, Button, Card, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
-import { transformIterable } from "@aidc-toolkit/utility";
+import { mapIterable } from "@aidc-toolkit/utility";
 import { App } from "./App.tsx";
 import { i18nextDemo } from "./locale/i18n.js";
 
@@ -842,7 +842,7 @@ export function BaseForm(properties: BaseFormProperties): ReactElement {
                             typeof state.result === "object" ?
                                 <ListGroup>
                                     {
-                                        transformIterable(state.result, (input, index) => <ListGroup.Item key={`result-${index}`} variant="success">
+                                        mapIterable(state.result, (input, index) => <ListGroup.Item key={`result-${index}`} variant="success">
                                             {input}
                                         </ListGroup.Item>)
                                     }
