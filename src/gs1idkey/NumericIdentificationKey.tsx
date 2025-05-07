@@ -31,5 +31,4 @@ export function SparseInput(properties: SparseProperties): ReactElement {
 /**
  * Form properties.
  */
-export type FormProperties<TNumericIdentificationKeyValidator extends NumericIdentificationKeyValidator = NumericIdentificationKeyValidator, TNumericIdentificationKeyCreator extends TNumericIdentificationKeyValidator & NumericIdentificationKeyCreator = TNumericIdentificationKeyValidator & NumericIdentificationKeyCreator> =
-    IdentificationKey.FormProperties<TNumericIdentificationKeyValidator, TNumericIdentificationKeyCreator>;
+export type FormProperties<TNumericIdentificationKeyValidator extends NumericIdentificationKeyValidator = NumericIdentificationKeyValidator, TNumericIdentificationKeyCreator extends TNumericIdentificationKeyValidator & NumericIdentificationKeyCreator = TNumericIdentificationKeyValidator & NumericIdentificationKeyCreator> = IdentificationKey.FormProperties<TNumericIdentificationKeyValidator, TNumericIdentificationKeyCreator>;

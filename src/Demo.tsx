@@ -30,14 +30,12 @@ import { i18nextDemo } from "./locale/i18n.js";
 /**
  * Map a string to its equivalent primitive type.
  */
-type Primitive<T extends "string" | "number" | "boolean"> =
-    [T] extends ["string"] ? string : [T] extends ["number"] ? number : [T] extends ["boolean"] ? boolean : never;
+type Primitive<T extends "string" | "number" | "boolean"> = [T] extends ["string"] ? string : [T] extends ["number"] ? number : [T] extends ["boolean"] ? boolean : never;
 
 /**
  * Map a primitive type and boolean is required to input value type.
  */
-type InputValue<T extends string | number | boolean, IsRequired extends boolean> =
-    IsRequired extends true ? T : T | undefined;
+type InputValue<T extends string | number | boolean, IsRequired extends boolean> = IsRequired extends true ? T : T | undefined;
 
 /**
  * Form-level hook to input manager. Defines input manager properties and methods used by form manager.
