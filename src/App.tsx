@@ -1,4 +1,4 @@
-import { I18NEnvironment } from "@aidc-toolkit/core";
+import { I18nEnvironment } from "@aidc-toolkit/core";
 import aidcToolkitIcon from "@aidc-toolkit/core/resource/icon-256.png";
 import { createContext, type ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Image, Nav, Navbar } from "react-bootstrap";
@@ -85,7 +85,7 @@ export function App(): ReactElement {
 
     useEffect(() => {
         if (!state.isI18nInitialized) {
-            i18nDemoInit(I18NEnvironment.Browser).then(() => {
+            i18nDemoInit(I18nEnvironment.Browser).then(() => {
                 // Force refresh.
                 setState(state => ({
                     ...state,
