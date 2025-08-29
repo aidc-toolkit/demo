@@ -1,18 +1,18 @@
 import { AI39_CREATOR, AI82_CREATOR } from "@aidc-toolkit/gs1";
 import { ALPHABETIC_CREATOR, ALPHANUMERIC_CREATOR, HEXADECIMAL_CREATOR, NUMERIC_CREATOR } from "@aidc-toolkit/utility";
-import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.ts";
-import { type FormDescriptor, Menu as DemoMenu, type SubMenuProperties } from "../Menu.tsx";
+import { Abc as AbcIcon } from "@mui/icons-material";
+import type { FormDescriptor } from "../form-descriptor.ts";
+import type { MenuItemProperties } from "../menu-item.ts";
+import type { FormProperties as StringFormProperties } from "./BaseForm.tsx";
 import { CreateForm } from "./CreateForm.tsx";
 import { CreateSequenceForm } from "./CreateSequenceForm.tsx";
-import type * as String from "./String.tsx";
 import { ValidateForm } from "./ValidateForm.tsx";
 import { ValueForm } from "./ValueForm.tsx";
 
 /**
  * String forms properties. Used to build first-level sub-menu.
  */
-const STRING_FORMS_PROPERTIES: readonly String.FormProperties[] = [
+const STRING_FORMS_PROPERTIES: readonly StringFormProperties[] = [
     {
         characterSetResourceName: "String.numericCharacterSet",
         creator: NUMERIC_CREATOR
@@ -42,26 +42,26 @@ const STRING_FORMS_PROPERTIES: readonly String.FormProperties[] = [
 /**
  * Character set forms. Used to build second-level sub-menu.
  */
-const FORM_DESCRIPTORS: ReadonlyArray<FormDescriptor<String.FormProperties>> = [
+const FORM_DESCRIPTORS: ReadonlyArray<FormDescriptor<StringFormProperties>> = [
     ValidateForm,
     CreateForm,
     CreateSequenceForm,
     ValueForm
 ];
 
+export type { StringFormProperties };
+
 /**
- * String menu.
- *
- * @returns
- * React element.
+ * Top-level string menu item.
  */
-export function Menu(): ReactElement {
-    return <DemoMenu
-        title={i18nextDemo.t("String.stringTitle")}
-        subMenus={STRING_FORMS_PROPERTIES.map(stringsProperty => ({
-            title: i18nextDemo.t(stringsProperty.characterSetResourceName),
+export const STRING_MENU_ITEM: MenuItemProperties<StringFormProperties> = {
+    icon: <AbcIcon />,
+    titleResourceName: "String.stringTitle",
+    subMenuItems: STRING_FORMS_PROPERTIES.map(stringsProperty => ({
+        titleResourceName: stringsProperty.characterSetResourceName,
+        formGroupDescriptor: {
             formProperties: stringsProperty,
             FormDescriptors: FORM_DESCRIPTORS
-        }) satisfies SubMenuProperties<String.FormProperties>)}
-    />;
-}
+        }
+    }))
+};

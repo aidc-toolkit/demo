@@ -2,8 +2,12 @@ import { PrefixManager, PrefixType } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
-import * as IdentificationKey from "./IdentificationKey.tsx";
-import * as SerializableNumericIdentificationKey from "./SerializableNumericIdentificationKey.tsx";
+import { BaseForm } from "./BaseForm.tsx";
+import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+import { SerialComponentInput } from "./SerialComponentInput.tsx";
+import type {
+    FormProperties as SerializableNumericIdentificationKeyFormProperties
+} from "./SerializableNumericIdentificationKey.tsx";
 
 /**
  * Concatenate a base identification key with a serial component form.
@@ -14,7 +18,7 @@ import * as SerializableNumericIdentificationKey from "./SerializableNumericIden
  * @returns
  * React element.
  */
-export function SerializableNumericConcatenateForm(properties: SerializableNumericIdentificationKey.FormProperties): ReactElement {
+export function SerializableNumericConcatenateForm(properties: SerializableNumericIdentificationKeyFormProperties): ReactElement {
     let identificationKey: string;
     let serialComponent: string;
 
@@ -28,13 +32,13 @@ export function SerializableNumericConcatenateForm(properties: SerializableNumer
         return properties.getCreator(PrefixManager.get(PrefixType.GS1CompanyPrefix, "9521234")).concatenate(identificationKey, serialComponent);
     }
 
-    return <IdentificationKey.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={SerializableNumericConcatenateForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
-        <IdentificationKey.IdentificationKeyInput
+        <IdentificationKeyInput
             identificationKeyType={properties.identificationKeyType}
             label={i18nextDemo.t("GS1.baseIdentificationKeyLabel", {
                 identificationKeyType: properties.identificationKeyType
@@ -46,12 +50,12 @@ export function SerializableNumericConcatenateForm(properties: SerializableNumer
                 identificationKey = inputValue;
             }}
         />
-        <SerializableNumericIdentificationKey.SerialComponentInput
+        <SerialComponentInput
             onProcess={(inputValue) => {
                 serialComponent = inputValue;
             }}
         />
-    </IdentificationKey.BaseForm>;
+    </BaseForm>;
 }
 
 SerializableNumericConcatenateForm.resourceName = "GS1.concatenateSerializedSubtitle" as ParseKeys;

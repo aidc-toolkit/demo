@@ -1,0 +1,27 @@
+import { CharacterSetCreator } from "@aidc-toolkit/utility";
+import type { ReactElement } from "react";
+import type { InputProperties } from "../input-properties.ts";
+import { i18nextDemo } from "../locale/i18n.ts";
+import { TextInput } from "../TextInput.tsx";
+
+/**
+ * Length input. Renders a required number text control with name "length".
+ *
+ * @param properties
+ * Properties.
+ *
+ * @returns
+ * React element.
+ */
+export function LengthInput(properties: Pick<InputProperties<number>, "onProcess">): ReactElement {
+    return <TextInput
+        {...properties}
+        name="length"
+        label={i18nextDemo.t("String.lengthLabel")}
+        hint={i18nextDemo.t("String.lengthHint", {
+            maximumLength: CharacterSetCreator.MAXIMUM_STRING_LENGTH
+        })}
+        type="number"
+        isRequired
+    />;
+}

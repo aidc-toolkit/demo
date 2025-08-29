@@ -1,6 +1,8 @@
 {
   "extends": "@aidc-toolkit/dev/tsconfig.json",
   "compilerOptions": {
+    "types": ["vite-plugin-svgr/client"],
+
     "outDir": "dist",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
 

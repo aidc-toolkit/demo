@@ -1,9 +1,12 @@
 import type { Exclusion } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import * as Demo from "../Demo.tsx";
 import { i18nextDemo } from "../locale/i18n.ts";
-import * as String from "./String.tsx";
+import { TextInput } from "../TextInput.tsx";
+import { BaseForm, type FormProperties } from "./BaseForm.tsx";
+import { ExclusionInput } from "./ExclusionInput.tsx";
+import { SInput } from "./SInput.tsx";
+import { FormGroup } from "@mui/material";
 
 /**
  * Validate string form.
@@ -14,7 +17,7 @@ import * as String from "./String.tsx";
  * @returns
  * React element.
  */
-export function ValidateForm(properties: String.FormProperties): ReactElement {
+export function ValidateForm(properties: FormProperties): ReactElement {
     let s: string;
     let minimumLength: number | undefined;
     let maximumLength: number | undefined;
@@ -36,12 +39,12 @@ export function ValidateForm(properties: String.FormProperties): ReactElement {
         return `✓ ${s}`;
     }
 
-    return <String.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={ValidateForm.resourceName}
         onProcess={onProcess}
     >
-        <String.SInput
+        <SInput
             hint={i18nextDemo.t("String.stringToValidate", {
                 name: i18nextDemo.t(properties.characterSetResourceName)
             })}
@@ -49,38 +52,46 @@ export function ValidateForm(properties: String.FormProperties): ReactElement {
                 s = inputValue ?? "";
             }}
         />
-        <Demo.TextInput
-            name="minimumLength"
-            label={i18nextDemo.t("String.minimumLengthLabel")}
-            hint={i18nextDemo.t("String.minimumLengthHint", {
-                name: i18nextDemo.t(properties.characterSetResourceName)
-            })}
-            type="number"
-            isRequired={false}
-            onProcess={(inputValue) => {
-                minimumLength = inputValue;
+        <FormGroup
+            row
+            sx={{
+                flexWrap: "nowrap",
+                gap: 1
             }}
-        />
-        <Demo.TextInput
-            name="maximumLength"
-            label={i18nextDemo.t("String.maximumLengthLabel")}
-            hint={i18nextDemo.t("String.maximumLengthHint", {
-                name: i18nextDemo.t(properties.characterSetResourceName)
-            })}
-            type="number"
-            isRequired={false}
-            onProcess={(inputValue) => {
-                maximumLength = inputValue;
-            }}
-        />
-        <String.ExclusionInput
+        >
+            <TextInput
+                name="minimumLength"
+                label={i18nextDemo.t("String.minimumLengthLabel")}
+                hint={i18nextDemo.t("String.minimumLengthHint", {
+                    name: i18nextDemo.t(properties.characterSetResourceName)
+                })}
+                type="number"
+                isRequired={false}
+                onProcess={(inputValue) => {
+                    minimumLength = inputValue;
+                }}
+            />
+            <TextInput
+                name="maximumLength"
+                label={i18nextDemo.t("String.maximumLengthLabel")}
+                hint={i18nextDemo.t("String.maximumLengthHint", {
+                    name: i18nextDemo.t(properties.characterSetResourceName)
+                })}
+                type="number"
+                isRequired={false}
+                onProcess={(inputValue) => {
+                    maximumLength = inputValue;
+                }}
+            />
+        </FormGroup>
+        <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
             exclusionSupport={properties.creator.exclusionSupport}
             onProcess={(inputValue) => {
                 exclusion = inputValue;
             }}
         />
-    </String.BaseForm>;
+    </BaseForm>;
 }
 
 ValidateForm.resourceName = "String.validateSubtitle" as ParseKeys;

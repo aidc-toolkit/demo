@@ -1,9 +1,9 @@
 import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
-import type { ReactElement } from "react";
-import { confirmCreateStrings } from "../utility.ts";
-import * as IdentificationKey from "./IdentificationKey.tsx";
-import type * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
+import { type ReactElement, useState } from "react";
+import { BaseForm } from "./BaseForm.tsx";
+import type { FormProperties as NumericIdentificationKeyFormProperties } from "./NumericIdentificationKey.tsx";
+import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
 
 /**
  * Create all numeric identification keys form.
@@ -14,31 +14,35 @@ import type * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function NumericCreateAllForm(properties: NumericIdentificationKey.FormProperties): ReactElement {
+export function NumericCreateAllForm(properties: NumericIdentificationKeyFormProperties): ReactElement {
     let prefixType: PrefixType;
     let prefix: string;
+
+    const [resultCount, setResultCount] = useState(0);
 
     /**
      * Process the form.
      *
      * @returns
-     * All identification keys for prefix or undefined if cancelled by user.
+     * All identification keys for prefix.
      */
-    function onProcess(): Iterable<string> | undefined {
+    function onProcess(): Iterable<string> {
         const creator = properties.getCreator(PrefixManager.get(prefixType, prefix));
 
-        return confirmCreateStrings(creator.capacity, () => creator.createAll());
+        setResultCount(creator.capacity);
+
+        return creator.createAll();
     }
 
-    return <IdentificationKey.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={NumericCreateAllForm.resourceName}
         onProcess={onProcess}
+        resultCount={resultCount}
         resultName="identificationKey"
     >
-        <IdentificationKey.PrefixTypeAndPrefixInput
+        <PrefixTypeAndPrefixInput
             identificationKeyType={properties.identificationKeyType}
-            isValidate={false}
             prefixType={{
                 onProcess: (inputValue) => {
                     prefixType = inputValue;
@@ -50,7 +54,7 @@ export function NumericCreateAllForm(properties: NumericIdentificationKey.FormPr
                 }
             }}
         />
-    </IdentificationKey.BaseForm>;
+    </BaseForm>;
 }
 
 NumericCreateAllForm.resourceName = "GS1.createAllSubtitle" as ParseKeys;

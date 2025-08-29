@@ -1,14 +1,15 @@
 export const localeStrings = {
     App: {
         title: "AIDC Toolkit",
-        titleVersion: "AIDC Toolkit v{{version}}",
         logoAlt: "AIDC Toolkit logo",
+        home: "Home",
         reset: "Reset"
     },
     Demo: {
+        demo: "Demo",
+        demoVersion: "Demo v{{version}}",
         valueIsRequired: "Value is required.",
-        valueIsNotANumber: "Value is not a number.",
-        confirmCreateStrings: "This will create {{count, number}} strings.\nAre you sure?"
+        valueIsNotANumber: "Value is not a number."
     },
     String: {
         stringTitle: "String",

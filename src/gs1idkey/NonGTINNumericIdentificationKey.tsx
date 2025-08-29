@@ -2,9 +2,9 @@ import type {
     NonGTINNumericIdentificationKeyCreator,
     NonGTINNumericIdentificationKeyValidator
 } from "@aidc-toolkit/gs1";
-import type * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
+import type { FormProperties as NumericIdentificationKeyFormProperties } from "./NumericIdentificationKey.tsx";
 
 /**
  * Form properties.
  */
-export type FormProperties<TNonGTINNumericIdentificationKeyValidator extends NonGTINNumericIdentificationKeyValidator = NonGTINNumericIdentificationKeyValidator, TNonGTINNumericIdentificationKeyCreator extends TNonGTINNumericIdentificationKeyValidator & NonGTINNumericIdentificationKeyCreator = TNonGTINNumericIdentificationKeyValidator & NonGTINNumericIdentificationKeyCreator> = NumericIdentificationKey.FormProperties<TNonGTINNumericIdentificationKeyValidator, TNonGTINNumericIdentificationKeyCreator>;
+export type FormProperties<TNonGTINNumericIdentificationKeyValidator extends NonGTINNumericIdentificationKeyValidator = NonGTINNumericIdentificationKeyValidator, TNonGTINNumericIdentificationKeyCreator extends TNonGTINNumericIdentificationKeyValidator & NonGTINNumericIdentificationKeyCreator = TNonGTINNumericIdentificationKeyValidator & NonGTINNumericIdentificationKeyCreator> = NumericIdentificationKeyFormProperties<TNonGTINNumericIdentificationKeyValidator, TNonGTINNumericIdentificationKeyCreator>;

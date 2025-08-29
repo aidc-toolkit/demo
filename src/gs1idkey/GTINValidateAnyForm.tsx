@@ -1,10 +1,11 @@
 import { GTINLevel, GTINValidator, IdentificationKeyType } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import * as Demo from "../Demo.tsx";
+import { EnumInput } from "../EnumInput.tsx";
 import { i18nextDemo } from "../locale/i18n.ts";
-import type * as GTIN from "./GTIN.tsx";
-import * as IdentificationKey from "./IdentificationKey.tsx";
+import { BaseForm } from "./BaseForm.tsx";
+import type { FormProperties } from "./GTIN.tsx";
+import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
 
 /**
  * Validate any GTIN form.
@@ -15,7 +16,7 @@ import * as IdentificationKey from "./IdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function GTINValidateAnyForm(properties: GTIN.FormProperties): ReactElement {
+export function GTINValidateAnyForm(properties: FormProperties): ReactElement {
     let identificationKey: string;
     let gtinLevel: GTINLevel;
 
@@ -33,18 +34,18 @@ export function GTINValidateAnyForm(properties: GTIN.FormProperties): ReactEleme
         return `✓ ${identificationKey} (${gtinLevelNames[gtinLevel]})`;
     }
 
-    return <IdentificationKey.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={GTINValidateAnyForm.resourceName}
         onProcess={onProcess}
     >
-        <IdentificationKey.IdentificationKeyInput
+        <IdentificationKeyInput
             identificationKeyType={IdentificationKeyType.GTIN}
             onProcess={(inputValue) => {
                 identificationKey = inputValue;
             }}
         />
-        <Demo.EnumInput
+        <EnumInput
             name="gtinLevel"
             label={i18nextDemo.t("GS1.levelLabel")}
             hint={i18nextDemo.t("GS1.levelHint")}
@@ -54,7 +55,7 @@ export function GTINValidateAnyForm(properties: GTIN.FormProperties): ReactEleme
                 gtinLevel = inputValue;
             }}
         />
-    </IdentificationKey.BaseForm>;
+    </BaseForm>;
 }
 
 GTINValidateAnyForm.resourceName = "GS1.validateAnySubtitle" as ParseKeys;

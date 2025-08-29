@@ -1,14 +1,15 @@
 export const localeStrings = {
     App: {
         title: "La boîte à outils AIDC",
-        titleVersion: "La boîte à outils AIDC v{{version}}",
         logoAlt: "Logo de la boîte à outils AIDC",
+        home: "Accueil",
         reset: "Réinitialiser"
     },
     Demo: {
+        demo: "Démo",
+        demoVersion: "Démo v{{version}}",
         valueIsRequired: "La valeur est requise.",
-        valueIsNotANumber: "La valeur n'est pas un nombre.",
-        confirmCreateStrings: "Cela créera {{count, number}} chaînes.\nÊtes-vous sûr?"
+        valueIsNotANumber: "La valeur n'est pas un nombre."
     },
     String: {
         stringTitle: "Chaîne",

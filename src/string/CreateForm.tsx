@@ -2,7 +2,11 @@ import type { Exclusion } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
-import * as String from "./String.tsx";
+import { BaseForm, type FormProperties } from "./BaseForm.tsx";
+import { ExclusionInput } from "./ExclusionInput.tsx";
+import { LengthInput } from "./LengthInput.tsx";
+import { TweakInput } from "./TweakInput.tsx";
+import { ValueInput } from "./ValueInput.tsx";
 
 /**
  * Create string form.
@@ -13,7 +17,7 @@ import * as String from "./String.tsx";
  * @returns
  * React element.
  */
-export function CreateForm(properties: String.FormProperties): ReactElement {
+export function CreateForm(properties: FormProperties): ReactElement {
     let length: number;
     let value: number;
     let exclusion: Exclusion;
@@ -29,18 +33,18 @@ export function CreateForm(properties: String.FormProperties): ReactElement {
         return properties.creator.create(length, value, exclusion, tweak);
     }
 
-    return <String.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={CreateForm.resourceName}
         onProcess={onProcess}
         resultName="s"
     >
-        <String.LengthInput
+        <LengthInput
             onProcess={(inputValue) => {
                 length = inputValue;
             }}
         />
-        <String.ValueInput
+        <ValueInput
             hint={i18nextDemo.t("String.valueHint", {
                 name: i18nextDemo.t(properties.characterSetResourceName)
             })}
@@ -48,19 +52,19 @@ export function CreateForm(properties: String.FormProperties): ReactElement {
                 value = inputValue;
             }}
         />
-        <String.ExclusionInput
+        <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
             exclusionSupport={properties.creator.exclusionSupport}
             onProcess={(inputValue) => {
                 exclusion = inputValue;
             }}
         />
-        <String.TweakInput
+        <TweakInput
             onProcess={(inputValue) => {
                 tweak = inputValue;
             }}
         />
-    </String.BaseForm>;
+    </BaseForm>;
 }
 
 CreateForm.resourceName = "String.createSubtitle" as ParseKeys;

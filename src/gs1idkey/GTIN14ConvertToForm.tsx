@@ -1,10 +1,11 @@
 import { GTINCreator, IdentificationKeyType } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import * as Demo from "../Demo.tsx";
 import { i18nextDemo } from "../locale/i18n.ts";
-import type * as GTIN from "./GTIN.tsx";
-import * as IdentificationKey from "./IdentificationKey.tsx";
+import { TextInput } from "../TextInput.tsx";
+import { BaseForm } from "./BaseForm.tsx";
+import type { FormProperties } from "./GTIN.tsx";
+import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
 
 /**
  * Convert a GTIN of any length to GTIN-14 form.
@@ -15,7 +16,7 @@ import * as IdentificationKey from "./IdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function GTIN14ConvertToForm(properties: GTIN.FormProperties): ReactElement {
+export function GTIN14ConvertToForm(properties: FormProperties): ReactElement {
     let indicatorDigit: string;
     let identificationKey: string;
 
@@ -29,23 +30,23 @@ export function GTIN14ConvertToForm(properties: GTIN.FormProperties): ReactEleme
         return GTINCreator.convertToGTIN14(indicatorDigit, identificationKey);
     }
 
-    return <IdentificationKey.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={GTIN14ConvertToForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
-        <Demo.TextInput
+        <TextInput
             name="indicatorDigit"
             label={i18nextDemo.t("GS1.indicatorDigitLabel")}
             hint={i18nextDemo.t("GS1.indicatorDigitHint")}
             type="string"
-            isRequired={true}
+            isRequired
             onProcess={(inputValue) => {
                 indicatorDigit = inputValue;
             }}
         />
-        <IdentificationKey.IdentificationKeyInput
+        <IdentificationKeyInput
             identificationKeyType={IdentificationKeyType.GTIN}
             label={i18nextDemo.t("GS1.gtinLabel")}
             hint={i18nextDemo.t("GS1.gtinToBeConvertedToGTIN14Hint")}
@@ -53,7 +54,7 @@ export function GTIN14ConvertToForm(properties: GTIN.FormProperties): ReactEleme
                 identificationKey = inputValue;
             }}
         />
-    </IdentificationKey.BaseForm>;
+    </BaseForm>;
 }
 
 GTIN14ConvertToForm.resourceName = "GS1.convertToGTIN14Subtitle" as ParseKeys;

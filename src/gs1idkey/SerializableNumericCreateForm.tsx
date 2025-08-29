@@ -1,9 +1,14 @@
 import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import * as IdentificationKey from "./IdentificationKey.tsx";
-import * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
-import * as SerializableNumericIdentificationKey from "./SerializableNumericIdentificationKey.tsx";
+import { BaseForm } from "./BaseForm.tsx";
+import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { SerialComponentInput } from "./SerialComponentInput.tsx";
+import type {
+    FormProperties as SerializableNumericIdentificationKeyFormProperties
+} from "./SerializableNumericIdentificationKey.tsx";
+import { SparseInput } from "./SparseInput.tsx";
+import { ValueInput } from "./ValueInput.tsx";
 
 /**
  * Create serializable numeric identification key form.
@@ -14,7 +19,7 @@ import * as SerializableNumericIdentificationKey from "./SerializableNumericIden
  * @returns
  * React element.
  */
-export function SerializableNumericCreateForm(properties: SerializableNumericIdentificationKey.FormProperties): ReactElement {
+export function SerializableNumericCreateForm(properties: SerializableNumericIdentificationKeyFormProperties): ReactElement {
     let prefixType: PrefixType;
     let prefix: string;
     let value: number;
@@ -31,15 +36,14 @@ export function SerializableNumericCreateForm(properties: SerializableNumericIde
         return properties.getCreator(PrefixManager.get(prefixType, prefix)).createSerialized(value, serialComponent, sparse);
     }
 
-    return <IdentificationKey.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={SerializableNumericCreateForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
-        <IdentificationKey.PrefixTypeAndPrefixInput
+        <PrefixTypeAndPrefixInput
             identificationKeyType={properties.identificationKeyType}
-            isValidate={false}
             prefixType={{
                 onProcess: (inputValue) => {
                     prefixType = inputValue;
@@ -51,22 +55,22 @@ export function SerializableNumericCreateForm(properties: SerializableNumericIde
                 }
             }}
         />
-        <IdentificationKey.ValueInput
+        <ValueInput
             onProcess={(inputValue) => {
                 value = inputValue;
             }}
         />
-        <NumericIdentificationKey.SparseInput
+        <SparseInput
             onProcess={(inputValue) => {
                 sparse = inputValue;
             }}
         />
-        <SerializableNumericIdentificationKey.SerialComponentInput
+        <SerialComponentInput
             onProcess={(inputValue) => {
                 serialComponent = inputValue;
             }}
         />
-    </IdentificationKey.BaseForm>;
+    </BaseForm>;
 }
 
 SerializableNumericCreateForm.resourceName = "GS1.createSerializedSubtitle" as ParseKeys;

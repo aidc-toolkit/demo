@@ -1,7 +1,7 @@
 import type { GTINCreator, GTINValidator } from "@aidc-toolkit/gs1";
-import type * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
+import type { FormProperties as NumericIdentificationKeyFormProperties } from "./NumericIdentificationKey.tsx";
 
 /**
  * Form properties.
  */
-export type FormProperties = NumericIdentificationKey.FormProperties<GTINValidator, GTINCreator>;
+export type FormProperties = NumericIdentificationKeyFormProperties<GTINValidator, GTINCreator>;

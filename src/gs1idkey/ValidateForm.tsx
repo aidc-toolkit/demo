@@ -10,8 +10,10 @@ import { Exclusion } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
-import * as String from "../string/String.tsx";
-import * as IdentificationKey from "./IdentificationKey.tsx";
+import { ExclusionInput } from "../string/ExclusionInput.tsx";
+import { BaseForm, type FormProperties } from "./BaseForm.tsx";
+import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
 
 /**
  * Get the validator, optionally by prefix type if in an array.
@@ -38,7 +40,7 @@ function getValidator<TIdentificationKeyValidator extends IdentificationKeyValid
  * @returns
  * React element.
  */
-export function ValidateForm(properties: IdentificationKey.FormProperties): ReactElement {
+export function ValidateForm(properties: FormProperties): ReactElement {
     let prefixType: PrefixType;
     let identificationKey: string;
     let exclusion: Exclusion.None | Exclusion.AllNumeric;
@@ -63,34 +65,33 @@ export function ValidateForm(properties: IdentificationKey.FormProperties): Reac
         return `✓ ${identificationKey}`;
     }
 
-    return <IdentificationKey.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={ValidateForm.resourceName}
         onProcess={onProcess}
     >
-        <IdentificationKey.PrefixTypeAndPrefixInput
+        <PrefixTypeAndPrefixInput
             identificationKeyType={properties.identificationKeyType}
-            isValidate={true}
             prefixType={{
                 onProcess: (inputValue) => {
                     prefixType = inputValue;
                 }
             }}
         />
-        <IdentificationKey.IdentificationKeyInput
+        <IdentificationKeyInput
             identificationKeyType={properties.identificationKeyType}
             onProcess={(inputValue) => {
                 identificationKey = inputValue;
             }}
         />
-        <String.ExclusionInput
+        <ExclusionInput
             hint={i18nextDemo.t("GS1.exclusionHint")}
             exclusionSupport={isNumeric ? [Exclusion.None] : [Exclusion.None, Exclusion.AllNumeric]}
             onProcess={(inputValue) => {
                 exclusion = inputValue;
             }}
         />
-    </IdentificationKey.BaseForm>;
+    </BaseForm>;
 }
 
 ValidateForm.resourceName = "String.validateSubtitle" as ParseKeys;

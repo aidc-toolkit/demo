@@ -1,8 +1,11 @@
 import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import * as IdentificationKey from "./IdentificationKey.tsx";
-import * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
+import { BaseForm } from "./BaseForm.tsx";
+import type { FormProperties as NumericIdentificationKeyFormProperties } from "./NumericIdentificationKey.tsx";
+import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { SparseInput } from "./SparseInput.tsx";
+import { ValueInput } from "./ValueInput.tsx";
 
 /**
  * Create numeric identification key form.
@@ -13,7 +16,7 @@ import * as NumericIdentificationKey from "./NumericIdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function NumericCreateForm(properties: NumericIdentificationKey.FormProperties): ReactElement {
+export function NumericCreateForm(properties: NumericIdentificationKeyFormProperties): ReactElement {
     let prefixType: PrefixType;
     let prefix: string;
     let value: number;
@@ -29,15 +32,14 @@ export function NumericCreateForm(properties: NumericIdentificationKey.FormPrope
         return properties.getCreator(PrefixManager.get(prefixType, prefix)).create(value, sparse);
     }
 
-    return <IdentificationKey.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={NumericCreateForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
-        <IdentificationKey.PrefixTypeAndPrefixInput
+        <PrefixTypeAndPrefixInput
             identificationKeyType={properties.identificationKeyType}
-            isValidate={false}
             prefixType={{
                 onProcess: (inputValue) => {
                     prefixType = inputValue;
@@ -49,17 +51,17 @@ export function NumericCreateForm(properties: NumericIdentificationKey.FormPrope
                 }
             }}
         />
-        <IdentificationKey.ValueInput
+        <ValueInput
             onProcess={(inputValue) => {
                 value = inputValue;
             }}
         />
-        <NumericIdentificationKey.SparseInput
+        <SparseInput
             onProcess={(inputValue) => {
                 sparse = inputValue;
             }}
         />
-    </IdentificationKey.BaseForm>;
+    </BaseForm>;
 }
 
 NumericCreateForm.resourceName = "String.createSubtitle" as ParseKeys;

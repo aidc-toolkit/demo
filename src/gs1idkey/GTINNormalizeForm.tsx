@@ -2,8 +2,9 @@ import { GTINCreator, IdentificationKeyType } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
-import type * as GTIN from "./GTIN.tsx";
-import * as IdentificationKey from "./IdentificationKey.tsx";
+import { BaseForm } from "./BaseForm.tsx";
+import type { FormProperties } from "./GTIN.tsx";
+import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
 
 /**
  * Normalize GTIN form.
@@ -14,7 +15,7 @@ import * as IdentificationKey from "./IdentificationKey.tsx";
  * @returns
  * React element.
  */
-export function GTINNormalizeForm(properties: GTIN.FormProperties): ReactElement {
+export function GTINNormalizeForm(properties: FormProperties): ReactElement {
     let identificationKey: string;
 
     /**
@@ -27,13 +28,13 @@ export function GTINNormalizeForm(properties: GTIN.FormProperties): ReactElement
         return GTINCreator.normalize(identificationKey);
     }
 
-    return <IdentificationKey.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={GTINNormalizeForm.resourceName}
         onProcess={onProcess}
         resultName="identificationKey"
     >
-        <IdentificationKey.IdentificationKeyInput
+        <IdentificationKeyInput
             identificationKeyType={IdentificationKeyType.GTIN}
             label={i18nextDemo.t("GS1.gtinLabel")}
             hint={i18nextDemo.t("GS1.gtinToBeNormalizedHint")}
@@ -41,7 +42,7 @@ export function GTINNormalizeForm(properties: GTIN.FormProperties): ReactElement
                 identificationKey = inputValue;
             }}
         />
-    </IdentificationKey.BaseForm>;
+    </BaseForm>;
 }
 
 GTINNormalizeForm.resourceName = "GS1.normalizeGTINSubtitle" as ParseKeys;

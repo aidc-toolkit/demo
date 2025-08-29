@@ -2,7 +2,10 @@ import type { Exclusion } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
-import * as String from "./String.tsx";
+import { BaseForm, type FormProperties } from "./BaseForm.tsx";
+import { ExclusionInput } from "./ExclusionInput.tsx";
+import { SInput } from "./SInput.tsx";
+import { TweakInput } from "./TweakInput.tsx";
 
 /**
  * Determine string value form.
@@ -13,7 +16,7 @@ import * as String from "./String.tsx";
  * @returns
  * React element.
  */
-export function ValueForm(properties: String.FormProperties): ReactElement {
+export function ValueForm(properties: FormProperties): ReactElement {
     let s: string;
     let exclusion: Exclusion;
     let tweak: number | undefined;
@@ -28,13 +31,13 @@ export function ValueForm(properties: String.FormProperties): ReactElement {
         return properties.creator.valueFor(s, exclusion, tweak).toString();
     }
 
-    return <String.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={ValueForm.resourceName}
         onProcess={onProcess}
         resultName="value"
     >
-        <String.SInput
+        <SInput
             hint={i18nextDemo.t("String.stringToConvert", {
                 name: i18nextDemo.t(properties.characterSetResourceName)
             })}
@@ -42,19 +45,19 @@ export function ValueForm(properties: String.FormProperties): ReactElement {
                 s = inputValue ?? "";
             }}
         />
-        <String.ExclusionInput
+        <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
             exclusionSupport={properties.creator.exclusionSupport}
             onProcess={(inputValue) => {
                 exclusion = inputValue;
             }}
         />
-        <String.TweakInput
+        <TweakInput
             onProcess={(inputValue) => {
                 tweak = inputValue;
             }}
         />
-    </String.BaseForm>;
+    </BaseForm>;
 }
 
 ValueForm.resourceName = "String.valueSubtitle" as ParseKeys;

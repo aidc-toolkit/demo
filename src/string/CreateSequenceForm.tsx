@@ -1,9 +1,12 @@
 import { type Exclusion, Sequence } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
-import type { ReactElement } from "react";
+import { type ReactElement, useState } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
-import { confirmCreateStrings } from "../utility.ts";
-import * as String from "./String.tsx";
+import { BaseForm, type FormProperties } from "./BaseForm.tsx";
+import { ExclusionInput } from "./ExclusionInput.tsx";
+import { LengthInput } from "./LengthInput.tsx";
+import { StartValueAndCountInput } from "./StartValueAndCountInput.tsx";
+import { TweakInput } from "./TweakInput.tsx";
 
 /**
  * Create string sequence form.
@@ -14,34 +17,39 @@ import * as String from "./String.tsx";
  * @returns
  * React element.
  */
-export function CreateSequenceForm(properties: String.FormProperties): ReactElement {
+export function CreateSequenceForm(properties: FormProperties): ReactElement {
     let length: number;
     let startValue: number;
     let count: number;
     let exclusion: Exclusion;
     let tweak: number | undefined;
 
+    const [resultCount, setResultCount] = useState(0);
+
     /**
      * Process the form.
      *
      * @returns
-     * Created strings or undefined if cancelled by user.
+     * Created strings.
      */
-    function onProcess(): Iterable<string> | undefined {
-        return confirmCreateStrings(count, () => properties.creator.create(length, new Sequence(startValue, count), exclusion, tweak));
+    function onProcess(): Iterable<string> {
+        setResultCount(count);
+
+        return properties.creator.create(length, new Sequence(startValue, count), exclusion, tweak);
     }
 
-    return <String.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={CreateSequenceForm.resourceName}
         onProcess={onProcess}
+        resultCount={resultCount}
     >
-        <String.LengthInput
+        <LengthInput
             onProcess={(inputValue) => {
                 length = inputValue;
             }}
         />
-        <String.StartValueAndCountInput
+        <StartValueAndCountInput
             startValue={{
                 hint: i18nextDemo.t("String.startValueHint", {
                     name: i18nextDemo.t(properties.characterSetResourceName)
@@ -59,19 +67,19 @@ export function CreateSequenceForm(properties: String.FormProperties): ReactElem
                 }
             }}
         />
-        <String.ExclusionInput
+        <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
             exclusionSupport={properties.creator.exclusionSupport}
             onProcess={(inputValue) => {
                 exclusion = inputValue;
             }}
         />
-        <String.TweakInput
+        <TweakInput
             onProcess={(inputValue) => {
                 tweak = inputValue;
             }}
         />
-    </String.BaseForm>;
+    </BaseForm>;
 }
 
 CreateSequenceForm.resourceName = "String.createSequenceSubtitle" as ParseKeys;
