@@ -193,15 +193,13 @@ export class InputManager<T extends string | number | boolean, IsRequired extend
         // Trim the string value.
         this._stringValue = this._stringValue.trim();
 
-        if (this._stringValue === "") {
-            if (this.isRequired) {
-                this._error = i18nextDemo.t("Demo.valueIsRequired");
-            }
-        } else {
+        if (this._stringValue !== "") {
             // Search for non-digit character if type is number.
             if (this.type === "number" && /\D/.test(this._stringValue)) {
                 this._error = i18nextDemo.t("Demo.valueIsNotANumber");
             }
+        } else if (this.isRequired) {
+            this._error = i18nextDemo.t("Demo.valueIsRequired");
         }
 
         if (this._error === undefined) {
