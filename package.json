@@ -22,7 +22,7 @@
     "lint": "eslint",
     "build:core": "tsc --build && vite build",
     "build:dev": "npm run build:core",
-    "build:doc": "npm run build:core -- $*",
+    "build:doc": "npm run build:core",
     "server": "vite",
     "server-preview": "npm run build:core && vite preview"
   },
