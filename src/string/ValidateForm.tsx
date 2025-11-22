@@ -1,12 +1,26 @@
-import type { Exclusion } from "@aidc-toolkit/utility";
+import { FormGroup } from "@mui/material";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { TextInput } from "../TextInput.tsx";
 import { BaseForm, type FormProperties } from "./BaseForm.tsx";
-import { ExclusionInput } from "./ExclusionInput.tsx";
-import { SInput } from "./SInput.tsx";
-import { FormGroup } from "@mui/material";
+import { type ExclusionData, ExclusionInput } from "./ExclusionInput.tsx";
+import { type SData, SInput } from "./SInput.tsx";
+
+/**
+ * Form data.
+ */
+interface FormData extends SData, ExclusionData {
+    /**
+     * Minimum length.
+     */
+    minimumLength: number;
+
+    /**
+     * Maximum length.
+     */
+    maximumLength: number;
+}
 
 /**
  * Validate string form.
@@ -18,25 +32,23 @@ import { FormGroup } from "@mui/material";
  * React element.
  */
 export function ValidateForm(properties: FormProperties): ReactElement {
-    let s: string;
-    let minimumLength: number | undefined;
-    let maximumLength: number | undefined;
-    let exclusion: Exclusion;
-
     /**
      * Process the form.
+     *
+     * @param formData
+     * Form data.
      *
      * @returns
      * Checkmark and string.
      */
-    function onProcess(): string {
-        properties.creator.validate(s, {
-            minimumLength,
-            maximumLength,
-            exclusion
+    function onProcess(formData: FormData): string {
+        properties.creator.validate(formData.s, {
+            minimumLength: formData.minimumLength,
+            maximumLength: formData.maximumLength,
+            exclusion: formData.exclusion
         });
 
-        return `✓ ${s}`;
+        return `✓ ${formData.s}`;
     }
 
     return <BaseForm
@@ -48,9 +60,6 @@ export function ValidateForm(properties: FormProperties): ReactElement {
             hint={i18nextDemo.t("String.stringToValidate", {
                 name: i18nextDemo.t(properties.characterSetResourceName)
             })}
-            onProcess={(inputValue) => {
-                s = inputValue ?? "";
-            }}
         />
         <FormGroup
             row
@@ -67,9 +76,6 @@ export function ValidateForm(properties: FormProperties): ReactElement {
                 })}
                 type="number"
                 isRequired={false}
-                onProcess={(inputValue) => {
-                    minimumLength = inputValue;
-                }}
             />
             <TextInput
                 name="maximumLength"
@@ -79,17 +85,11 @@ export function ValidateForm(properties: FormProperties): ReactElement {
                 })}
                 type="number"
                 isRequired={false}
-                onProcess={(inputValue) => {
-                    maximumLength = inputValue;
-                }}
             />
         </FormGroup>
         <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
             exclusionSupport={properties.creator.exclusionSupport}
-            onProcess={(inputValue) => {
-                exclusion = inputValue;
-            }}
         />
     </BaseForm>;
 }

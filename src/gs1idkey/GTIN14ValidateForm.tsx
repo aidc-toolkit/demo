@@ -4,7 +4,12 @@ import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { BaseForm } from "./BaseForm.tsx";
 import type { FormProperties } from "./GTIN.tsx";
-import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+import { type IdentificationKeyData, IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+
+/**
+ * Form data.
+ */
+type FormData = IdentificationKeyData;
 
 /**
  * Validate GTIN-14 form.
@@ -16,18 +21,19 @@ import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
  * React element.
  */
 export function GTIN14ValidateForm(properties: FormProperties): ReactElement {
-    let identificationKey: string;
-
     /**
      * Process the form.
+     *
+     * @param formData
+     * Form data.
      *
      * @returns
      * Checkmark and identification key.
      */
-    function onProcess(): string {
-        GTINValidator.validateGTIN14(identificationKey);
+    function onProcess(formData: FormData): string {
+        GTINValidator.validateGTIN14(formData.identificationKey);
 
-        return `✓ ${identificationKey}`;
+        return `✓ ${formData.identificationKey}`;
     }
 
     return <BaseForm
@@ -39,9 +45,6 @@ export function GTIN14ValidateForm(properties: FormProperties): ReactElement {
             identificationKeyType={IdentificationKeyType.GTIN}
             label={i18nextDemo.t("GS1.gtin14Label")}
             hint={i18nextDemo.t("GS1.gtin14ToBeValidatedHint")}
-            onProcess={(inputValue) => {
-                identificationKey = inputValue;
-            }}
         />
     </BaseForm>;
 }

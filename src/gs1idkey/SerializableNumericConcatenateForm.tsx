@@ -3,11 +3,16 @@ import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { BaseForm } from "./BaseForm.tsx";
-import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
-import { SerialComponentInput } from "./SerialComponentInput.tsx";
+import { type IdentificationKeyData, IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+import { type SerialComponentData, SerialComponentInput } from "./SerialComponentInput.tsx";
 import type {
     FormProperties as SerializableNumericIdentificationKeyFormProperties
 } from "./SerializableNumericIdentificationKey.tsx";
+
+/**
+ * Form data.
+ */
+type FormData = IdentificationKeyData & SerialComponentData;
 
 /**
  * Concatenate a base identification key with a serial component form.
@@ -19,17 +24,17 @@ import type {
  * React element.
  */
 export function SerializableNumericConcatenateForm(properties: SerializableNumericIdentificationKeyFormProperties): ReactElement {
-    let identificationKey: string;
-    let serialComponent: string;
-
     /**
      * Process the form.
      *
+     * @param formData
+     * Form data.
+     * 
      * @returns
      * Concatenated identification key.
      */
-    function onProcess(): string {
-        return properties.getCreator(PrefixManager.get(PrefixType.GS1CompanyPrefix, "9521234")).concatenate(identificationKey, serialComponent);
+    function onProcess(formData: FormData): string {
+        return properties.getCreator(PrefixManager.get(PrefixType.GS1CompanyPrefix, "9521234")).concatenate(formData.identificationKey, formData.serialComponent);
     }
 
     return <BaseForm
@@ -46,15 +51,8 @@ export function SerializableNumericConcatenateForm(properties: SerializableNumer
             hint={i18nextDemo.t("GS1.baseIdentificationKeyHint", {
                 identificationKeyType: properties.identificationKeyType
             })}
-            onProcess={(inputValue) => {
-                identificationKey = inputValue;
-            }}
         />
-        <SerialComponentInput
-            onProcess={(inputValue) => {
-                serialComponent = inputValue;
-            }}
-        />
+        <SerialComponentInput />
     </BaseForm>;
 }
 

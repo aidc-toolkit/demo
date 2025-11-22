@@ -5,18 +5,33 @@ import { i18nextDemo } from "../locale/i18n.ts";
 import { TextInput } from "../TextInput.tsx";
 
 /**
+ * Start value and count data.
+ */
+export interface StartValueAndCountData {
+    /**
+     * Start value.
+     */
+    startValue: number;
+
+    /**
+     * Count.
+     */
+    count: number;
+}
+
+/**
  * Start value and count input properties.
  */
-interface StartValueAndCountInputProperties {
+interface StartValueAndCountInputProperties<TFormData extends StartValueAndCountData> {
     /**
      * Start value properties.
      */
-    startValue: Pick<InputProperties<number>, "hint" | "onProcess">;
+    startValue: Pick<InputProperties<TFormData, number>, "hint">;
 
     /**
      * Count properties.
      */
-    count: Pick<InputProperties<number>, "hint" | "onProcess">;
+    count: Pick<InputProperties<TFormData, number>, "hint">;
 }
 
 /**
@@ -29,7 +44,7 @@ interface StartValueAndCountInputProperties {
  * @returns
  * React element.
  */
-export function StartValueAndCountInput(properties: StartValueAndCountInputProperties): ReactElement {
+export function StartValueAndCountInput<TFormData extends StartValueAndCountData>(properties: StartValueAndCountInputProperties<TFormData>): ReactElement {
     return <FormGroup
         row
         sx={{

@@ -1,14 +1,20 @@
-import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
+import { PrefixManager } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
+import type { ValueData } from "../string/ValueInput.tsx";
 import { BaseForm } from "./BaseForm.tsx";
-import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
-import { SerialComponentInput } from "./SerialComponentInput.tsx";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { type SerialComponentData, SerialComponentInput } from "./SerialComponentInput.tsx";
 import type {
     FormProperties as SerializableNumericIdentificationKeyFormProperties
 } from "./SerializableNumericIdentificationKey.tsx";
-import { SparseInput } from "./SparseInput.tsx";
+import { type SparseData, SparseInput } from "./SparseInput.tsx";
 import { ValueInput } from "./ValueInput.tsx";
+
+/**
+ * Form data.
+ */
+type FormData = PrefixTypeAndPrefixData & ValueData & SparseData & SerialComponentData;
 
 /**
  * Create serializable numeric identification key form.
@@ -20,20 +26,17 @@ import { ValueInput } from "./ValueInput.tsx";
  * React element.
  */
 export function SerializableNumericCreateForm(properties: SerializableNumericIdentificationKeyFormProperties): ReactElement {
-    let prefixType: PrefixType;
-    let prefix: string;
-    let value: number;
-    let sparse: boolean;
-    let serialComponent: string;
-
     /**
      * Process the form.
+     * 
+     * @param formData
+     * Form data.
      *
      * @returns
      * Created identification key.
      */
-    function onProcess(): string {
-        return properties.getCreator(PrefixManager.get(prefixType, prefix)).createSerialized(value, serialComponent, sparse);
+    function onProcess(formData: FormData): string {
+        return properties.getCreator(PrefixManager.get(formData.prefixType, formData.prefix)).createSerialized(formData.value, formData.serialComponent, formData.sparse);
     }
 
     return <BaseForm
@@ -44,32 +47,11 @@ export function SerializableNumericCreateForm(properties: SerializableNumericIde
     >
         <PrefixTypeAndPrefixInput
             identificationKeyType={properties.identificationKeyType}
-            prefixType={{
-                onProcess: (inputValue) => {
-                    prefixType = inputValue;
-                }
-            }}
-            prefix={{
-                onProcess: (inputValue) => {
-                    prefix = inputValue;
-                }
-            }}
+            excludePrefix={false}
         />
-        <ValueInput
-            onProcess={(inputValue) => {
-                value = inputValue;
-            }}
-        />
-        <SparseInput
-            onProcess={(inputValue) => {
-                sparse = inputValue;
-            }}
-        />
-        <SerialComponentInput
-            onProcess={(inputValue) => {
-                serialComponent = inputValue;
-            }}
-        />
+        <ValueInput />
+        <SparseInput />
+        <SerialComponentInput />
     </BaseForm>;
 }
 

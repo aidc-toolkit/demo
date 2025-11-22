@@ -4,6 +4,16 @@ import { i18nextDemo } from "../locale/i18n.ts";
 import { TextInput } from "../TextInput.tsx";
 
 /**
+ * Value data.
+ */
+export interface ValueData {
+    /**
+     * Value.
+     */
+    value: number;
+}
+
+/**
  * Value input. Renders a required number text control with name "value".
  *
  * @param properties
@@ -12,7 +22,7 @@ import { TextInput } from "../TextInput.tsx";
  * @returns
  * React element.
  */
-export function ValueInput(properties: Pick<InputProperties<number>, "hint" | "onProcess">): ReactElement {
+export function ValueInput<TFormData extends ValueData>(properties: Pick<InputProperties<TFormData, number>, "hint">): ReactElement {
     return <TextInput
         {...properties}
         name="value"

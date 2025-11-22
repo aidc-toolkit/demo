@@ -3,6 +3,16 @@ import type { InputProperties } from "../input-properties.ts";
 import { TextInput } from "../TextInput.tsx";
 
 /**
+ * S data.
+ */
+export interface SData {
+    /**
+     * S.
+     */
+    s: string;
+}
+
+/**
  * S input. Renders an optional string text control with name "s".
  *
  * @param properties
@@ -11,7 +21,7 @@ import { TextInput } from "../TextInput.tsx";
  * @returns
  * React element.
  */
-export function SInput(properties: Pick<InputProperties<string | undefined>, "hint" | "onProcess">): ReactElement {
+export function SInput<TFormData extends SData>(properties: Pick<InputProperties<TFormData, string | undefined>, "hint">): ReactElement {
     return <TextInput
         {...properties}
         name="s"

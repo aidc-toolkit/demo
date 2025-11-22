@@ -7,6 +7,13 @@ import { BaseForm } from "./BaseForm.tsx";
 import type { FormProperties } from "./GTIN.tsx";
 
 /**
+ * Form data.
+ */
+interface FormData {
+    zeroSuppressedGTIN12: string;
+}
+
+/**
  * Zero-expand GTIN-12 form.
  *
  * @param properties
@@ -16,16 +23,17 @@ import type { FormProperties } from "./GTIN.tsx";
  * React element.
  */
 export function GTIN12ZeroExpandForm(properties: FormProperties): ReactElement {
-    let zeroSuppressedGTIN12: string;
-
     /**
      * Process the form.
+     *
+     * @param formData
+     * Form data.
      *
      * @returns
      * Zero-expanded GTIN-12.
      */
-    function onProcess(): string {
-        return GTINValidator.zeroExpand(zeroSuppressedGTIN12);
+    function onProcess(formData: FormData): string {
+        return GTINValidator.zeroExpand(formData.zeroSuppressedGTIN12);
     }
 
     return <BaseForm
@@ -40,9 +48,6 @@ export function GTIN12ZeroExpandForm(properties: FormProperties): ReactElement {
             hint={i18nextDemo.t("GS1.zeroSuppressedGTIN12Hint")}
             type="string"
             isRequired
-            onProcess={(inputValue) => {
-                zeroSuppressedGTIN12 = inputValue;
-            }}
         />
     </BaseForm>;
 }

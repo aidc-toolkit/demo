@@ -1,9 +1,23 @@
 import { gs1NS, IdentificationKeyType, PrefixType } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
 import { EnumInput } from "../EnumInput.tsx";
-import type { InputProperties } from "../input-properties.ts";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { TextInput } from "../TextInput.tsx";
+
+/**
+ * Prefix type and prefix input data.
+ */
+export interface PrefixTypeAndPrefixData {
+    /**
+     * Prefix type.
+     */
+    prefixType: PrefixType;
+
+    /**
+     * Prefix.
+     */
+    prefix: string;
+}
 
 /**
  * Prefix type and prefix input properties.
@@ -15,14 +29,9 @@ interface PrefixTypeAndPrefixInputProperties {
     readonly identificationKeyType: IdentificationKeyType;
 
     /**
-     * Prefix type input properties.
+     * If true, exclude prefix input.
      */
-    readonly prefixType: Pick<InputProperties<PrefixType>, "onProcess">;
-
-    /**
-     * Prefix input properties. If undefined, form is a validate form and no prefix input is added.
-     */
-    readonly prefix?: Pick<InputProperties<string>, "onProcess">;
+    readonly excludePrefix: boolean;
 }
 
 /**
@@ -38,7 +47,7 @@ interface PrefixTypeAndPrefixInputProperties {
 export function PrefixTypeAndPrefixInput(properties: PrefixTypeAndPrefixInputProperties): ReactElement {
     let prefixTypes: PrefixType[];
 
-    if (properties.prefix === undefined && properties.identificationKeyType !== IdentificationKeyType.GTIN) {
+    if (properties.excludePrefix && properties.identificationKeyType !== IdentificationKeyType.GTIN) {
         // GTIN has validations specific to the prefix type.
         prefixTypes = [PrefixType.GS1CompanyPrefix];
     } else if (properties.identificationKeyType === IdentificationKeyType.GTIN) {
@@ -50,11 +59,10 @@ export function PrefixTypeAndPrefixInput(properties: PrefixTypeAndPrefixInputPro
 
     return <>
         <EnumInput
-            {...properties.prefixType}
             name="prefixType"
             label={i18nextDemo.t("GS1.prefixTypeLabel")}
             hint={i18nextDemo.t("GS1.prefixTypeHint")}
-            values={prefixTypes}
+            enumValues={prefixTypes}
             names={[
                 i18nextDemo.t("Prefix.gs1CompanyPrefix", {
                     ns: gs1NS
@@ -68,10 +76,9 @@ export function PrefixTypeAndPrefixInput(properties: PrefixTypeAndPrefixInputPro
             ]}
         />
         {
-            properties.prefix === undefined ?
+            properties.excludePrefix ?
                 <></> :
                 <TextInput
-                    {...properties.prefix}
                     name="prefix"
                     label={i18nextDemo.t("GS1.prefixLabel")}
                     hint={i18nextDemo.t("GS1.prefixHint")}

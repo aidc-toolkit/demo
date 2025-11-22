@@ -1,11 +1,21 @@
-import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
+import { PrefixManager } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { TextInput } from "../TextInput.tsx";
 import { BaseForm } from "./BaseForm.tsx";
 import type { FormProperties as NonNumericIdentificationKeyFormProperties } from "./NonNumericIdentificationKey.tsx";
-import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+
+/**
+ * Form data.
+ */
+interface FormData extends PrefixTypeAndPrefixData {
+    /**
+     * Reference.
+     */
+    reference: string;
+}
 
 /**
  * Create non-numeric identification key form.
@@ -17,18 +27,17 @@ import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
  * React element.
  */
 export function NonNumericCreateForm(properties: NonNumericIdentificationKeyFormProperties): ReactElement {
-    let prefixType: PrefixType;
-    let prefix: string;
-    let reference: string;
-
     /**
      * Process the form.
+     *
+     * @param formData
+     * Form data.
      *
      * @returns
      * Created identification key.
      */
-    function onProcess(): string {
-        return properties.getCreator(PrefixManager.get(prefixType, prefix)).create(reference);
+    function onProcess(formData: FormData): string {
+        return properties.getCreator(PrefixManager.get(formData.prefixType, formData.prefix)).create(formData.reference);
     }
 
     return <BaseForm
@@ -39,16 +48,7 @@ export function NonNumericCreateForm(properties: NonNumericIdentificationKeyForm
     >
         <PrefixTypeAndPrefixInput
             identificationKeyType={properties.identificationKeyType}
-            prefixType={{
-                onProcess: (inputValue) => {
-                    prefixType = inputValue;
-                }
-            }}
-            prefix={{
-                onProcess: (inputValue) => {
-                    prefix = inputValue;
-                }
-            }}
+            excludePrefix={false}
         />
         <TextInput
             name="reference"
@@ -56,9 +56,6 @@ export function NonNumericCreateForm(properties: NonNumericIdentificationKeyForm
             hint={i18nextDemo.t("GS1.referenceHint")}
             type="string"
             isRequired
-            onProcess={(inputValue) => {
-                reference = inputValue;
-            }}
         />
     </BaseForm>;
 }

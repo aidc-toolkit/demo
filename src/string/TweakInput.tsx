@@ -1,20 +1,25 @@
 import type { ReactElement } from "react";
-import type { InputProperties } from "../input-properties.ts";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { TextInput } from "../TextInput.tsx";
 
 /**
+ * Tweak data.
+ */
+export interface TweakData {
+    /**
+     * Tweak.
+     */
+    tweak: number | undefined;
+}
+
+/**
  * Tweak input. Renders an optional number text control with name "tweak".
- *
- * @param properties
- * Properties.
  *
  * @returns
  * React element.
  */
-export function TweakInput(properties: Pick<InputProperties<number | undefined>, "onProcess">): ReactElement {
+export function TweakInput(): ReactElement {
     return <TextInput
-        {...properties}
         name="tweak"
         label={i18nextDemo.t("String.tweakLabel")}
         hint={i18nextDemo.t("String.tweakHint")}

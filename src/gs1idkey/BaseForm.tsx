@@ -43,7 +43,7 @@ export interface FormProperties<TIdentificationKeyValidator extends Identificati
  * @returns
  * React element.
  */
-export function BaseForm<TIdentificationKeyValidator extends IdentificationKeyValidator, TIdentificationKeyCreator extends TIdentificationKeyValidator & IdentificationKeyCreator>(properties: DemoFormProperties & FormProperties<TIdentificationKeyValidator, TIdentificationKeyCreator>): ReactElement {
+export function BaseForm<TFormData extends object, TIdentificationKeyValidator extends IdentificationKeyValidator, TIdentificationKeyCreator extends TIdentificationKeyValidator & IdentificationKeyCreator>(properties: DemoFormProperties<TFormData> & FormProperties<TIdentificationKeyValidator, TIdentificationKeyCreator>): ReactElement {
     return <DemoBaseForm
         {...properties}
         title={properties.identificationKeyType}

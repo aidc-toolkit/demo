@@ -6,8 +6,7 @@ import type { FormGroupDescriptor } from "./form-descriptor.ts";
  * Array of menu item properties or null. If null, a separator line is rendered.
  */
 export type MenuItemPropertiesArray<T extends object> =
-    // Distributed conditional type is necessary to allow mixing of sub-menu types.
-    ReadonlyArray<MenuItemProperties<T> | null> | ReadonlyArray<(T extends T ? MenuItemProperties<T> : never) | null>;
+    ReadonlyArray<MenuItemProperties<T> | null>;
 
 /**
  * Base menu item properties.

@@ -23,7 +23,7 @@ import { i18nextDemo } from "./locale/i18n.js";
 /**
  * Form properties. All forms require at least these properties to be set.
  */
-export interface FormProperties {
+export interface FormProperties<TFormData extends object> {
     /**
      * Form subtitle resource name.
      */
@@ -32,10 +32,13 @@ export interface FormProperties {
     /**
      * Callback to process the form.
      *
+     * @param formData
+     * Form data.
+     *
      * @returns
      * String or strings if valid or undefined if not.
      */
-    readonly onProcess: () => ProcessResult;
+    readonly onProcess: (formData: TFormData) => ProcessResult;
 
     /**
      * Result count (optional). If defined, result count for display in table.
@@ -56,7 +59,7 @@ export interface FormProperties {
 /**
  * Base form properties.
  */
-interface BaseFormProperties extends FormProperties {
+interface BaseFormProperties<TFormData extends object> extends FormProperties<TFormData> {
     /**
      * Title.
      */
@@ -87,12 +90,11 @@ interface ResultsBuffer {
  * @returns
  * React element.
  */
-export function BaseForm(properties: BaseFormProperties): ReactElement {
+export function BaseForm<TFormData extends object>(properties: BaseFormProperties<TFormData>): ReactElement {
     const appContext = useContext(App.Context);
 
-    const formManager = useMemo(
-        () => new FormManager(appContext.inputValuesMap, properties.onProcess, properties.resultName),
-        [appContext.inputValuesMap, properties.onProcess, properties.resultName]
+    const [formManager] = useState(
+        () => new FormManager(appContext.inputValuesMap, properties.resultName, properties.onProcess)
     );
 
     const [result, setResult] = useState<undefined | string | ResultsBuffer>(undefined);
@@ -207,7 +209,8 @@ export function BaseForm(properties: BaseFormProperties): ReactElement {
 
     const subtitle = i18nextDemo.t(properties.subtitleResourceName);
 
-    return <BaseForm.Context.Provider value={formManager}>
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type must match.
+    return <BaseForm.Context.Provider value={formManager as unknown as FormManager<never>}>
         <Card>
             <CardHeader
                 title={properties.title}
@@ -300,4 +303,4 @@ export function BaseForm(properties: BaseFormProperties): ReactElement {
 /**
  * Context.
  */
-BaseForm.Context = createContext(new FormManager(new Map(), () => undefined, undefined));
+BaseForm.Context = createContext(new FormManager<never>(new Map(), undefined, () => undefined));

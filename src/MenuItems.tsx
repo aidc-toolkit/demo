@@ -6,7 +6,7 @@ import { Divider, MenuItem, Typography } from "@mui/material";
 import { type ReactNode, useContext } from "react";
 import { App } from "./App.tsx";
 import { i18nextDemo } from "./locale/i18n.ts";
-import type { MenuItemProperties, MenuItemPropertiesArray } from "./menu-item.ts";
+import type { MenuItemProperties } from "./menu-item.ts";
 
 /**
  * Menu items properties.
@@ -101,21 +101,6 @@ export function MenuItems<T extends object>(properties: MenuItemsProperties<T>):
                     {iconAndTitle}
                 </MenuItem>;
             } else {
-                const subMenuItems: MenuItemPropertiesArray<T> = "subMenuItems" in menuItemProperties ?
-                    menuItemProperties.subMenuItems :
-                    menuItemProperties.formGroupDescriptor.FormDescriptors.map(FormDescriptor =>
-                        FormDescriptor !== null ?
-                            {
-                                titleResourceName: FormDescriptor.resourceName,
-                                f: () => {
-                                    appContext.demoElement = <FormDescriptor
-                                        key={`${subMenuPath}${FormDescriptor.resourceName}`}
-                                        {...menuItemProperties.formGroupDescriptor.formProperties}
-                                    />;
-                                }
-                            } :
-                            null);
-
                 menuItem = [
                     <MenuItem
                         key={menuItemKey}
@@ -130,7 +115,24 @@ export function MenuItems<T extends object>(properties: MenuItemsProperties<T>):
                     </MenuItem>,
                     <MenuItems
                         key={subMenuPath}
-                        menuItems={subMenuItems}
+                        menuItems={
+                            // Check for pre-constructed sub-menu.
+                            "subMenuItems" in menuItemProperties ?
+                                menuItemProperties.subMenuItems :
+                                menuItemProperties.formGroupDescriptor.FormDescriptors.map(FormDescriptor =>
+                                    FormDescriptor !== null ?
+                                        {
+                                            titleResourceName: FormDescriptor.resourceName,
+                                            f: () => {
+                                                appContext.demoElement = <FormDescriptor
+                                                    key={`${subMenuPath}${FormDescriptor.resourceName}`}
+                                                    {...menuItemProperties.formGroupDescriptor.formProperties}
+                                                />;
+                                            }
+                                        } :
+                                        null
+                                )
+                        }
                         openMenuPath={openMenuPath}
                         setOpenMenuPath={setOpenMenuPath}
                         menuPath={subMenuPath}

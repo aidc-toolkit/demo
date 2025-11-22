@@ -5,13 +5,23 @@ import type { InputProperties } from "../input-properties.ts";
 import { i18nextDemo } from "../locale/i18n.ts";
 
 /**
+ * Exclusion data.
+ */
+export interface ExclusionData<TExclusion extends Exclusion = Exclusion> {
+    /**
+     * Exclusion.
+     */
+    exclusion: TExclusion;
+}
+
+/**
  * Exclusion input properties.
  */
-interface ExclusionInputProperties<TExclusion extends Exclusion> extends Pick<InputProperties<Exclusion.None | TExclusion>, "hint" | "onProcess"> {
+interface ExclusionInputProperties<TFormData extends object> extends Pick<InputProperties<TFormData, Exclusion>, "hint"> {
     /**
      * Exclusion support.
      */
-    readonly exclusionSupport: ReadonlyArray<Exclusion.None | TExclusion>;
+    readonly exclusionSupport: readonly Exclusion[];
 }
 
 /**
@@ -23,12 +33,12 @@ interface ExclusionInputProperties<TExclusion extends Exclusion> extends Pick<In
  * @returns
  * React element.
  */
-export function ExclusionInput<TExclusion extends Exclusion>(properties: ExclusionInputProperties<TExclusion>): ReactElement {
+export function ExclusionInput<TFormData extends ExclusionData>(properties: ExclusionInputProperties<TFormData>): ReactElement {
     return <EnumInput
         {...properties}
         name="exclusion"
         label={i18nextDemo.t("String.exclusionLabel")}
-        values={properties.exclusionSupport.includes(Exclusion.None) ? properties.exclusionSupport : [Exclusion.None, ...properties.exclusionSupport]}
+        enumValues={properties.exclusionSupport.includes(Exclusion.None) ? properties.exclusionSupport : [Exclusion.None, ...properties.exclusionSupport]}
         names={[
             i18nextDemo.t("String.exclusionNoneLabel"),
             i18nextDemo.t("String.exclusionFirstZeroLabel"),

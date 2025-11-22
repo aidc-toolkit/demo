@@ -4,7 +4,12 @@ import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { BaseForm } from "./BaseForm.tsx";
 import type { FormProperties } from "./GTIN.tsx";
-import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+import { type IdentificationKeyData, IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+
+/**
+ * Form data.
+ */
+type FormData = IdentificationKeyData;
 
 /**
  * Normalize GTIN form.
@@ -16,16 +21,17 @@ import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
  * React element.
  */
 export function GTINNormalizeForm(properties: FormProperties): ReactElement {
-    let identificationKey: string;
-
     /**
      * Process the form.
      *
+     * @param formData
+     * Form data.
+     * 
      * @returns
      * Normalized GTIN.
      */
-    function onProcess(): string {
-        return GTINCreator.normalize(identificationKey);
+    function onProcess(formData: FormData): string {
+        return GTINCreator.normalize(formData.identificationKey);
     }
 
     return <BaseForm
@@ -38,9 +44,6 @@ export function GTINNormalizeForm(properties: FormProperties): ReactElement {
             identificationKeyType={IdentificationKeyType.GTIN}
             label={i18nextDemo.t("GS1.gtinLabel")}
             hint={i18nextDemo.t("GS1.gtinToBeNormalizedHint")}
-            onProcess={(inputValue) => {
-                identificationKey = inputValue;
-            }}
         />
     </BaseForm>;
 }

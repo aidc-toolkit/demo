@@ -5,7 +5,17 @@ import { EnumInput } from "../EnumInput.tsx";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { BaseForm } from "./BaseForm.tsx";
 import type { FormProperties } from "./GTIN.tsx";
-import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+import { type IdentificationKeyData, IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+
+/**
+ * Form data.
+ */
+interface FormData extends IdentificationKeyData {
+    /**
+     * GTIN level.
+     */
+    gtinLevel: GTINLevel;
+}
 
 /**
  * Validate any GTIN form.
@@ -17,21 +27,21 @@ import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
  * React element.
  */
 export function GTINValidateAnyForm(properties: FormProperties): ReactElement {
-    let identificationKey: string;
-    let gtinLevel: GTINLevel;
-
     const gtinLevelNames = [i18nextDemo.t("GS1.levelAnyLabel"), i18nextDemo.t("GS1.levelRetailConsumerLabel"), i18nextDemo.t("GS1.levelOtherThanRetailConsumerLabel")];
 
     /**
      * Process the form.
      *
+     * @param formData
+     * Form data.
+     * 
      * @returns
      * Checkmark and identification key and GTIN level.
      */
-    function onProcess(): string {
-        GTINValidator.validateAny(identificationKey, gtinLevel);
+    function onProcess(formData: FormData): string {
+        GTINValidator.validateAny(formData.identificationKey, formData.gtinLevel);
 
-        return `✓ ${identificationKey} (${gtinLevelNames[gtinLevel]})`;
+        return `✓ ${formData.identificationKey} (${gtinLevelNames[formData.gtinLevel]})`;
     }
 
     return <BaseForm
@@ -41,19 +51,13 @@ export function GTINValidateAnyForm(properties: FormProperties): ReactElement {
     >
         <IdentificationKeyInput
             identificationKeyType={IdentificationKeyType.GTIN}
-            onProcess={(inputValue) => {
-                identificationKey = inputValue;
-            }}
         />
         <EnumInput
             name="gtinLevel"
             label={i18nextDemo.t("GS1.levelLabel")}
             hint={i18nextDemo.t("GS1.levelHint")}
-            values={[GTINLevel.Any, GTINLevel.RetailConsumer, GTINLevel.OtherThanRetailConsumer]}
+            enumValues={[GTINLevel.Any, GTINLevel.RetailConsumer, GTINLevel.OtherThanRetailConsumer]}
             names={gtinLevelNames}
-            onProcess={(inputValue) => {
-                gtinLevel = inputValue;
-            }}
         />
     </BaseForm>;
 }

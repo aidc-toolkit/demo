@@ -10,10 +10,10 @@ import { Exclusion } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
-import { ExclusionInput } from "../string/ExclusionInput.tsx";
+import { type ExclusionData, ExclusionInput } from "../string/ExclusionInput.tsx";
 import { BaseForm, type FormProperties } from "./BaseForm.tsx";
-import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
-import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { type IdentificationKeyData, IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
 
 /**
  * Get the validator, optionally by prefix type if in an array.
@@ -32,6 +32,11 @@ function getValidator<TIdentificationKeyValidator extends IdentificationKeyValid
 }
 
 /**
+ * Form data.
+ */
+type FormData = PrefixTypeAndPrefixData & IdentificationKeyData & ExclusionData<Exclusion.None | Exclusion.AllNumeric>;
+
+/**
  * Validate identification key form.
  *
  * @param properties
@@ -41,28 +46,27 @@ function getValidator<TIdentificationKeyValidator extends IdentificationKeyValid
  * React element.
  */
 export function ValidateForm(properties: FormProperties): ReactElement {
-    let prefixType: PrefixType;
-    let identificationKey: string;
-    let exclusion: Exclusion.None | Exclusion.AllNumeric;
-
     const isNumeric = getValidator(properties.validatorOrValidators, PrefixType.GS1CompanyPrefix).referenceCharacterSet === ContentCharacterSet.Numeric;
 
     /**
      * Process the form.
      *
+     * @param formData
+     * Form data.
+     *
      * @returns
      * Checkmark and identification key.
      */
-    function onProcess(): string {
+    function onProcess(formData: FormData): string {
         const validation: IdentificationKeyValidation | NonNumericIdentificationKeyValidation = isNumeric ?
             {} :
             {
-                exclusion
+                exclusion: formData.exclusion
             };
 
-        getValidator(properties.validatorOrValidators, prefixType).validate(identificationKey, validation);
+        getValidator(properties.validatorOrValidators, formData.prefixType).validate(formData.identificationKey, validation);
 
-        return `✓ ${identificationKey}`;
+        return `✓ ${formData.identificationKey}`;
     }
 
     return <BaseForm
@@ -72,24 +76,14 @@ export function ValidateForm(properties: FormProperties): ReactElement {
     >
         <PrefixTypeAndPrefixInput
             identificationKeyType={properties.identificationKeyType}
-            prefixType={{
-                onProcess: (inputValue) => {
-                    prefixType = inputValue;
-                }
-            }}
+            excludePrefix={true}
         />
         <IdentificationKeyInput
             identificationKeyType={properties.identificationKeyType}
-            onProcess={(inputValue) => {
-                identificationKey = inputValue;
-            }}
         />
         <ExclusionInput
             hint={i18nextDemo.t("GS1.exclusionHint")}
             exclusionSupport={isNumeric ? [Exclusion.None] : [Exclusion.None, Exclusion.AllNumeric]}
-            onProcess={(inputValue) => {
-                exclusion = inputValue;
-            }}
         />
     </BaseForm>;
 }

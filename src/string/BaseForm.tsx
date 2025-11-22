@@ -28,7 +28,7 @@ export interface FormProperties {
  * @returns
  * React element.
  */
-export function BaseForm(properties: DemoFormProperties & FormProperties): ReactElement {
+export function BaseForm<TFormData extends object>(properties: DemoFormProperties<TFormData> & FormProperties): ReactElement {
     return <DemoBaseForm
         {...properties}
         title={i18nextDemo.t("String.characterSetTitle", {

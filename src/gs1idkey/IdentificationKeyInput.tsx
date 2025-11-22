@@ -6,9 +6,19 @@ import { TextInput } from "../TextInput.tsx";
 import type { Optional } from "../type.ts";
 
 /**
+ * Identification key data.
+ */
+export interface IdentificationKeyData {
+    /**
+     * Identification key.
+     */
+    identificationKey: string;
+}
+
+/**
  * Identification key input properties.
  */
-interface IdentificationKeyInputProperties extends Optional<Pick<InputProperties<string>, "label" | "hint" | "onProcess">, "label" | "hint"> {
+interface IdentificationKeyInputProperties<TFormData extends IdentificationKeyData> extends Optional<Pick<InputProperties<TFormData, string>, "label" | "hint">, "label" | "hint"> {
     /**
      * Identification key type.
      */
@@ -24,7 +34,7 @@ interface IdentificationKeyInputProperties extends Optional<Pick<InputProperties
  * @returns
  * React element.
  */
-export function IdentificationKeyInput(properties: IdentificationKeyInputProperties): ReactElement {
+export function IdentificationKeyInput<TFormData extends IdentificationKeyData>(properties: IdentificationKeyInputProperties<TFormData>): ReactElement {
     return <TextInput
         {...properties}
         name="identificationKey"

@@ -1,12 +1,16 @@
-import type { Exclusion } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { BaseForm, type FormProperties } from "./BaseForm.tsx";
-import { ExclusionInput } from "./ExclusionInput.tsx";
-import { LengthInput } from "./LengthInput.tsx";
-import { TweakInput } from "./TweakInput.tsx";
-import { ValueInput } from "./ValueInput.tsx";
+import { type ExclusionData, ExclusionInput } from "./ExclusionInput.tsx";
+import { type LengthData, LengthInput } from "./LengthInput.tsx";
+import { type TweakData, TweakInput } from "./TweakInput.tsx";
+import { type ValueData, ValueInput } from "./ValueInput.tsx";
+
+/**
+ * Form data.
+ */
+type FormData = LengthData & ValueData & ExclusionData & TweakData;
 
 /**
  * Create string form.
@@ -18,19 +22,17 @@ import { ValueInput } from "./ValueInput.tsx";
  * React element.
  */
 export function CreateForm(properties: FormProperties): ReactElement {
-    let length: number;
-    let value: number;
-    let exclusion: Exclusion;
-    let tweak: number | undefined;
-
     /**
      * Process the form.
+     *
+     * @param formData
+     * Form data.
      *
      * @returns
      * Created string.
      */
-    function onProcess(): string {
-        return properties.creator.create(length, value, exclusion, tweak);
+    function onProcess(formData: FormData): string {
+        return properties.creator.create(formData.length, formData.value, formData.exclusion, formData.tweak);
     }
 
     return <BaseForm
@@ -39,31 +41,17 @@ export function CreateForm(properties: FormProperties): ReactElement {
         onProcess={onProcess}
         resultName="s"
     >
-        <LengthInput
-            onProcess={(inputValue) => {
-                length = inputValue;
-            }}
-        />
+        <LengthInput />
         <ValueInput
             hint={i18nextDemo.t("String.valueHint", {
                 name: i18nextDemo.t(properties.characterSetResourceName)
             })}
-            onProcess={(inputValue) => {
-                value = inputValue;
-            }}
         />
         <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
             exclusionSupport={properties.creator.exclusionSupport}
-            onProcess={(inputValue) => {
-                exclusion = inputValue;
-            }}
         />
-        <TweakInput
-            onProcess={(inputValue) => {
-                tweak = inputValue;
-            }}
-        />
+        <TweakInput />
     </BaseForm>;
 }
 

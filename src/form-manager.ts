@@ -1,231 +1,6 @@
+import { InputState, type InputValue } from "./input-state.ts";
 import { i18nextDemo } from "./locale/i18n.ts";
-
-/**
- * Map a primitive type and boolean is required to input value type.
- */
-export type InputValue<T extends string | number | boolean, IsRequired extends boolean> = IsRequired extends true ? T : T | undefined;
-
-/**
- * Form-level hook to input manager. Defines input manager properties and methods used by form manager.
- */
-interface FormInputHook {
-    /**
-     * String value.
-     */
-    stringValue: string;
-
-    /**
-     * Error.
-     */
-    error: string | undefined;
-
-    /**
-     * Validate the input.
-     */
-    validate: () => void;
-
-    /**
-     * Reset the input.
-     */
-    reset: () => void;
-}
-
-/**
- * Input manager. Used to maintain form-level data for an input element.
- */
-export class InputManager<T extends string | number | boolean, IsRequired extends boolean> implements FormInputHook {
-    /**
-     * Input type.
-     */
-    private readonly _type: "string" | "number" | "boolean";
-
-    /**
-     * True if input is required.
-     */
-    private readonly _isRequired: IsRequired;
-
-    /**
-     * Default string value.
-     */
-    private readonly _defaultStringValue: string;
-
-    /**
-     * Callback to set the value when enclosing form is processed.
-     */
-    private readonly _onProcess: (inputValue: InputValue<T, IsRequired>) => void;
-
-    /**
-     * Callback when value is reset.
-     */
-    private readonly _onReset: () => void;
-
-    /**
-     * Callback to set the error for the input.
-     */
-    private readonly _onError: ((error: string | undefined) => void) | undefined;
-
-    /**
-     * String value.
-     */
-    private _stringValue: string;
-
-    /**
-     * Error.
-     */
-    private _error: string | undefined;
-
-    /**
-     * Constructor.
-     *
-     * @param type
-     * Input type.
-     *
-     * @param isRequired
-     * True if input is required.
-     *
-     * @param defaultStringValue
-     * Default string value.
-     *
-     * @param onProcess
-     * Callback to set the value when enclosing form is processed.
-     *
-     * @param onReset
-     * Callback when value is reset.
-     *
-     * @param onError
-     * Callback to set the error for the input.
-     *
-     * @param stringInitialValue
-     * String initial value.
-     */
-    constructor(type: "string" | "number" | "boolean", isRequired: IsRequired, defaultStringValue: string, onProcess: (inputValue: InputValue<T, IsRequired>) => void, onReset: () => void, onError: ((error: (string | undefined)) => void) | undefined, stringInitialValue: string | undefined) {
-        this._type = type;
-        this._isRequired = isRequired;
-        this._defaultStringValue = defaultStringValue;
-        this._onProcess = onProcess;
-        this._onReset = onReset;
-        this._onError = onError;
-        this._stringValue = stringInitialValue !== undefined && stringInitialValue !== "" ? stringInitialValue : defaultStringValue;
-    }
-
-    /**
-     * Get the input type.
-     */
-    get type(): "string" | "number" | "boolean" {
-        return this._type;
-    }
-
-    /**
-     * Determine if input is required.
-     */
-    get isRequired(): boolean {
-        return this._isRequired;
-    }
-
-    /**
-     * Get the string value.
-     */
-    get stringValue(): string {
-        return this._stringValue;
-    }
-
-    /**
-     * Set the string value.
-     */
-    set stringValue(value: string) {
-        this._stringValue = value;
-    }
-
-    /**
-     * Get the error.
-     */
-    get error(): string | undefined {
-        return this._error;
-    }
-
-    /**
-     * Get the value.
-     */
-    get value(): InputValue<T, IsRequired> {
-        if ((this.isRequired && this.stringValue === "") || this.error !== undefined) {
-            throw new Error("Attempted to retrieve value for input in initial or error state");
-        }
-
-        // TODO Refactor type when https://github.com/microsoft/TypeScript/pull/56941 released.
-        let value: string | number | boolean | undefined;
-
-        if (this._stringValue === "") {
-            value = undefined;
-        } else {
-            switch (this.type) {
-                case "string":
-                    value = this._stringValue;
-                    break;
-
-                case "number":
-                    value = parseInt(this._stringValue);
-                    break;
-
-                case "boolean":
-                    value = this._stringValue === String(true);
-                    break;
-            }
-        }
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type determination is handled above.
-        return value as InputValue<T, IsRequired>;
-    }
-
-    /**
-     * Set the value.
-     */
-    set value(value: InputValue<T, IsRequired>) {
-        this._stringValue = value === undefined ? "" : value.toString();
-    }
-
-    /**
-     * Validate the input.
-     */
-    validate(): void {
-        // Clear any prior error.
-        this._error = undefined;
-
-        // Trim the string value.
-        this._stringValue = this._stringValue.trim();
-
-        if (this._stringValue !== "") {
-            // Search for non-digit character if type is number.
-            if (this.type === "number" && /\D/.test(this._stringValue)) {
-                this._error = i18nextDemo.t("Demo.valueIsNotANumber");
-            }
-        } else if (this.isRequired) {
-            this._error = i18nextDemo.t("Demo.valueIsRequired");
-        }
-
-        if (this._error === undefined) {
-            this._onProcess(this.value);
-        }
-
-        // Call _onError if defined to set or clear the error at the input level.
-        if (this._onError !== undefined) {
-            this._onError(this._error);
-        }
-    }
-
-    /**
-     * Reset the input.
-     */
-    reset(): void {
-        this._stringValue = this._defaultStringValue;
-        this._error = undefined;
-
-        this._onReset();
-
-        if (this._onError !== undefined) {
-            this._onError(undefined);
-        }
-    }
-}
+import type { Primitive, PropertyKeys, TypeString } from "./type.ts";
 
 /**
  * Supported process result types.
@@ -235,19 +10,11 @@ export type ProcessResult = string | Iterable<string> | undefined;
 /**
  * Form manager.
  */
-export class FormManager {
+export class FormManager<TFormData extends object> {
     /**
      * Input values map from application context.
      */
-    private readonly _appInputValuesMap: Map<string, string>;
-
-    /**
-     * Callback to process the form.
-     *
-     * @returns
-     * String or strings if valid or undefined if not.
-     */
-    private readonly _onProcess: () => ProcessResult;
+    private readonly _appInputValuesMap: Map<string | number | symbol, string>;
 
     /**
      * Result name (optional). If defined, result is stored as input to another form.
@@ -255,9 +22,17 @@ export class FormManager {
     private readonly _resultName: string | undefined;
 
     /**
-     * Input hooks for current form.
+     * Callback to process the form.
+     *
+     * @returns
+     * String or strings if valid or undefined if not.
      */
-    private readonly _formInputHooksMap: Map<string, FormInputHook>;
+    private readonly _onProcess: (formData: TFormData) => ProcessResult;
+
+    /**
+     * Input states for current form.
+     */
+    private readonly _inputStatesMap = new Map<keyof TFormData, InputState<TFormData, TypeString, Primitive<TypeString>, boolean>>();
 
     /**
      * Constructor.
@@ -265,24 +40,34 @@ export class FormManager {
      * @param appInputValuesMap
      * Input values map from application context.
      *
-     * @param onProcess
-     * Callback to process the form.
-     *
      * @param resultName
      * Result name (optional).
+     *
+     * @param onProcess
+     * Callback to process the form.
      */
-    constructor(appInputValuesMap: Map<string, string>, onProcess: () => ProcessResult, resultName: string | undefined) {
+    constructor(appInputValuesMap: Map<string, string>, resultName: string | undefined, onProcess: (formData: TFormData) => ProcessResult) {
         this._appInputValuesMap = appInputValuesMap;
-        this._onProcess = onProcess;
         this._resultName = resultName;
-        this._formInputHooksMap = new Map();
+        this._onProcess = onProcess;
     }
 
     /**
-     * Add an input manager.
+     * Save an input state.
+     *
+     * @param inputState
+     * Input state.
+     */
+    private saveInputState<TTypeString extends TypeString, TPrimitive extends Primitive<TTypeString>, IsRequired extends boolean>(inputState: InputState<TFormData, TTypeString, TPrimitive, IsRequired>): void {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type must match.
+        this._inputStatesMap.set(inputState.name, inputState as unknown as InputState<TFormData, TypeString, Primitive<TypeString>, boolean>);
+    }
+
+    /**
+     * Get the state for an input, creating it if necessary.
      *
      * @param name
-     * Input element name.
+     * Element name.
      *
      * @param type
      * Input type.
@@ -290,41 +75,58 @@ export class FormManager {
      * @param isRequired
      * True if input is required.
      *
-     * @param defaultStringValue
-     * Default string value.
-     *
-     * @param onProcess
-     * Callback to set the value when enclosing form is processed.
-     *
-     * @param onReset
-     * Callback when value is reset.
-     *
-     * @param onError
-     * Callback to set the error for the input.
+     * @param defaultValue
+     * Default value.
      *
      * @returns
-     * Input manager.
+     * Input state.
      */
-    addInputManager<T extends string | number | boolean, IsRequired extends boolean>(name: string, type: "string" | "number" | "boolean", isRequired: IsRequired, defaultStringValue: string, onProcess: (inputValue: InputValue<T, IsRequired>) => void, onReset: () => void, onError: ((error: string | undefined) => void) | undefined = undefined): InputManager<T, IsRequired> {
-        if (this._formInputHooksMap.has(name)) {
-            throw new Error(`Duplicate input manager for input "${name}"`);
+    getInputState<TTypeString extends TypeString, TPrimitive extends Primitive<TTypeString>, IsRequired extends boolean>(name: PropertyKeys<TFormData, TPrimitive>, type: TTypeString, isRequired: IsRequired, defaultValue: InputValue<TPrimitive, false>): InputState<TFormData, TTypeString, TPrimitive, IsRequired> {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type must match.
+        let inputState = this._inputStatesMap.get(name) as InputState<TFormData, TTypeString, TPrimitive, IsRequired> | undefined;
+
+        if (inputState === undefined) {
+            inputState = new InputState(name, type, isRequired, defaultValue !== undefined ? String(defaultValue) : "", this._appInputValuesMap.get(name), undefined);
+
+            this.saveInputState(inputState);
         }
 
-        const inputManager = new InputManager(type, isRequired, defaultStringValue, onProcess, onReset, onError, this._appInputValuesMap.get(name));
-
-        this._formInputHooksMap.set(name, inputManager);
-
-        return inputManager;
+        return inputState;
     }
 
     /**
-     * Remove an input manager.
+     * Update an input state.
      *
-     * @param name
-     * Input element name.
+     * @param inputState
+     * Input state.
+     *
+     * @param stringValue
+     * String value.
+     *
+     * @param errorMessage
+     * Error message.
      */
-    removeInputManager(name: string): void {
-        this._formInputHooksMap.delete(name);
+    private updateInputState<TTypeString extends TypeString, TPrimitive extends Primitive<TTypeString>, IsRequired extends boolean>(inputState: InputState<TFormData, TTypeString, TPrimitive, IsRequired>, stringValue: string | undefined, errorMessage: string | undefined): void {
+        const updatedInputState = new InputState(inputState.name, inputState.type, inputState.isRequired, inputState.defaultStringValue, stringValue, errorMessage);
+
+        updatedInputState.saveSetState(inputState.setState);
+
+        this.saveInputState(updatedInputState);
+
+        inputState.setState(updatedInputState);
+    }
+
+    /**
+     * Save an input value.
+     *
+     * @param inputState
+     * Input state.
+     *
+     * @param value
+     * Value.
+     */
+    saveInputValue<TTypeString extends TypeString, TPrimitive extends Primitive<TTypeString>, IsRequired extends boolean>(inputState: InputState<TFormData, TTypeString, TPrimitive, IsRequired>, value: InputValue<TPrimitive, false>): void {
+        this.updateInputState(inputState, value !== undefined ? String(value) : undefined, inputState.errorMessage);
     }
 
     /**
@@ -338,19 +140,40 @@ export class FormManager {
 
         let isValid = true;
 
-        for (const [name, formInputManager] of this._formInputHooksMap.entries()) {
-            formInputManager.validate();
+        const formData: Partial<TFormData> = {};
 
-            if (formInputManager.error === undefined) {
+        for (const [name, inputState] of this._inputStatesMap.entries()) {
+            const stringValue = inputState.stringValue.trim();
+
+            let errorMessage: string | undefined = undefined;
+
+            if (stringValue !== "") {
+                // Search for non-digit character if type is number.
+                if (inputState.type === "number" && /\D/.test(stringValue)) {
+                    errorMessage = i18nextDemo.t("Demo.valueIsNotANumber");
+                }
+            } else if (inputState.isRequired) {
+                errorMessage = i18nextDemo.t("Demo.valueIsRequired");
+            }
+
+            if (errorMessage === undefined) {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type must match.
+                formData[name] = inputState.valueOf(stringValue) as TFormData[keyof TFormData] | undefined;
+
                 // Application context input values are stored as strings.
-                this._appInputValuesMap.set(name, formInputManager.stringValue);
+                this._appInputValuesMap.set(name, stringValue);
             } else {
                 isValid = false;
+            }
+
+            if (inputState.stringValue !== stringValue || inputState.errorMessage !== errorMessage) {
+                this.updateInputState(inputState, stringValue, errorMessage);
             }
         }
 
         if (isValid) {
-            result = this._onProcess();
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Form is expected to be complete.
+            result = this._onProcess(formData as TFormData);
 
             if (this._resultName !== undefined) {
                 // Application context input values support only strings.
@@ -369,8 +192,8 @@ export class FormManager {
      * Reset the form.
      */
     reset(): void {
-        for (const formInputManager of this._formInputHooksMap.values()) {
-            formInputManager.reset();
+        for (const inputState of this._inputStatesMap.values()) {
+            this.updateInputState(inputState, undefined, undefined);
         }
     }
 }

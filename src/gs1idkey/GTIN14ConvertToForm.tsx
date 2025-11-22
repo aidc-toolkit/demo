@@ -5,7 +5,17 @@ import { i18nextDemo } from "../locale/i18n.ts";
 import { TextInput } from "../TextInput.tsx";
 import { BaseForm } from "./BaseForm.tsx";
 import type { FormProperties } from "./GTIN.tsx";
-import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+import { type IdentificationKeyData, IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+
+/**
+ * Form data.
+ */
+interface FormData extends IdentificationKeyData {
+    /**
+     * Indicator digit.
+     */
+    indicatorDigit: string;
+}
 
 /**
  * Convert a GTIN of any length to GTIN-14 form.
@@ -17,17 +27,17 @@ import { IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
  * React element.
  */
 export function GTIN14ConvertToForm(properties: FormProperties): ReactElement {
-    let indicatorDigit: string;
-    let identificationKey: string;
-
     /**
      * Process the form.
+     *
+     * @param formData
+     * Form data.
      *
      * @returns
      * GTIN-14.
      */
-    function onProcess(): string {
-        return GTINCreator.convertToGTIN14(indicatorDigit, identificationKey);
+    function onProcess(formData: FormData): string {
+        return GTINCreator.convertToGTIN14(formData.indicatorDigit, formData.identificationKey);
     }
 
     return <BaseForm
@@ -42,17 +52,11 @@ export function GTIN14ConvertToForm(properties: FormProperties): ReactElement {
             hint={i18nextDemo.t("GS1.indicatorDigitHint")}
             type="string"
             isRequired
-            onProcess={(inputValue) => {
-                indicatorDigit = inputValue;
-            }}
         />
         <IdentificationKeyInput
             identificationKeyType={IdentificationKeyType.GTIN}
             label={i18nextDemo.t("GS1.gtinLabel")}
             hint={i18nextDemo.t("GS1.gtinToBeConvertedToGTIN14Hint")}
-            onProcess={(inputValue) => {
-                identificationKey = inputValue;
-            }}
         />
     </BaseForm>;
 }

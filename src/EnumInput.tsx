@@ -1,17 +1,26 @@
-import { FormControl, FormControlLabel, FormHelperText, FormLabel, Input, Radio, RadioGroup, Typography } from "@mui/material";
-import { type ReactElement, useContext, useEffect, useState } from "react";
+import {
+    FormControl,
+    FormControlLabel,
+    FormHelperText,
+    FormLabel,
+    Input,
+    Radio,
+    RadioGroup,
+    Typography
+} from "@mui/material";
+import { type ReactElement, useContext, useState } from "react";
 import { BaseForm } from "./BaseForm.tsx";
-import type { InputManager } from "./form-manager.ts";
+import type { FormManager } from "./form-manager.ts";
 import type { InputProperties } from "./input-properties.ts";
 
 /**
  * Enumeration input properties.
  */
-interface EnumInputProperties<T extends number> extends InputProperties<T> {
+interface EnumInputProperties<TFormData extends object, TInput extends number> extends InputProperties<TFormData, TInput> {
     /**
      * Enum values.
      */
-    readonly values: readonly T[];
+    readonly enumValues: readonly TInput[];
 
     /**
      * Enum names, aligned with values.
@@ -28,64 +37,44 @@ interface EnumInputProperties<T extends number> extends InputProperties<T> {
  * @returns
  * React element.
  */
-export function EnumInput<T extends number>(properties: EnumInputProperties<T>): ReactElement {
-    const defaultValue = properties.values[0];
+export function EnumInput<TFormData extends object, TInput extends number>(properties: EnumInputProperties<TFormData, TInput>): ReactElement {
+    const defaultValue = properties.enumValues[0];
 
-    const formManager = useContext(BaseForm.Context);
-    const [inputManager, setInputManager] = useState<InputManager<T, true>>();
-    const [checkedValue, setCheckedValue] = useState(defaultValue);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Match type for enclosing form.
+    const formManager = useContext(BaseForm.Context) as unknown as FormManager<TFormData>;
+    const [inputState, setInputState] = useState(
+        () => formManager.getInputState(properties.name, "number", true, defaultValue)
+    );
 
-    useEffect(() => {
-        /**
-         * Handle value being reset.
-         */
-        function reset(): void {
-            setCheckedValue(defaultValue);
-        }
+    inputState.saveSetState(setInputState);
 
-        const inputManager = formManager.addInputManager(properties.name, "number", true, defaultValue.toString(), properties.onProcess, reset);
+    const value = inputState.value;
 
-        setInputManager(inputManager);
+    // Value must be within range of acceptable values.
+    if (!properties.enumValues.includes(value)) {
+        formManager.saveInputValue(inputState, defaultValue);
+    }
 
-        let checkedValue = inputManager.value;
-
-        // Value must be within range of acceptable values.
-        if (!properties.values.includes(checkedValue)) {
-            checkedValue = defaultValue;
-            inputManager.value = defaultValue;
-        }
-
-        // Update checked value from input manager.
-        setCheckedValue(checkedValue);
-
-        return () => {
-            formManager.removeInputManager(properties.name);
-        };
-    }, [formManager, properties.name, properties.values, properties.onProcess, defaultValue]);
-
-    return properties.values.length !== 1 ?
+    return properties.enumValues.length !== 1 ?
         <FormControl>
             <FormLabel>{properties.label}</FormLabel>
             <RadioGroup
                 row
                 name={properties.name}
                 onChange={(event) => {
-                    if (inputManager !== undefined) {
-                        inputManager.stringValue = event.target.value;
-                        setCheckedValue(inputManager.value);
-                    }
+                    formManager.saveInputValue(inputState, inputState.valueOf(event.target.value));
                 }}
             >
-                {properties.values.map(value =>
+                {properties.enumValues.map(enumValue =>
                     <FormControlLabel
-                        key={`${properties.name}-${value}`}
-                        value={value}
-                        control={<Radio checked={value === checkedValue} />}
+                        key={`${properties.name}-${enumValue}`}
+                        value={enumValue}
+                        control={<Radio checked={enumValue === value} />}
                         label={
                             <Typography
                                 variant="body2"
                             >
-                                {properties.names[value]}
+                                {properties.names[enumValue]}
                             </Typography>
                         }
                     />
@@ -93,5 +82,5 @@ export function EnumInput<T extends number>(properties: EnumInputProperties<T>):
             </RadioGroup>
             <FormHelperText>{properties.hint}</FormHelperText>
         </FormControl> :
-        <Input name={properties.name} hidden value={checkedValue} />;
+        <Input name={properties.name} hidden value={value} />;
 }

@@ -1,9 +1,14 @@
-import { PrefixManager, type PrefixType } from "@aidc-toolkit/gs1";
+import { PrefixManager } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import { type ReactElement, useState } from "react";
 import { BaseForm } from "./BaseForm.tsx";
 import type { FormProperties as NumericIdentificationKeyFormProperties } from "./NumericIdentificationKey.tsx";
-import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+
+/**
+ * Form data.
+ */
+type FormData = PrefixTypeAndPrefixData;
 
 /**
  * Create all numeric identification keys form.
@@ -15,19 +20,19 @@ import { PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
  * React element.
  */
 export function NumericCreateAllForm(properties: NumericIdentificationKeyFormProperties): ReactElement {
-    let prefixType: PrefixType;
-    let prefix: string;
-
     const [resultCount, setResultCount] = useState(0);
 
     /**
      * Process the form.
      *
+     * @param formData
+     * Form data.
+     *
      * @returns
      * All identification keys for prefix.
      */
-    function onProcess(): Iterable<string> {
-        const creator = properties.getCreator(PrefixManager.get(prefixType, prefix));
+    function onProcess(formData: FormData): Iterable<string> {
+        const creator = properties.getCreator(PrefixManager.get(formData.prefixType, formData.prefix));
 
         setResultCount(creator.capacity);
 
@@ -43,16 +48,7 @@ export function NumericCreateAllForm(properties: NumericIdentificationKeyFormPro
     >
         <PrefixTypeAndPrefixInput
             identificationKeyType={properties.identificationKeyType}
-            prefixType={{
-                onProcess: (inputValue) => {
-                    prefixType = inputValue;
-                }
-            }}
-            prefix={{
-                onProcess: (inputValue) => {
-                    prefix = inputValue;
-                }
-            }}
+            excludePrefix={false}
         />
     </BaseForm>;
 }

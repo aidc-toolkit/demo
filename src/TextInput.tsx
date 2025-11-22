@@ -1,18 +1,18 @@
 import { TextField } from "@mui/material";
-import { type ReactElement, useContext, useEffect, useState } from "react";
+import { type ReactElement, useContext, useState } from "react";
 import { BaseForm } from "./BaseForm.tsx";
-import type { InputManager, InputValue } from "./form-manager.ts";
+import type { FormManager } from "./form-manager.ts";
 import type { InputProperties } from "./input-properties.ts";
 import type { Optional, Primitive } from "./type.ts";
 
 /**
  * Text input properties. Primitive type is declared via the type string.
  */
-interface TextInputProperties<T extends "string" | "number", IsRequired extends boolean> extends InputProperties<InputValue<Primitive<T>, IsRequired>> {
+interface TextInputProperties<TFormData extends object, TTypeString extends "string" | "number", IsRequired extends boolean> extends InputProperties<TFormData, Primitive<TTypeString>> {
     /**
      * Input type.
      */
-    readonly type: T;
+    readonly type: TTypeString;
 
     /**
      * True if required.
@@ -29,44 +29,24 @@ interface TextInputProperties<T extends "string" | "number", IsRequired extends 
  * @returns
  * React element.
  */
-export function TextInput<T extends "string" | "number", IsRequired extends boolean>(properties: Optional<TextInputProperties<T, IsRequired>, "label">): ReactElement {
-    const formManager = useContext(BaseForm.Context);
-    const [inputManager, setInputManager] = useState<InputManager<Primitive<T>, IsRequired>>();
-    const [value, setValue] = useState("");
-    const [error, setError] = useState<string | undefined>();
+export function TextInput<TFormData extends object, TTypeString extends "string" | "number", IsRequired extends boolean>(properties: Optional<TextInputProperties<TFormData, TTypeString, IsRequired>, "label">): ReactElement {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Match type for enclosing form.
+    const formManager = useContext(BaseForm.Context) as unknown as FormManager<TFormData>;
+    const [inputState, setInputState] = useState(
+        () => formManager.getInputState(properties.name, properties.type, properties.isRequired, undefined)
+    );
 
-    useEffect(() => {
-        /**
-         * Handle value being reset.
-         */
-        function reset(): void {
-            setValue("");
-        }
-
-        const inputManager = formManager.addInputManager(properties.name, properties.type, properties.isRequired, "", properties.onProcess, reset, setError);
-
-        setInputManager(inputManager);
-
-        // Update value from input manager.
-        setValue(inputManager.stringValue);
-
-        return () => {
-            formManager.removeInputManager(properties.name);
-        };
-    }, [formManager, properties.name, properties.type, properties.isRequired, properties.onProcess]);
+    inputState.saveSetState(setInputState);
 
     return <TextField
         name={properties.name}
         label={properties.label}
-        error={error !== undefined}
-        helperText={error ?? properties.hint}
+        error={inputState.errorMessage !== undefined}
+        helperText={inputState.errorMessage ?? properties.hint}
         required={properties.isRequired}
-        value={value}
+        value={inputState.stringValue}
         onChange={(event) => {
-            if (inputManager !== undefined) {
-                inputManager.stringValue = event.target.value;
-                setValue(event.target.value);
-            }
+            formManager.saveInputValue(inputState, inputState.valueOf(event.target.value));
         }}
     />;
 }

@@ -1,11 +1,15 @@
-import type { Exclusion } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { BaseForm, type FormProperties } from "./BaseForm.tsx";
-import { ExclusionInput } from "./ExclusionInput.tsx";
-import { SInput } from "./SInput.tsx";
-import { TweakInput } from "./TweakInput.tsx";
+import { type ExclusionData, ExclusionInput } from "./ExclusionInput.tsx";
+import { type SData, SInput } from "./SInput.tsx";
+import { type TweakData, TweakInput } from "./TweakInput.tsx";
+
+/**
+ * Form data.
+ */
+type FormData = SData & ExclusionData & TweakData;
 
 /**
  * Determine string value form.
@@ -17,18 +21,17 @@ import { TweakInput } from "./TweakInput.tsx";
  * React element.
  */
 export function ValueForm(properties: FormProperties): ReactElement {
-    let s: string;
-    let exclusion: Exclusion;
-    let tweak: number | undefined;
-
     /**
      * Process the form.
+     *
+     * @param formData
+     * Form data.
      *
      * @returns
      * Value as string.
      */
-    function onProcess(): string {
-        return properties.creator.valueFor(s, exclusion, tweak).toString();
+    function onProcess(formData: FormData): string {
+        return properties.creator.valueFor(formData.s, formData.exclusion, formData.tweak).toString();
     }
 
     return <BaseForm
@@ -41,22 +44,12 @@ export function ValueForm(properties: FormProperties): ReactElement {
             hint={i18nextDemo.t("String.stringToConvert", {
                 name: i18nextDemo.t(properties.characterSetResourceName)
             })}
-            onProcess={(inputValue) => {
-                s = inputValue ?? "";
-            }}
         />
         <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
             exclusionSupport={properties.creator.exclusionSupport}
-            onProcess={(inputValue) => {
-                exclusion = inputValue;
-            }}
         />
-        <TweakInput
-            onProcess={(inputValue) => {
-                tweak = inputValue;
-            }}
-        />
+        <TweakInput />
     </BaseForm>;
 }
 
