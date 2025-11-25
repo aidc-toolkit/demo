@@ -1,4 +1,4 @@
-import { PrefixManager, PrefixTypes } from "@aidc-toolkit/gs1";
+import { PrefixManager, PrefixTypes, PrefixValidator } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
@@ -34,7 +34,9 @@ export function SerializableNumericConcatenateForm(properties: SerializableNumer
      * Concatenated identifier.
      */
     function onProcess(formData: FormData): string {
-        return properties.getCreator(PrefixManager.get(PrefixTypes.GS1CompanyPrefix, "9521234")).concatenate(formData.identifier, formData.serialComponent);
+        const identifier = formData.identifier;
+
+        return properties.getCreator(PrefixManager.get(PrefixTypes.GS1CompanyPrefix, identifier.substring(0, !identifier.startsWith("0") ? PrefixValidator.GS1_COMPANY_PREFIX_MINIMUM_LENGTH : PrefixValidator.UPC_COMPANY_PREFIX_MINIMUM_LENGTH + 1))).concatenate(identifier, formData.serialComponent);
     }
 
     return <BaseForm
