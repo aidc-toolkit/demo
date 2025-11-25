@@ -7,7 +7,7 @@ import {
     type PrefixType,
     PrefixTypes
 } from "@aidc-toolkit/gs1";
-import { Exclusion } from "@aidc-toolkit/utility";
+import { Exclusions } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
@@ -51,7 +51,7 @@ function getValidator<TIdentifierValidator extends IdentifierValidator>(validato
 /**
  * Form data.
  */
-type FormData = PrefixTypeAndPrefixData & IdentifierData & ExclusionData<Exclusion.None | Exclusion.AllNumeric>;
+type FormData = PrefixTypeAndPrefixData & IdentifierData & ExclusionData<typeof Exclusions.None | typeof Exclusions.AllNumeric>;
 
 /**
  * Validate identifier form.
@@ -100,7 +100,7 @@ export function ValidateForm(properties: FormProperties): ReactElement {
         />
         <ExclusionInput
             hint={i18nextDemo.t("GS1.exclusionHint")}
-            exclusionSupport={isNumeric ? [Exclusion.None] : [Exclusion.None, Exclusion.AllNumeric]}
+            exclusionSupport={isNumeric ? [Exclusions.None] : [Exclusions.None, Exclusions.AllNumeric]}
         />
     </BaseForm>;
 }

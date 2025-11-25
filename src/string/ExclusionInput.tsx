@@ -1,4 +1,4 @@
-import { Exclusion } from "@aidc-toolkit/utility";
+import { type Exclusion, Exclusions } from "@aidc-toolkit/utility";
 import type { ReactElement } from "react";
 import type { InputProperties } from "../input-properties.ts";
 import { i18nextDemo } from "../locale/i18n.ts";
@@ -39,7 +39,7 @@ export function ExclusionInput<TFormData extends ExclusionData>(properties: Excl
         type="number"
         name="exclusion"
         label={i18nextDemo.t("String.exclusionLabel")}
-        values={properties.exclusionSupport.includes(Exclusion.None) ? properties.exclusionSupport : [Exclusion.None, ...properties.exclusionSupport]}
+        values={properties.exclusionSupport.includes(Exclusions.None) ? properties.exclusionSupport : [Exclusions.None, ...properties.exclusionSupport]}
         names={[
             i18nextDemo.t("String.exclusionNoneLabel"),
             i18nextDemo.t("String.exclusionFirstZeroLabel"),
