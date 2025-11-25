@@ -1,4 +1,4 @@
-import { I18nEnvironment } from "@aidc-toolkit/core";
+import { I18nEnvironments } from "@aidc-toolkit/core";
 import { type ReactElement, type ReactNode, useEffect, useState } from "react";
 import { i18nDemoInit, i18nextDemo } from "./locale/i18n.ts";
 
@@ -31,7 +31,7 @@ export function I18n(properties: I18nProperties): ReactElement {
 
     useEffect(() => {
         if (!isI18nInitialized) {
-            i18nDemoInit(I18nEnvironment.Browser).then(() => {
+            i18nDemoInit(I18nEnvironments.Browser).then(() => {
                 // Force refresh.
                 setIsI18nInitialized(true);
 
