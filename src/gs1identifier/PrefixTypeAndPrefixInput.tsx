@@ -1,7 +1,7 @@
-import { gs1NS, IdentificationKeyType, PrefixType } from "@aidc-toolkit/gs1";
+import { gs1NS, type IdentifierType, IdentifierTypes, type PrefixType, PrefixTypes } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
-import { EnumInput } from "../EnumInput.tsx";
 import { i18nextDemo } from "../locale/i18n.ts";
+import { RadioInput } from "../RadioInput.tsx";
 import { TextInput } from "../TextInput.tsx";
 
 /**
@@ -24,9 +24,9 @@ export interface PrefixTypeAndPrefixData {
  */
 interface PrefixTypeAndPrefixInputProperties {
     /**
-     * Identification key type.
+     * Identifier type.
      */
-    readonly identificationKeyType: IdentificationKeyType;
+    readonly identifierType: IdentifierType;
 
     /**
      * If true, exclude prefix input.
@@ -47,33 +47,34 @@ interface PrefixTypeAndPrefixInputProperties {
 export function PrefixTypeAndPrefixInput(properties: PrefixTypeAndPrefixInputProperties): ReactElement {
     let prefixTypes: PrefixType[];
 
-    if (properties.excludePrefix && properties.identificationKeyType !== IdentificationKeyType.GTIN) {
+    if (properties.excludePrefix && properties.identifierType !== IdentifierTypes.GTIN) {
         // GTIN has validations specific to the prefix type.
-        prefixTypes = [PrefixType.GS1CompanyPrefix];
-    } else if (properties.identificationKeyType === IdentificationKeyType.GTIN) {
+        prefixTypes = [PrefixTypes.GS1CompanyPrefix];
+    } else if (properties.identifierType === IdentifierTypes.GTIN) {
         // Only GTIN supports GS1-8 Prefix.
-        prefixTypes = [PrefixType.GS1CompanyPrefix, PrefixType.UPCCompanyPrefix, PrefixType.GS18Prefix];
+        prefixTypes = [PrefixTypes.GS1CompanyPrefix, PrefixTypes.UPCCompanyPrefix, PrefixTypes.GS18Prefix];
     } else {
-        prefixTypes = [PrefixType.GS1CompanyPrefix, PrefixType.UPCCompanyPrefix];
+        prefixTypes = [PrefixTypes.GS1CompanyPrefix, PrefixTypes.UPCCompanyPrefix];
     }
 
     return <>
-        <EnumInput
+        <RadioInput
             name="prefixType"
             label={i18nextDemo.t("GS1.prefixTypeLabel")}
             hint={i18nextDemo.t("GS1.prefixTypeHint")}
-            enumValues={prefixTypes}
-            names={[
-                i18nextDemo.t("Prefix.gs1CompanyPrefix", {
+            type="string"
+            values={prefixTypes}
+            names={{
+                [PrefixTypes.GS1CompanyPrefix]: i18nextDemo.t("Prefix.gs1CompanyPrefix", {
                     ns: gs1NS
                 }),
-                i18nextDemo.t("Prefix.upcCompanyPrefix", {
+                [PrefixTypes.UPCCompanyPrefix]: i18nextDemo.t("Prefix.upcCompanyPrefix", {
                     ns: gs1NS
                 }),
-                i18nextDemo.t("Prefix.gs18Prefix", {
+                [PrefixTypes.GS18Prefix]: i18nextDemo.t("Prefix.gs18Prefix", {
                     ns: gs1NS
                 })
-            ]}
+            }}
         />
         {
             properties.excludePrefix ?

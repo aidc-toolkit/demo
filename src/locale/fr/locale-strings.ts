@@ -47,12 +47,12 @@ export const localeStrings = {
         gs1AI39CharacterSet: "AI 39 de GS1"
     },
     GS1: {
-        gs1IDKeyTitle: "Clé d'ID GS1",
+        gs1Identifier: "Clé d'identification GS1",
         prefixTypeLabel: "Type de préfixe",
         prefixTypeHint: "Type de préfixe sous-jacent à la clé d'identification.",
         prefixLabel: "Préfixe",
         prefixHint: "Préfixe sous-jacent à la clé d'identification.",
-        identificationKeyHint: "{{identificationKeyType}} à valider.",
+        identifierHint: "{{identifierType}} à valider.",
         valueHint: "Valeur numérique à convertir en référence.",
         exclusionHint: "Type de référence à exclure.",
         sparseLabel: "Clairsemé",
@@ -86,8 +86,8 @@ export const localeStrings = {
         serialComponentHint: "Composant série de la clé d'identification.",
         createSerializedSubtitle: "Créer sérialisé",
         concatenateSerializedSubtitle: "Enchaîner sérialisé",
-        baseIdentificationKeyLabel: "{{identificationKeyType}} de base",
-        baseIdentificationKeyHint: "{{identificationKeyType}} de base à laquelle concaténer le composant série.",
+        baseIdentifierLabel: "{{identifierType}} de base",
+        baseIdentifierHint: "{{identifierType}} de base à laquelle concaténer le composant série.",
         referenceLabel: "Référence",
         referenceHint: "Référence à ajouter au préfixe."
     }

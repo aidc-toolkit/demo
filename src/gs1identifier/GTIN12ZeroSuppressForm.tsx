@@ -1,15 +1,15 @@
-import { GTINCreator, IdentificationKeyType } from "@aidc-toolkit/gs1";
+import { GTINCreator, IdentifierTypes } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { BaseForm } from "./BaseForm.tsx";
 import type { FormProperties } from "./GTIN.tsx";
-import { type IdentificationKeyData, IdentificationKeyInput } from "./IdentificationKeyInput.tsx";
+import { type IdentifierData, IdentifierInput } from "./IdentifierInput.tsx";
 
 /**
  * Form data.
  */
-type FormData = IdentificationKeyData;
+type FormData = IdentifierData;
 
 /**
  * Zero-suppress GTIN-12 form.
@@ -31,7 +31,7 @@ export function GTIN12ZeroSuppressForm(properties: FormProperties): ReactElement
      * Zero-suppressed GTIN-12.
      */
     function onProcess(formData: FormData): string {
-        return GTINCreator.zeroSuppress(formData.identificationKey);
+        return GTINCreator.zeroSuppress(formData.identifier);
     }
 
     return <BaseForm
@@ -40,8 +40,8 @@ export function GTIN12ZeroSuppressForm(properties: FormProperties): ReactElement
         onProcess={onProcess}
         resultName="zeroSuppressedGTIN12"
     >
-        <IdentificationKeyInput
-            identificationKeyType={IdentificationKeyType.GTIN}
+        <IdentifierInput
+            identifierType={IdentifierTypes.GTIN}
             label={i18nextDemo.t("GS1.gtin12Label")}
             hint={i18nextDemo.t("GS1.gtin12ToBeZeroSuppressedHint")}
         />

@@ -12,24 +12,30 @@ import { type ReactElement, useContext, useState } from "react";
 import { BaseForm } from "./BaseForm.tsx";
 import type { FormManager } from "./form-manager.ts";
 import type { InputProperties } from "./input-properties.ts";
+import type { Primitive, TypeString } from "./type.ts";
 
 /**
- * Enumeration input properties.
+ * Radio input properties.
  */
-interface EnumInputProperties<TFormData extends object, TInput extends number> extends InputProperties<TFormData, TInput> {
+interface RadioInputProperties<TFormData extends object, TTypeString extends "string" | "number", TPrimitive extends Exclude<Primitive<TTypeString>, boolean>> extends InputProperties<TFormData, TPrimitive> {
     /**
-     * Enum values.
+     * Type.
      */
-    readonly enumValues: readonly TInput[];
+    readonly type: TypeString;
 
     /**
-     * Enum names, aligned with values.
+     * Values.
      */
-    readonly names: string[];
+    readonly values: readonly TPrimitive[];
+
+    /**
+     * Names, aligned with values.
+     */
+    readonly names: Record<TPrimitive, string>;
 }
 
 /**
- * Enumeration input. Renders radio group controls if multiple or a hidden control if single.
+ * Radio input. Renders radio group controls if multiple or a hidden control if single.
  *
  * @param properties
  * Properties.
@@ -37,13 +43,13 @@ interface EnumInputProperties<TFormData extends object, TInput extends number> e
  * @returns
  * React element.
  */
-export function EnumInput<TFormData extends object, TInput extends number>(properties: EnumInputProperties<TFormData, TInput>): ReactElement {
-    const defaultValue = properties.enumValues[0];
+export function RadioInput<TFormData extends object, TTypeString extends "string" | "number", TPrimitive extends Exclude<Primitive<TTypeString>, boolean>>(properties: RadioInputProperties<TFormData, TTypeString, TPrimitive>): ReactElement {
+    const defaultValue = properties.values[0];
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Match type for enclosing form.
     const formManager = useContext(BaseForm.Context) as unknown as FormManager<TFormData>;
     const [inputState, setInputState] = useState(
-        () => formManager.getInputState(properties.name, "number", true, defaultValue)
+        () => formManager.getInputState(properties.name, properties.type, true, defaultValue)
     );
 
     inputState.saveSetState(setInputState);
@@ -51,11 +57,11 @@ export function EnumInput<TFormData extends object, TInput extends number>(prope
     const value = inputState.value;
 
     // Value must be within range of acceptable values.
-    if (!properties.enumValues.includes(value)) {
+    if (!properties.values.includes(value)) {
         formManager.saveInputValue(inputState, defaultValue);
     }
 
-    return properties.enumValues.length !== 1 ?
+    return properties.values.length !== 1 ?
         <FormControl>
             <FormLabel>{properties.label}</FormLabel>
             <RadioGroup
@@ -65,16 +71,16 @@ export function EnumInput<TFormData extends object, TInput extends number>(prope
                     formManager.saveInputValue(inputState, inputState.valueOf(event.target.value));
                 }}
             >
-                {properties.enumValues.map(enumValue =>
+                {properties.values.map(radioValue =>
                     <FormControlLabel
-                        key={`${properties.name}-${enumValue}`}
-                        value={enumValue}
-                        control={<Radio checked={enumValue === value} />}
+                        key={`${properties.name}-${radioValue}`}
+                        value={String(radioValue)}
+                        control={<Radio checked={radioValue === value} />}
                         label={
                             <Typography
                                 variant="body2"
                             >
-                                {properties.names[enumValue]}
+                                {properties.names[radioValue]}
                             </Typography>
                         }
                     />
@@ -82,5 +88,5 @@ export function EnumInput<TFormData extends object, TInput extends number>(prope
             </RadioGroup>
             <FormHelperText>{properties.hint}</FormHelperText>
         </FormControl> :
-        <Input name={properties.name} hidden value={value} />;
+        <Input name={properties.name} hidden value={String(value)} />;
 }

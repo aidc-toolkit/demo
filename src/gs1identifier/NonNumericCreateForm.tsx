@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { TextInput } from "../TextInput.tsx";
 import { BaseForm } from "./BaseForm.tsx";
-import type { FormProperties as NonNumericIdentificationKeyFormProperties } from "./NonNumericIdentificationKey.tsx";
+import type { FormProperties as NonNumericIdentifierFormProperties } from "./NonNumericIdentifier.tsx";
 import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
 
 /**
@@ -18,7 +18,7 @@ interface FormData extends PrefixTypeAndPrefixData {
 }
 
 /**
- * Create non-numeric identification key form.
+ * Create non-numeric identifier form.
  *
  * @param properties
  * Properties.
@@ -26,7 +26,7 @@ interface FormData extends PrefixTypeAndPrefixData {
  * @returns
  * React element.
  */
-export function NonNumericCreateForm(properties: NonNumericIdentificationKeyFormProperties): ReactElement {
+export function NonNumericCreateForm(properties: NonNumericIdentifierFormProperties): ReactElement {
     /**
      * Process the form.
      *
@@ -34,7 +34,7 @@ export function NonNumericCreateForm(properties: NonNumericIdentificationKeyForm
      * Form data.
      *
      * @returns
-     * Created identification key.
+     * Created identifier.
      */
     function onProcess(formData: FormData): string {
         return properties.getCreator(PrefixManager.get(formData.prefixType, formData.prefix)).create(formData.reference);
@@ -44,10 +44,10 @@ export function NonNumericCreateForm(properties: NonNumericIdentificationKeyForm
         {...properties}
         subtitleResourceName={NonNumericCreateForm.resourceName}
         onProcess={onProcess}
-        resultName="identificationKey"
+        resultName="identifier"
     >
         <PrefixTypeAndPrefixInput
-            identificationKeyType={properties.identificationKeyType}
+            identifierType={properties.identifierType}
             excludePrefix={false}
         />
         <TextInput

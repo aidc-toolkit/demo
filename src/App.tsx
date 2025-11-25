@@ -3,7 +3,7 @@ import { Home as HomeIcon, RestartAlt as RestartAltIcon } from "@mui/icons-mater
 import { AppBar, Box, Icon, IconButton, Menu, Toolbar, Typography } from "@mui/material";
 import { createContext, type ReactElement, useContext, useRef, useState } from "react";
 import packageConfig from "../package.json";
-import { GS1_ID_KEY_MENU_ITEM, type GS1IDKeyFormProperties } from "./gs1idkey/menu-item.tsx";
+import { GS1_ID_KEY_MENU_ITEM, type GS1IDKeyFormProperties } from "./gs1identifier/menu-item.tsx";
 import { i18nextDemo } from "./locale/i18n.ts";
 import type { MenuItemPropertiesArray } from "./menu-item.ts";
 import { MenuItems } from "./MenuItems.tsx";

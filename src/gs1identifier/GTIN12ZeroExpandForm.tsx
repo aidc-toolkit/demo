@@ -40,7 +40,7 @@ export function GTIN12ZeroExpandForm(properties: FormProperties): ReactElement {
         {...properties}
         subtitleResourceName={GTIN12ZeroExpandForm.resourceName}
         onProcess={onProcess}
-        resultName="identificationKey"
+        resultName="identifier"
     >
         <TextInput
             name="zeroSuppressedGTIN12"

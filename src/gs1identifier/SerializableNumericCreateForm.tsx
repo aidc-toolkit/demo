@@ -3,18 +3,21 @@ import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import type { ValueData } from "../string/ValueInput.tsx";
 import { BaseForm } from "./BaseForm.tsx";
-import type { FormProperties as NumericIdentificationKeyFormProperties } from "./NumericIdentificationKey.tsx";
 import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { type SerialComponentData, SerialComponentInput } from "./SerialComponentInput.tsx";
+import type {
+    FormProperties as SerializableNumericIdentifierFormProperties
+} from "./SerializableNumericIdentifier.tsx";
 import { type SparseData, SparseInput } from "./SparseInput.tsx";
 import { ValueInput } from "./ValueInput.tsx";
 
 /**
  * Form data.
  */
-type FormData = PrefixTypeAndPrefixData & ValueData & SparseData;
+type FormData = PrefixTypeAndPrefixData & ValueData & SparseData & SerialComponentData;
 
 /**
- * Create numeric identification key form.
+ * Create serializable numeric identifier form.
  *
  * @param properties
  * Properties.
@@ -22,7 +25,7 @@ type FormData = PrefixTypeAndPrefixData & ValueData & SparseData;
  * @returns
  * React element.
  */
-export function NumericCreateForm(properties: NumericIdentificationKeyFormProperties): ReactElement {
+export function SerializableNumericCreateForm(properties: SerializableNumericIdentifierFormProperties): ReactElement {
     /**
      * Process the form.
      * 
@@ -30,25 +33,26 @@ export function NumericCreateForm(properties: NumericIdentificationKeyFormProper
      * Form data.
      *
      * @returns
-     * Created identification key.
+     * Created identifier.
      */
     function onProcess(formData: FormData): string {
-        return properties.getCreator(PrefixManager.get(formData.prefixType, formData.prefix)).create(formData.value, formData.sparse);
+        return properties.getCreator(PrefixManager.get(formData.prefixType, formData.prefix)).createSerialized(formData.value, formData.serialComponent, formData.sparse);
     }
 
     return <BaseForm
         {...properties}
-        subtitleResourceName={NumericCreateForm.resourceName}
+        subtitleResourceName={SerializableNumericCreateForm.resourceName}
         onProcess={onProcess}
-        resultName="identificationKey"
+        resultName="identifier"
     >
         <PrefixTypeAndPrefixInput
-            identificationKeyType={properties.identificationKeyType}
+            identifierType={properties.identifierType}
             excludePrefix={false}
         />
         <ValueInput />
         <SparseInput />
+        <SerialComponentInput />
     </BaseForm>;
 }
 
-NumericCreateForm.resourceName = "String.createSubtitle" as ParseKeys;
+SerializableNumericCreateForm.resourceName = "GS1.createSerializedSubtitle" as ParseKeys;

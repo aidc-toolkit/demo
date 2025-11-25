@@ -1,8 +1,8 @@
 import { Exclusion } from "@aidc-toolkit/utility";
 import type { ReactElement } from "react";
-import { EnumInput } from "../EnumInput.tsx";
 import type { InputProperties } from "../input-properties.ts";
 import { i18nextDemo } from "../locale/i18n.ts";
+import { RadioInput } from "../RadioInput.tsx";
 
 /**
  * Exclusion data.
@@ -34,11 +34,12 @@ interface ExclusionInputProperties<TFormData extends object> extends Pick<InputP
  * React element.
  */
 export function ExclusionInput<TFormData extends ExclusionData>(properties: ExclusionInputProperties<TFormData>): ReactElement {
-    return <EnumInput
+    return <RadioInput
         {...properties}
+        type="number"
         name="exclusion"
         label={i18nextDemo.t("String.exclusionLabel")}
-        enumValues={properties.exclusionSupport.includes(Exclusion.None) ? properties.exclusionSupport : [Exclusion.None, ...properties.exclusionSupport]}
+        values={properties.exclusionSupport.includes(Exclusion.None) ? properties.exclusionSupport : [Exclusion.None, ...properties.exclusionSupport]}
         names={[
             i18nextDemo.t("String.exclusionNoneLabel"),
             i18nextDemo.t("String.exclusionFirstZeroLabel"),

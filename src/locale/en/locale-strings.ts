@@ -47,12 +47,12 @@ export const localeStrings = {
         gs1AI39CharacterSet: "GS1 AI 39"
     },
     GS1: {
-        gs1IDKeyTitle: "GS1 ID Key",
+        gs1Identifier: "GS1 Identifier",
         prefixTypeLabel: "Prefix type",
-        prefixTypeHint: "Prefix type underlying the identification key.",
+        prefixTypeHint: "Prefix type underlying the identifier.",
         prefixLabel: "Prefix",
-        prefixHint: "Prefix underlying the identification key.",
-        identificationKeyHint: "{{identificationKeyType}} to be validated.",
+        prefixHint: "Prefix underlying the identifier.",
+        identifierHint: "{{identifierType}} to be validated.",
         valueHint: "Numeric value to be converted to reference.",
         exclusionHint: "Type of reference to be excluded.",
         sparseLabel: "Sparse",
@@ -83,11 +83,11 @@ export const localeStrings = {
         normalizeGTINSubtitle: "Normalize",
         gtinToBeNormalizedHint: "GTIN to be normalized.",
         serialComponentLabel: "Serial component",
-        serialComponentHint: "Serial component of the identification key.",
+        serialComponentHint: "Serial component of the identifier.",
         createSerializedSubtitle: "Create serialized",
         concatenateSerializedSubtitle: "Concatenate serialized",
-        baseIdentificationKeyLabel: "Base {{identificationKeyType}}",
-        baseIdentificationKeyHint: "Base {{identificationKeyType}} to which to concatenate serial component.",
+        baseIdentifierLabel: "Base {{identifierType}}",
+        baseIdentifierHint: "Base {{identifierType}} to which to concatenate serial component.",
         referenceLabel: "Reference",
         referenceHint: "Reference to be appended to prefix."
     }

@@ -5,7 +5,7 @@ import { type ReactElement, useState } from "react";
 import { i18nextDemo } from "../locale/i18n.ts";
 import { type StartValueAndCountData, StartValueAndCountInput } from "../string/StartValueAndCountInput.tsx";
 import { BaseForm } from "./BaseForm.tsx";
-import type { FormProperties as NumericIdentificationKeyFormProperties } from "./NumericIdentificationKey.tsx";
+import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier.tsx";
 import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
 import { type SparseData, SparseInput } from "./SparseInput.tsx";
 
@@ -15,7 +15,7 @@ import { type SparseData, SparseInput } from "./SparseInput.tsx";
 type FormData = PrefixTypeAndPrefixData & StartValueAndCountData & SparseData;
 
 /**
- * Create numeric identification keys form.
+ * Create numeric identifiers form.
  *
  * @param properties
  * Properties.
@@ -23,7 +23,7 @@ type FormData = PrefixTypeAndPrefixData & StartValueAndCountData & SparseData;
  * @returns
  * React element.
  */
-export function NumericCreateSequenceForm(properties: NumericIdentificationKeyFormProperties): ReactElement {
+export function NumericCreateSequenceForm(properties: NumericIdentifierFormProperties): ReactElement {
     const [resultCount, setResultCount] = useState(0);
 
     /**
@@ -33,7 +33,7 @@ export function NumericCreateSequenceForm(properties: NumericIdentificationKeyFo
      * Form data.
      *
      * @returns
-     * Created identification keys.
+     * Created identifiers.
      */
     function onProcess(formData: FormData): Iterable<string> {
         setResultCount(formData.count);
@@ -48,7 +48,7 @@ export function NumericCreateSequenceForm(properties: NumericIdentificationKeyFo
         resultCount={resultCount}
     >
         <PrefixTypeAndPrefixInput
-            identificationKeyType={properties.identificationKeyType}
+            identifierType={properties.identifierType}
             excludePrefix={false}
         />
         <StartValueAndCountInput
