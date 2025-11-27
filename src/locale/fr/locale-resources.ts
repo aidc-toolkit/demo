@@ -1,4 +1,4 @@
-export const localeStrings = {
+export default {
     App: {
         title: "La boîte à outils AIDC",
         logoAlt: "Logo de la boîte à outils AIDC",

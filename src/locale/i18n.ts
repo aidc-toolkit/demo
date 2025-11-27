@@ -2,27 +2,27 @@ import { i18nAssertValidResources, i18nCoreInit, type I18nEnvironment } from "@a
 import { gs1Resources, i18nGS1Init } from "@aidc-toolkit/gs1";
 import { i18nUtilityInit, utilityResources } from "@aidc-toolkit/utility";
 import i18next, { type i18n } from "i18next";
-import { localeStrings as enLocaleStrings } from "./en/locale-strings.js";
-import { localeStrings as frLocaleStrings } from "./fr/locale-strings.js";
+import enLocaleResources from "./en/locale-resources.js";
+import frLocaleResources from "./fr/locale-resources.js";
 
 const demoNS = "aidct_demo";
 
 /**
  * Locale strings type is extracted from the English locale strings object.
  */
-export type DemoLocaleStrings = typeof enLocaleStrings;
+export type DemoLocaleResources = typeof enLocaleResources;
 
-i18nAssertValidResources(enLocaleStrings, "fr", frLocaleStrings);
+i18nAssertValidResources(enLocaleResources, "fr", frLocaleResources);
 
 /**
  * Demo resources.
  */
 const demoResources = {
     en: {
-        aidct_demo: enLocaleStrings
+        aidct_demo: enLocaleResources
     },
     fr: {
-        aidct_demo: frLocaleStrings
+        aidct_demo: frLocaleResources
     }
 };
 

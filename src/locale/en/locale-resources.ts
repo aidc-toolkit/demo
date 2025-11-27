@@ -1,4 +1,4 @@
-export const localeStrings = {
+export default {
     App: {
         title: "AIDC Toolkit",
         logoAlt: "AIDC Toolkit logo",

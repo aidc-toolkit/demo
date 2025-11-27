@@ -1,6 +1,6 @@
-import type { GS1LocaleStrings } from "@aidc-toolkit/gs1";
-import type { UtilityLocaleStrings } from "@aidc-toolkit/utility";
-import type { DemoLocaleStrings } from "./i18n.js";
+import type { GS1LocaleResources } from "@aidc-toolkit/gs1";
+import type { UtilityLocaleResources } from "@aidc-toolkit/utility";
+import type { DemoLocaleResources } from "./i18n.js";
 
 /**
  * Internationalization module.
@@ -12,9 +12,9 @@ declare module "i18next" {
     interface CustomTypeOptions {
         defaultNS: "aidct_demo";
         resources: {
-            aidct_utility: UtilityLocaleStrings;
-            aidct_gs1: GS1LocaleStrings;
-            aidct_demo: DemoLocaleStrings;
+            aidct_utility: UtilityLocaleResources;
+            aidct_gs1: GS1LocaleResources;
+            aidct_demo: DemoLocaleResources;
         };
     }
 }
