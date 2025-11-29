@@ -1,6 +1,6 @@
-import { InputState, type InputValue } from "./input-state.ts";
-import { i18nextDemo } from "./locale/i18n.ts";
-import type { Primitive, PropertyKeys, TypeString } from "./type.ts";
+import { InputState, type InputValue } from "./input-state";
+import { i18nextDemo } from "./locale/i18n";
+import type { Primitive, PropertyKeys, TypeString } from "./type";
 
 /**
  * Supported process result types.

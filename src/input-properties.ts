@@ -1,4 +1,4 @@
-import type { PropertyKeys } from "./type.ts";
+import type { PropertyKeys } from "./type";
 
 /**
  * Input properties. Highly specific inputs may pick individual properties.

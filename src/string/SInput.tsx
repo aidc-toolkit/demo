@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
-import type { InputProperties } from "../input-properties.ts";
-import { TextInput } from "../TextInput.tsx";
+import type { InputProperties } from "../input-properties";
+import { TextInput } from "../TextInput";
 
 /**
  * S data.

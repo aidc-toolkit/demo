@@ -1,6 +1,6 @@
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import type { FormGroupDescriptor } from "./form-descriptor.ts";
+import type { FormGroupDescriptor } from "./form-descriptor";
 
 /**
  * Array of menu item properties or null. If null, a separator line is rendered.

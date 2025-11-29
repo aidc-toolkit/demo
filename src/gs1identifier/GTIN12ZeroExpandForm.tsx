@@ -1,10 +1,10 @@
 import { GTINValidator } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.ts";
-import { TextInput } from "../TextInput.tsx";
-import { BaseForm } from "./BaseForm.tsx";
-import type { FormProperties } from "./GTIN.tsx";
+import { i18nextDemo } from "../locale/i18n";
+import { TextInput } from "../TextInput";
+import { BaseForm } from "./BaseForm";
+import type { FormProperties } from "./GTIN";
 
 /**
  * Form data.

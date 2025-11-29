@@ -10,11 +10,11 @@ import {
 import { Exclusions } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.ts";
-import { type ExclusionData, ExclusionInput } from "../string/ExclusionInput.tsx";
-import { BaseForm, type FormProperties } from "./BaseForm.tsx";
-import { type IdentifierData, IdentifierInput } from "./IdentifierInput.tsx";
-import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { i18nextDemo } from "../locale/i18n";
+import { type ExclusionData, ExclusionInput } from "../string/ExclusionInput";
+import { BaseForm, type FormProperties } from "./BaseForm";
+import { type IdentifierData, IdentifierInput } from "./IdentifierInput";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput";
 
 /**
  * Determine if object is record of identifier validators.

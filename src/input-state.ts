@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import type { Primitive, PropertyKeys, TypeString } from "./type.ts";
+import type { Primitive, PropertyKeys, TypeString } from "./type";
 
 /**
  * Map a primitive type and boolean is required to input value type.

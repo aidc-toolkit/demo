@@ -1,5 +1,5 @@
 import type { NonNumericIdentifierCreator, NonNumericIdentifierValidator } from "@aidc-toolkit/gs1";
-import type { FormProperties as IdentifierFormProperties } from "./BaseForm.tsx";
+import type { FormProperties as IdentifierFormProperties } from "./BaseForm";
 
 /**
  * Form properties.

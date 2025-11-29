@@ -16,9 +16,9 @@ import {
 } from "@mui/material";
 import type { ParseKeys } from "i18next";
 import { createContext, type FormEvent, type ReactElement, type ReactNode, useContext, useMemo, useState } from "react";
-import { App } from "./App.tsx";
-import { FormManager, type ProcessResult } from "./form-manager.ts";
-import { i18nextDemo } from "./locale/i18n.js";
+import { App } from "./App";
+import { FormManager, type ProcessResult } from "./form-manager";
+import { i18nextDemo } from "./locale/i18n";
 
 /**
  * Form properties. All forms require at least these properties to be set.

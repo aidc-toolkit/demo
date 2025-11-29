@@ -1,5 +1,5 @@
 import type { NonGTINNumericIdentifierCreator, NonGTINNumericIdentifierValidator } from "@aidc-toolkit/gs1";
-import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier.tsx";
+import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier";
 
 /**
  * Form properties.

@@ -1,9 +1,9 @@
 import { TextField } from "@mui/material";
 import { type ReactElement, useContext, useState } from "react";
-import { BaseForm } from "./BaseForm.tsx";
-import type { FormManager } from "./form-manager.ts";
-import type { InputProperties } from "./input-properties.ts";
-import type { Optional, Primitive } from "./type.ts";
+import { BaseForm } from "./BaseForm";
+import type { FormManager } from "./form-manager";
+import type { InputProperties } from "./input-properties";
+import type { Optional, Primitive } from "./type";
 
 /**
  * Text input properties. Primitive type is declared via the type string.

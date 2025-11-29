@@ -1,9 +1,9 @@
 import { PrefixManager } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import { type ReactElement, useState } from "react";
-import { BaseForm } from "./BaseForm.tsx";
-import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier.tsx";
-import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { BaseForm } from "./BaseForm";
+import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput";
 
 /**
  * Form data.

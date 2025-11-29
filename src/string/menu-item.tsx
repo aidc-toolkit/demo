@@ -1,13 +1,13 @@
 import { AI39_CREATOR, AI82_CREATOR } from "@aidc-toolkit/gs1";
 import { ALPHABETIC_CREATOR, ALPHANUMERIC_CREATOR, HEXADECIMAL_CREATOR, NUMERIC_CREATOR } from "@aidc-toolkit/utility";
 import { Abc as AbcIcon } from "@mui/icons-material";
-import type { FormDescriptor } from "../form-descriptor.ts";
-import type { MenuItemProperties } from "../menu-item.ts";
-import type { FormProperties as StringFormProperties } from "./BaseForm.tsx";
-import { CreateForm } from "./CreateForm.tsx";
-import { CreateSequenceForm } from "./CreateSequenceForm.tsx";
-import { ValidateForm } from "./ValidateForm.tsx";
-import { ValueForm } from "./ValueForm.tsx";
+import type { FormDescriptor } from "../form-descriptor";
+import type { MenuItemProperties } from "../menu-item";
+import type { FormProperties as StringFormProperties } from "./BaseForm";
+import { CreateForm } from "./CreateForm";
+import { CreateSequenceForm } from "./CreateSequenceForm";
+import { ValidateForm } from "./ValidateForm";
+import { ValueForm } from "./ValueForm";
 
 /**
  * String forms properties. Used to build first-level sub-menu.

@@ -3,11 +3,11 @@ import { Home as HomeIcon, RestartAlt as RestartAltIcon } from "@mui/icons-mater
 import { AppBar, Box, Icon, IconButton, Menu, Toolbar, Typography } from "@mui/material";
 import { createContext, type ReactElement, useContext, useRef, useState } from "react";
 import packageConfig from "../package.json";
-import { GS1_ID_KEY_MENU_ITEM, type GS1IDKeyFormProperties } from "./gs1identifier/menu-item.tsx";
-import { i18nextDemo } from "./locale/i18n.ts";
-import type { MenuItemPropertiesArray } from "./menu-item.ts";
-import { MenuItems } from "./MenuItems.tsx";
-import { STRING_MENU_ITEM, type StringFormProperties } from "./string/menu-item.tsx";
+import { GS1_ID_KEY_MENU_ITEM, type GS1IDKeyFormProperties } from "./gs1identifier/menu-item";
+import { i18nextDemo } from "./locale/i18n";
+import type { MenuItemPropertiesArray } from "./menu-item";
+import { MenuItems } from "./MenuItems";
+import { STRING_MENU_ITEM, type StringFormProperties } from "./string/menu-item";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 

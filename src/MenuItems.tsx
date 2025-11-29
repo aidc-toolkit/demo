@@ -4,9 +4,9 @@ import {
 } from "@mui/icons-material";
 import { Divider, MenuItem, Typography } from "@mui/material";
 import { type ReactNode, useContext } from "react";
-import { App } from "./App.tsx";
-import { i18nextDemo } from "./locale/i18n.ts";
-import type { MenuItemProperties } from "./menu-item.ts";
+import { App } from "./App";
+import { i18nextDemo } from "./locale/i18n";
+import type { MenuItemProperties } from "./menu-item";
 
 /**
  * Menu items properties.

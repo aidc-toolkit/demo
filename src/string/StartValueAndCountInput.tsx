@@ -1,8 +1,8 @@
 import { FormGroup } from "@mui/material";
 import type { ReactElement } from "react";
-import type { InputProperties } from "../input-properties.ts";
-import { i18nextDemo } from "../locale/i18n.ts";
-import { TextInput } from "../TextInput.tsx";
+import type { InputProperties } from "../input-properties";
+import { i18nextDemo } from "../locale/i18n";
+import { TextInput } from "../TextInput";
 
 /**
  * Start value and count data.

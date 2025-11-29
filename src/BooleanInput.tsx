@@ -1,8 +1,8 @@
 import { Checkbox, FormControl, FormControlLabel, FormHelperText } from "@mui/material";
 import { type ReactElement, useContext, useState } from "react";
-import { BaseForm } from "./BaseForm.tsx";
-import type { FormManager } from "./form-manager.ts";
-import type { InputProperties } from "./input-properties.ts";
+import { BaseForm } from "./BaseForm";
+import type { FormManager } from "./form-manager";
+import type { InputProperties } from "./input-properties";
 
 /**
  * Boolean input. Renders a checkbox input.

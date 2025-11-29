@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./App.tsx";
-import { I18n } from "./I18n.tsx";
-import { i18nextDemo } from "./locale/i18n.ts";
+import { App } from "./App";
+import { I18n } from "./I18n";
+import { i18nextDemo } from "./locale/i18n";
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Root element must be defined for app to work.
 createRoot(document.getElementById("root")!).render(

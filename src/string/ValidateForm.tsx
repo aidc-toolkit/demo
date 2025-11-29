@@ -1,11 +1,11 @@
 import { FormGroup } from "@mui/material";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.ts";
-import { TextInput } from "../TextInput.tsx";
-import { BaseForm, type FormProperties } from "./BaseForm.tsx";
-import { type ExclusionData, ExclusionInput } from "./ExclusionInput.tsx";
-import { type SData, SInput } from "./SInput.tsx";
+import { i18nextDemo } from "../locale/i18n";
+import { TextInput } from "../TextInput";
+import { BaseForm, type FormProperties } from "./BaseForm";
+import { type ExclusionData, ExclusionInput } from "./ExclusionInput";
+import { type SData, SInput } from "./SInput";
 
 /**
  * Form data.

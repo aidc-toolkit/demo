@@ -2,12 +2,12 @@ import { PrefixManager } from "@aidc-toolkit/gs1";
 import { Sequence } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import { type ReactElement, useState } from "react";
-import { i18nextDemo } from "../locale/i18n.ts";
-import { type StartValueAndCountData, StartValueAndCountInput } from "../string/StartValueAndCountInput.tsx";
-import { BaseForm } from "./BaseForm.tsx";
-import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier.tsx";
-import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
-import { type SparseData, SparseInput } from "./SparseInput.tsx";
+import { i18nextDemo } from "../locale/i18n";
+import { type StartValueAndCountData, StartValueAndCountInput } from "../string/StartValueAndCountInput";
+import { BaseForm } from "./BaseForm";
+import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput";
+import { type SparseData, SparseInput } from "./SparseInput";
 
 /**
  * Form data.

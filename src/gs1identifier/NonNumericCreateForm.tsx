@@ -1,11 +1,11 @@
 import { PrefixManager } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.ts";
-import { TextInput } from "../TextInput.tsx";
-import { BaseForm } from "./BaseForm.tsx";
-import type { FormProperties as NonNumericIdentifierFormProperties } from "./NonNumericIdentifier.tsx";
-import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.tsx";
+import { i18nextDemo } from "../locale/i18n";
+import { TextInput } from "../TextInput";
+import { BaseForm } from "./BaseForm";
+import type { FormProperties as NonNumericIdentifierFormProperties } from "./NonNumericIdentifier";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput";
 
 /**
  * Form data.
