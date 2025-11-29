@@ -1,23 +1,18 @@
 {
   "extends": "@aidc-toolkit/dev/tsconfig.json",
+  "include": ["src/**/*"],
   "compilerOptions": {
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    // Modules.
     "types": ["vite-plugin-svgr/client"],
 
-    "outDir": "dist",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-
-    // Modules.
-    "allowImportingTsExtensions": true,
-
     // Emit.
-    "noEmit": true,
+    "outDir": "dist",
 
-    // Interop constraints.
-    "isolatedModules": true,
+    // Editor support.
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
 
     // Language and environment.
-    "moduleDetection": "force",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx"
   }
 }

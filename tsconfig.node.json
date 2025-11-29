@@ -1,19 +1,7 @@
 {
   "extends": "@aidc-toolkit/dev/tsconfig.json",
+  "include": ["eslint.config.ts", "vite.config.ts"],
   "compilerOptions": {
-    "lib": ["ES2022"],
-
-    // Modules.
-    "allowImportingTsExtensions": true,
-
-    // Emit.
-    "noEmit": true,
-
-    // Interop constraints.
-    "isolatedModules": true,
-
-    // Language and environment.
-    "moduleDetection": "force"
-  },
-  "include": ["vite.config.ts"]
+    "lib": ["ES2022"]
+  }
 }
