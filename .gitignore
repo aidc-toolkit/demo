@@ -2,4 +2,3 @@
 /.npmrc
 /node_modules/
 /dist/
-/tsconfig.node.tsbuildinfo
