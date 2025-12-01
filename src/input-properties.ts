@@ -1,4 +1,4 @@
-import type { PropertyKeys } from "./type";
+import type { PropertyKeys } from "@aidc-toolkit/core";
 
 /**
  * Input properties. Highly specific inputs may pick individual properties.

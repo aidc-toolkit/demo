@@ -1,9 +1,9 @@
+import type { Optional } from "@aidc-toolkit/core";
 import type { IdentifierType } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
 import type { InputProperties } from "../input-properties";
 import { i18nextDemo } from "../locale/i18n";
 import { TextInput } from "../TextInput";
-import type { Optional } from "../type";
 
 /**
  * Identifier data.

@@ -1,6 +1,7 @@
+import type { PropertyKeys } from "@aidc-toolkit/core";
 import { InputState, type InputValue } from "./input-state";
 import { i18nextDemo } from "./locale/i18n";
-import type { Primitive, PropertyKeys, TypeString } from "./type";
+import type { Primitive, TypeString } from "./type";
 
 /**
  * Supported process result types.
