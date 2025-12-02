@@ -1,4 +1,4 @@
-import { PrefixManager } from "@aidc-toolkit/gs1";
+import { type NumericIdentifierType, PrefixManager } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import { type ReactElement, useState } from "react";
 import { BaseForm } from "./BaseForm";
@@ -19,7 +19,7 @@ type FormData = PrefixTypeAndPrefixData;
  * @returns
  * React element.
  */
-export function NumericCreateAllForm(properties: NumericIdentifierFormProperties): ReactElement {
+export function NumericCreateAllForm<TNumericIdentifierType extends NumericIdentifierType>(properties: NumericIdentifierFormProperties<TNumericIdentifierType>): ReactElement {
     const [resultCount, setResultCount] = useState(0);
 
     /**

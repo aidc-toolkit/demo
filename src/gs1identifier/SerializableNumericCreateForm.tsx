@@ -5,9 +5,7 @@ import type { ValueData } from "../string/ValueInput";
 import { BaseForm } from "./BaseForm";
 import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput";
 import { type SerialComponentData, SerialComponentInput } from "./SerialComponentInput";
-import type {
-    FormProperties as SerializableNumericIdentifierFormProperties
-} from "./SerializableNumericIdentifier";
+import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier";
 import { type SparseData, SparseInput } from "./SparseInput";
 import { ValueInput } from "./ValueInput";
 

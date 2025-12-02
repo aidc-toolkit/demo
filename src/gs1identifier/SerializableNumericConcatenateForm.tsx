@@ -1,18 +1,16 @@
-import { PrefixManager, PrefixTypes, PrefixValidator } from "@aidc-toolkit/gs1";
+import { PrefixManager, PrefixTypes, PrefixValidator, type SerializableNumericIdentifierType } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n";
 import { BaseForm } from "./BaseForm";
 import { type IdentifierData, IdentifierInput } from "./IdentifierInput";
 import { type SerialComponentData, SerialComponentInput } from "./SerialComponentInput";
-import type {
-    FormProperties as SerializableNumericIdentifierFormProperties
-} from "./SerializableNumericIdentifier";
+import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier";
 
 /**
  * Form data.
  */
-type FormData = IdentifierData & SerialComponentData;
+type FormData = IdentifierData<SerializableNumericIdentifierType> & SerialComponentData;
 
 /**
  * Concatenate a base identifier with a serial component form.

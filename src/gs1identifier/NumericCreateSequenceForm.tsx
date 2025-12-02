@@ -1,4 +1,4 @@
-import { PrefixManager } from "@aidc-toolkit/gs1";
+import { type NumericIdentifierType, PrefixManager } from "@aidc-toolkit/gs1";
 import { Sequence } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import { type ReactElement, useState } from "react";
@@ -23,7 +23,7 @@ type FormData = PrefixTypeAndPrefixData & StartValueAndCountData & SparseData;
  * @returns
  * React element.
  */
-export function NumericCreateSequenceForm(properties: NumericIdentifierFormProperties): ReactElement {
+export function NumericCreateSequenceForm<TNumericIdentifierType extends NumericIdentifierType>(properties: NumericIdentifierFormProperties<TNumericIdentifierType>): ReactElement {
     const [resultCount, setResultCount] = useState(0);
 
     /**

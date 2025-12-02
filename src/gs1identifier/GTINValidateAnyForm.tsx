@@ -10,7 +10,7 @@ import { type IdentifierData, IdentifierInput } from "./IdentifierInput";
 /**
  * Form data.
  */
-interface FormData extends IdentifierData {
+interface FormData extends IdentifierData<typeof IdentifierTypes.GTIN> {
     /**
      * GTIN level.
      */

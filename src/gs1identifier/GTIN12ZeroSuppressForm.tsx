@@ -9,7 +9,7 @@ import { type IdentifierData, IdentifierInput } from "./IdentifierInput";
 /**
  * Form data.
  */
-type FormData = IdentifierData;
+type FormData = IdentifierData<typeof IdentifierTypes.GTIN>;
 
 /**
  * Zero-suppress GTIN-12 form.

@@ -3,7 +3,7 @@ import { Home as HomeIcon, RestartAlt as RestartAltIcon } from "@mui/icons-mater
 import { AppBar, Box, Icon, IconButton, Menu, Toolbar, Typography } from "@mui/material";
 import { createContext, type ReactElement, useContext, useRef, useState } from "react";
 import packageConfig from "../package.json";
-import { GS1_ID_KEY_MENU_ITEM, type GS1IDKeyFormProperties } from "./gs1identifier/menu-item";
+import { GS1_IDENTIFIER_MENU_ITEM, type GS1IdentifierFormProperties } from "./gs1identifier/menu-item";
 import { i18nextDemo } from "./locale/i18n";
 import type { MenuItemPropertiesArray } from "./menu-item";
 import { MenuItems } from "./MenuItems";
@@ -82,14 +82,14 @@ export function App(): ReactElement {
         setOpenMenuPath("");
     }
 
-    const menuItems: MenuItemPropertiesArray<StringFormProperties | GS1IDKeyFormProperties> = [
+    const menuItems: MenuItemPropertiesArray<StringFormProperties | GS1IdentifierFormProperties> = [
         {
             icon: <HomeIcon />,
             titleResourceName: "App.home",
             f: home
         },
         STRING_MENU_ITEM,
-        GS1_ID_KEY_MENU_ITEM,
+        GS1_IDENTIFIER_MENU_ITEM,
         {
             icon: <RestartAltIcon />,
             titleResourceName: "App.reset",

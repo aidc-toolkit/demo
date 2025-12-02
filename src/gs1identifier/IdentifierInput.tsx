@@ -8,17 +8,17 @@ import { TextInput } from "../TextInput";
 /**
  * Identifier data.
  */
-export interface IdentifierData {
+export interface IdentifierData<TIdentifierType extends IdentifierType> {
     /**
      * Identifier.
      */
-    identifier: string;
+    identifier: TIdentifierType;
 }
 
 /**
  * Identifier input properties.
  */
-interface IdentifierInputProperties<TFormData extends IdentifierData> extends Optional<Pick<InputProperties<TFormData, string>, "label" | "hint">, "label" | "hint"> {
+interface IdentifierInputProperties<TIdentifierType extends IdentifierType, TFormData extends IdentifierData<TIdentifierType>> extends Optional<Pick<InputProperties<TFormData, string>, "label" | "hint">, "label" | "hint"> {
     /**
      * Identifier type.
      */
@@ -34,7 +34,7 @@ interface IdentifierInputProperties<TFormData extends IdentifierData> extends Op
  * @returns
  * React element.
  */
-export function IdentifierInput<TFormData extends IdentifierData>(properties: IdentifierInputProperties<TFormData>): ReactElement {
+export function IdentifierInput<TIdentifierType extends IdentifierType, TFormData extends IdentifierData<TIdentifierType>>(properties: IdentifierInputProperties<TIdentifierType, TFormData>): ReactElement {
     return <TextInput
         {...properties}
         name="identifier"
