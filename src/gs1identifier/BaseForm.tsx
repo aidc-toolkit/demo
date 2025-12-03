@@ -1,5 +1,5 @@
 import type {
-    GTINValidatorsOrIdentifierValidator,
+    IdentifierValidatorsEntry,
     IdentifierType,
     IdentifierTypeCreator,
     PrefixManager
@@ -19,7 +19,7 @@ export interface FormProperties<TIdentifierType extends IdentifierType> {
     /**
      * Validators (GTIN) or validator (non-GTIN).
      */
-    readonly validatorsOrValidator: GTINValidatorsOrIdentifierValidator<TIdentifierType>;
+    readonly validatorsOrValidator: IdentifierValidatorsEntry<TIdentifierType>;
 
     /**
      * Get creator from prefix manager.
