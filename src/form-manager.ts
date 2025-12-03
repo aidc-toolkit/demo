@@ -18,7 +18,7 @@ export class FormManager<TFormData extends object> {
     private readonly _appInputValuesMap: Map<string | number | symbol, string>;
 
     /**
-     * Result name (optional). If defined, result is stored as input to another form.
+     * Result name. If defined, result is stored as input to another form.
      */
     private readonly _resultName: string | undefined;
 
@@ -42,7 +42,7 @@ export class FormManager<TFormData extends object> {
      * Input values map from application context.
      *
      * @param resultName
-     * Result name (optional).
+     * Result name.
      *
      * @param onProcess
      * Callback to process the form.
