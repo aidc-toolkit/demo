@@ -1,21 +1,10 @@
 import {
-    CPID_VALIDATOR,
-    GCN_VALIDATOR,
-    GDTI_VALIDATOR,
-    GIAI_VALIDATOR,
-    GINC_VALIDATOR,
-    GLN_VALIDATOR,
-    GMN_VALIDATOR,
-    GRAI_VALIDATOR,
-    GSIN_VALIDATOR,
-    GSRN_VALIDATOR,
-    GTIN_VALIDATORS, type IdentifierCreator,
     type IdentifierType,
     IdentifierTypes,
-    type IdentifierValidation, type IdentifierValidator,
+    IdentifierValidators,
     type NonGTINNumericIdentifierType,
-    type NumericIdentifierType, type SerializableNumericIdentifierType,
-    SSCC_VALIDATOR
+    type NumericIdentifierType,
+    type SerializableNumericIdentifierType
 } from "@aidc-toolkit/gs1";
 import { BarcodeReader as BarcodeReaderIcon } from "@mui/icons-material";
 import type { FormDescriptor } from "../form-descriptor";
@@ -40,7 +29,7 @@ import { SerializableNumericCreateForm } from "./SerializableNumericCreateForm";
 import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier";
 import { ValidateForm } from "./ValidateForm";
 
-const IdentifierFormDescriptors: ReadonlyArray<FormDescriptor<IdentifierFormProperties<IdentifierType, IdentifierValidation, IdentifierValidator, IdentifierCreator<IdentifierType, IdentifierValidation>>>> = [
+const IdentifierFormDescriptors: ReadonlyArray<FormDescriptor<IdentifierFormProperties<IdentifierType>>> = [
     ValidateForm
 ];
 
@@ -85,7 +74,7 @@ const GTIN_SUB_MENU_ITEMS: MenuItemProperties<GTINFormProperties> = {
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GTIN,
-            validatorsOrValidator: GTIN_VALIDATORS,
+            validatorsOrValidator: IdentifierValidators.GTIN,
             getCreator: prefixManager => prefixManager.gtinCreator
         },
         FormDescriptors: GTINFormDescriptors
@@ -97,7 +86,7 @@ const GLN_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormPropert
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GLN,
-            validatorsOrValidator: GLN_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.GLN,
             getCreator: prefixManager => prefixManager.glnCreator
         },
         FormDescriptors: NumericIdentifierFormDescriptors
@@ -109,7 +98,7 @@ const SSCC_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProper
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.SSCC,
-            validatorsOrValidator: SSCC_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.SSCC,
             getCreator: prefixManager => prefixManager.ssccCreator
         },
         FormDescriptors: NumericIdentifierFormDescriptors
@@ -121,7 +110,7 @@ const GRAI_SUB_MENU_ITEMS: MenuItemProperties<SerializableNumericIdentifierFormP
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GRAI,
-            validatorsOrValidator: GRAI_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.GRAI,
             getCreator: prefixManager => prefixManager.graiCreator
         },
         FormDescriptors: SerializableNumericIdentifierFormDescriptors
@@ -133,7 +122,7 @@ const GIAI_SUB_MENU_ITEMS: MenuItemProperties<NonNumericIdentifierFormProperties
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GIAI,
-            validatorsOrValidator: GIAI_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.GIAI,
             getCreator: prefixManager => prefixManager.giaiCreator
         },
         FormDescriptors: NonNumericIdentifierFormDescriptors
@@ -145,7 +134,7 @@ const GSRN_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProper
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GSRN,
-            validatorsOrValidator: GSRN_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.GSRN,
             getCreator: prefixManager => prefixManager.gsrnCreator
         },
         FormDescriptors: NumericIdentifierFormDescriptors
@@ -157,7 +146,7 @@ const GDTI_SUB_MENU_ITEMS: MenuItemProperties<SerializableNumericIdentifierFormP
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GDTI,
-            validatorsOrValidator: GDTI_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.GDTI,
             getCreator: prefixManager => prefixManager.gdtiCreator
         },
         FormDescriptors: SerializableNumericIdentifierFormDescriptors
@@ -169,7 +158,7 @@ const GINC_SUB_MENU_ITEMS: MenuItemProperties<NonNumericIdentifierFormProperties
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GINC,
-            validatorsOrValidator: GINC_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.GINC,
             getCreator: prefixManager => prefixManager.gincCreator
         },
         FormDescriptors: NonNumericIdentifierFormDescriptors
@@ -181,7 +170,7 @@ const GSIN_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProper
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GSIN,
-            validatorsOrValidator: GSIN_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.GSIN,
             getCreator: prefixManager => prefixManager.gsinCreator
         },
         FormDescriptors: NumericIdentifierFormDescriptors
@@ -193,7 +182,7 @@ const GCN_SUB_MENU_ITEMS: MenuItemProperties<SerializableNumericIdentifierFormPr
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GCN,
-            validatorsOrValidator: GCN_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.GCN,
             getCreator: prefixManager => prefixManager.gcnCreator
         },
         FormDescriptors: SerializableNumericIdentifierFormDescriptors
@@ -205,7 +194,7 @@ const CPID_SUB_MENU_ITEMS: MenuItemProperties<NonNumericIdentifierFormProperties
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.CPID,
-            validatorsOrValidator: CPID_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.CPID,
             getCreator: prefixManager => prefixManager.cpidCreator
         },
         FormDescriptors: NonNumericIdentifierFormDescriptors
@@ -217,7 +206,7 @@ const GMN_SUB_MENU_ITEMS: MenuItemProperties<NonNumericIdentifierFormProperties>
     formGroupDescriptor: {
         formProperties: {
             identifierType: IdentifierTypes.GMN,
-            validatorsOrValidator: GMN_VALIDATOR,
+            validatorsOrValidator: IdentifierValidators.GMN,
             getCreator: prefixManager => prefixManager.gmnCreator
         },
         FormDescriptors: NonNumericIdentifierFormDescriptors

@@ -1,11 +1,8 @@
 import type {
-    GTINValidator,
-    IdentifierCreator,
+    GTINValidatorsOrIdentifierValidator,
     IdentifierType,
-    IdentifierValidation,
-    IdentifierValidator,
-    PrefixManager,
-    PrefixType
+    IdentifierTypeCreator,
+    PrefixManager
 } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
 import { BaseForm as DemoBaseForm, type FormProperties as DemoFormProperties } from "../BaseForm";
@@ -13,16 +10,16 @@ import { BaseForm as DemoBaseForm, type FormProperties as DemoFormProperties } f
 /**
  * Form properties. All identifier forms require these properties to be set.
  */
-export interface FormProperties<TIdentifierType extends IdentifierType, TIdentifierValidation extends IdentifierValidation, TIdentifierValidator extends IdentifierValidator<TIdentifierType, TIdentifierValidation>, TIdentifierCreator extends TIdentifierValidator & IdentifierCreator<TIdentifierType, TIdentifierValidation>> {
+export interface FormProperties<TIdentifierType extends IdentifierType> {
     /**
      * Identifier type.
      */
-    readonly identifierType: IdentifierType;
+    readonly identifierType: TIdentifierType;
 
     /**
      * Validators (GTIN) or validator (non-GTIN).
      */
-    readonly validatorsOrValidator: TIdentifierValidator extends GTINValidator ? Record<PrefixType, TIdentifierValidator> : TIdentifierValidator;
+    readonly validatorsOrValidator: GTINValidatorsOrIdentifierValidator<TIdentifierType>;
 
     /**
      * Get creator from prefix manager.
@@ -33,7 +30,7 @@ export interface FormProperties<TIdentifierType extends IdentifierType, TIdentif
      * @returns
      * Identifier creator.
      */
-    readonly getCreator: (prefixManager: PrefixManager) => TIdentifierCreator;
+    readonly getCreator: (prefixManager: PrefixManager) => IdentifierTypeCreator<TIdentifierType>;
 }
 
 /**
@@ -45,7 +42,7 @@ export interface FormProperties<TIdentifierType extends IdentifierType, TIdentif
  * @returns
  * React element.
  */
-export function BaseForm<TFormData extends object, TIdentifierType extends IdentifierType, TIdentifierValidation extends IdentifierValidation, TIdentifierValidator extends IdentifierValidator<TIdentifierType, TIdentifierValidation>, TIdentifierCreator extends TIdentifierValidator & IdentifierCreator<TIdentifierType, TIdentifierValidation>>(properties: DemoFormProperties<TFormData> & FormProperties<TIdentifierType, TIdentifierValidation, TIdentifierValidator, TIdentifierCreator>): ReactElement {
+export function BaseForm<TFormData extends object, TIdentifierType extends IdentifierType>(properties: DemoFormProperties<TFormData> & FormProperties<TIdentifierType>): ReactElement {
     return <DemoBaseForm
         {...properties}
         title={properties.identifierType}

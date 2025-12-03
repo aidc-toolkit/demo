@@ -1,9 +1,11 @@
 import {
-    ContentCharacterSets, type GTINValidator,
-    type IdentifierCreator,
+    ContentCharacterSets,
+    GTIN_BASE_TYPES,
+    type GTINValidatorsOrIdentifierValidator,
     type IdentifierType,
     type IdentifierValidation,
     type IdentifierValidator,
+    isGTINValidators,
     type NonNumericIdentifierValidation,
     type NumericIdentifierValidation,
     type PrefixType,
@@ -30,18 +32,8 @@ import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./Prefix
  * @returns
  * Identifier validator.
  */
-function getValidator<TIdentifierType extends IdentifierType, TIdentifierValidation extends IdentifierValidation, TIdentifierValidator extends IdentifierValidator<TIdentifierType, TIdentifierValidation>>(validatorsOrValidator: TIdentifierValidator extends GTINValidator ? Record<PrefixType, TIdentifierValidator> : TIdentifierValidator, prefixType: PrefixType): TIdentifierValidator {
-    let validator: TIdentifierValidator;
-
-    if (prefixType in validatorsOrValidator) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type is determined by presence of prefixType as key.
-        validator = (validatorsOrValidator as Record<PrefixType, GTINValidator & TIdentifierValidator>)[prefixType];
-    } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type is determined by presence of prefixType as key.
-        validator = validatorsOrValidator as TIdentifierValidator;
-    }
-
-    return validator;
+function getValidator<TIdentifierType extends IdentifierType>(validatorsOrValidator: GTINValidatorsOrIdentifierValidator<TIdentifierType>, prefixType: PrefixType): IdentifierValidator {
+    return isGTINValidators(validatorsOrValidator) ? validatorsOrValidator[GTIN_BASE_TYPES[prefixType]] : validatorsOrValidator;
 }
 
 /**
@@ -58,7 +50,7 @@ type FormData<TIdentifierType extends IdentifierType> = PrefixTypeAndPrefixData 
  * @returns
  * React element.
  */
-export function ValidateForm<TIdentifierType extends IdentifierType, TIdentifierValidation extends IdentifierValidation, TIdentifierValidator extends IdentifierValidator<TIdentifierType, TIdentifierValidation>, TIdentifierCreator extends TIdentifierValidator & IdentifierCreator<TIdentifierType, TIdentifierValidation>>(properties: FormProperties<TIdentifierType, TIdentifierValidation, TIdentifierValidator, TIdentifierCreator>): ReactElement {
+export function ValidateForm<TIdentifierType extends IdentifierType>(properties: FormProperties<TIdentifierType>): ReactElement {
     const isNumeric = getValidator(properties.validatorsOrValidator, PrefixTypes.GS1CompanyPrefix).referenceCharacterSet === ContentCharacterSets.Numeric;
 
     /**
@@ -71,19 +63,18 @@ export function ValidateForm<TIdentifierType extends IdentifierType, TIdentifier
      * Checkmark and identifier.
      */
     function onProcess(formData: FormData<TIdentifierType>): string {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type is determined by isNumeric.
         const validation = (isNumeric ?
             {} satisfies NumericIdentifierValidation :
             {
                 exclusion: formData.exclusion
-            } satisfies NonNumericIdentifierValidation) as TIdentifierValidation;
+            } satisfies NonNumericIdentifierValidation) as IdentifierValidation;
 
         getValidator(properties.validatorsOrValidator, formData.prefixType).validate(formData.identifier, validation);
 
         return `✓ ${formData.identifier}`;
     }
 
-    return <BaseForm<FormData<TIdentifierType>, TIdentifierType, TIdentifierValidation, TIdentifierValidator, TIdentifierCreator>
+    return <BaseForm
         {...properties}
         subtitleResourceName={ValidateForm.resourceName}
         onProcess={onProcess}
