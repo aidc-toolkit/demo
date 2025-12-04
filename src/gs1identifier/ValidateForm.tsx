@@ -1,10 +1,10 @@
 import {
     ContentCharacterSets,
     GTIN_BASE_TYPES,
-    type IdentifierValidatorsEntry,
     type IdentifierType,
     type IdentifierValidation,
     type IdentifierValidator,
+    type IdentifierValidatorsEntry,
     isGTINValidators,
     type NonNumericIdentifierValidation,
     type NumericIdentifierValidation,

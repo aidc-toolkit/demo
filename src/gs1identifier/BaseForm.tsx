@@ -1,7 +1,7 @@
 import type {
-    IdentifierValidatorsEntry,
     IdentifierType,
     IdentifierTypeCreator,
+    IdentifierValidatorsEntry,
     PrefixManager
 } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
