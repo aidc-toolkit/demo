@@ -35,8 +35,8 @@ interface PrefixTypeAndPrefixInputProperties {
 }
 
 /**
- * Prefix type and prefix input. Renders an enumeration control with name "prefixType" and optionally a required
- * string text control with name "prefix".
+ * Prefix type and prefix input. Renders an enumeration control with name "prefixType" and optionally a required string
+ * text control with name "prefix".
  *
  * @param properties
  * Properties.
