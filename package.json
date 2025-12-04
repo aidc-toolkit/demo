@@ -36,9 +36,9 @@
     "vite-plugin-svgr": "^4.5.0"
   },
   "dependencies": {
-    "@aidc-toolkit/core": "1.0.25-alpha.202512041615",
-    "@aidc-toolkit/gs1": "1.0.25-alpha.202512041624",
-    "@aidc-toolkit/utility": "1.0.25-alpha.202512041618",
+    "@aidc-toolkit/core": "1.0.25-alpha.202512041655",
+    "@aidc-toolkit/gs1": "1.0.25-alpha.202512041657",
+    "@aidc-toolkit/utility": "1.0.25-alpha.202512041656",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.6",
