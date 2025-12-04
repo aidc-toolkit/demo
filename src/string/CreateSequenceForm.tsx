@@ -22,7 +22,7 @@ type FormData = LengthData & StartValueAndCountData & ExclusionData & TweakData;
  * @returns
  * React element.
  */
-export function CreateSequenceForm(properties: FormProperties): ReactElement {
+export function CreateSequenceForm(properties: FormProperties<false>): ReactElement {
     const [resultCount, setResultCount] = useState(0);
 
     /**
@@ -37,7 +37,7 @@ export function CreateSequenceForm(properties: FormProperties): ReactElement {
     function onProcess(formData: FormData): Iterable<string> {
         setResultCount(formData.count);
 
-        return properties.creator.create(formData.length, new Sequence(formData.startValue, formData.count), formData.exclusion, formData.tweak);
+        return properties.validatorOrCreator.create(formData.length, new Sequence(formData.startValue, formData.count), formData.exclusion, formData.tweak);
     }
 
     return <BaseForm
@@ -61,7 +61,7 @@ export function CreateSequenceForm(properties: FormProperties): ReactElement {
         />
         <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
-            exclusionSupport={properties.creator.exclusionSupport}
+            exclusionSupport={properties.validatorOrCreator.exclusionSupport}
         />
         <TweakInput />
     </BaseForm>;

@@ -82,7 +82,7 @@ export function App(): ReactElement {
         setOpenMenuPath("");
     }
 
-    const menuItems: MenuItemPropertiesArray<StringFormProperties | GS1IdentifierFormProperties> = [
+    const menuItems: MenuItemPropertiesArray<StringFormProperties<boolean> | GS1IdentifierFormProperties> = [
         {
             icon: <HomeIcon />,
             titleResourceName: "App.home",

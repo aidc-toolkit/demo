@@ -31,7 +31,7 @@ interface FormData extends SData, ExclusionData {
  * @returns
  * React element.
  */
-export function ValidateForm(properties: FormProperties): ReactElement {
+export function ValidateForm(properties: FormProperties<true>): ReactElement {
     /**
      * Process the form.
      *
@@ -42,7 +42,7 @@ export function ValidateForm(properties: FormProperties): ReactElement {
      * Checkmark and string.
      */
     function onProcess(formData: FormData): string {
-        properties.creator.validate(formData.s, {
+        properties.validatorOrCreator.validate(formData.s, {
             minimumLength: formData.minimumLength,
             maximumLength: formData.maximumLength,
             exclusion: formData.exclusion
@@ -89,7 +89,7 @@ export function ValidateForm(properties: FormProperties): ReactElement {
         </FormGroup>
         <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
-            exclusionSupport={properties.creator.exclusionSupport}
+            exclusionSupport={properties.validatorOrCreator.exclusionSupport}
         />
     </BaseForm>;
 }

@@ -21,7 +21,7 @@ type FormData = LengthData & ValueData & ExclusionData & TweakData;
  * @returns
  * React element.
  */
-export function CreateForm(properties: FormProperties): ReactElement {
+export function CreateForm(properties: FormProperties<false>): ReactElement {
     /**
      * Process the form.
      *
@@ -32,7 +32,7 @@ export function CreateForm(properties: FormProperties): ReactElement {
      * Created string.
      */
     function onProcess(formData: FormData): string {
-        return properties.creator.create(formData.length, formData.value, formData.exclusion, formData.tweak);
+        return properties.validatorOrCreator.create(formData.length, formData.value, formData.exclusion, formData.tweak);
     }
 
     return <BaseForm
@@ -49,7 +49,7 @@ export function CreateForm(properties: FormProperties): ReactElement {
         />
         <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
-            exclusionSupport={properties.creator.exclusionSupport}
+            exclusionSupport={properties.validatorOrCreator.exclusionSupport}
         />
         <TweakInput />
     </BaseForm>;

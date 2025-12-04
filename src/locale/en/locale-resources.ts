@@ -44,7 +44,8 @@ export default {
         alphabeticCharacterSet: "Alphabetic",
         alphanumericCharacterSet: "Alphanumeric",
         gs1AI82CharacterSet: "GS1 AI 82",
-        gs1AI39CharacterSet: "GS1 AI 39"
+        gs1AI39CharacterSet: "GS1 AI 39",
+        gs1AI64CharacterSet: "GS1 AI 64"
     },
     GS1: {
         gs1Identifier: "GS1 Identifier",
