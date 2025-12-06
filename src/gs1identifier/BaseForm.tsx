@@ -5,7 +5,7 @@ import type {
     PrefixManager
 } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
-import { BaseForm as DemoBaseForm, type FormProperties as DemoFormProperties } from "../BaseForm";
+import { BaseForm as DemoBaseForm, type FormProperties as DemoFormProperties } from "../BaseForm.jsx";
 
 /**
  * Form properties. All identifier forms require these properties to be set.

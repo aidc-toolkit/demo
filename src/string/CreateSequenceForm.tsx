@@ -1,12 +1,12 @@
 import { Sequence } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import { type ReactElement, useState } from "react";
-import { i18nextDemo } from "../locale/i18n";
-import { BaseForm, type FormProperties } from "./BaseForm";
-import { type ExclusionData, ExclusionInput } from "./ExclusionInput";
-import { type LengthData, LengthInput } from "./LengthInput";
-import { type StartValueAndCountData, StartValueAndCountInput } from "./StartValueAndCountInput";
-import { type TweakData, TweakInput } from "./TweakInput";
+import { i18nextDemo } from "../locale/i18n.js";
+import { BaseForm, type FormProperties } from "./BaseForm.jsx";
+import { type ExclusionData, ExclusionInput } from "./ExclusionInput.jsx";
+import { type LengthData, LengthInput } from "./LengthInput.jsx";
+import { type StartValueAndCountData, StartValueAndCountInput } from "./StartValueAndCountInput.jsx";
+import { type TweakData, TweakInput } from "./TweakInput.jsx";
 
 /**
  * Form data.

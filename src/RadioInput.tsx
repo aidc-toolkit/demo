@@ -9,10 +9,10 @@ import {
     Typography
 } from "@mui/material";
 import { type ReactElement, useContext, useState } from "react";
-import { BaseForm } from "./BaseForm";
-import type { FormManager } from "./form-manager";
-import type { InputProperties } from "./input-properties";
-import type { Primitive, TypeString } from "./type";
+import { BaseForm } from "./BaseForm.jsx";
+import type { FormManager } from "./form-manager.js";
+import type { InputProperties } from "./input-properties.js";
+import type { Primitive, TypeString } from "./type.js";
 
 /**
  * Radio input properties.

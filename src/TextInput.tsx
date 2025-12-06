@@ -1,10 +1,10 @@
 import type { Optional } from "@aidc-toolkit/core";
 import { TextField } from "@mui/material";
 import { type ReactElement, useContext, useState } from "react";
-import { BaseForm } from "./BaseForm";
-import type { FormManager } from "./form-manager";
-import type { InputProperties } from "./input-properties";
-import type { Primitive } from "./type";
+import { BaseForm } from "./BaseForm.jsx";
+import type { FormManager } from "./form-manager.js";
+import type { InputProperties } from "./input-properties.js";
+import type { Primitive } from "./type.js";
 
 /**
  * Text input properties. Primitive type is declared via the type string.

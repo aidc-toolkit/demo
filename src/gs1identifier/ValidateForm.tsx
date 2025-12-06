@@ -14,11 +14,11 @@ import {
 import { Exclusions } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n";
-import { type ExclusionData, ExclusionInput } from "../string/ExclusionInput";
-import { BaseForm, type FormProperties } from "./BaseForm";
-import { type IdentifierData, IdentifierInput } from "./IdentifierInput";
-import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput";
+import { i18nextDemo } from "../locale/i18n.js";
+import { type ExclusionData, ExclusionInput } from "../string/ExclusionInput.jsx";
+import { BaseForm, type FormProperties } from "./BaseForm.jsx";
+import { type IdentifierData, IdentifierInput } from "./IdentifierInput.jsx";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.jsx";
 
 /**
  * Get the validator, optionally by prefix type if in an array.

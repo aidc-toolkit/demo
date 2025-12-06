@@ -1,8 +1,8 @@
 import { type Exclusion, Exclusions } from "@aidc-toolkit/utility";
 import type { ReactElement } from "react";
-import type { InputProperties } from "../input-properties";
-import { i18nextDemo } from "../locale/i18n";
-import { RadioInput } from "../RadioInput";
+import type { InputProperties } from "../input-properties.js";
+import { i18nextDemo } from "../locale/i18n.js";
+import { RadioInput } from "../RadioInput.jsx";
 
 /**
  * Exclusion data.

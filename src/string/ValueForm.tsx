@@ -1,10 +1,10 @@
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n";
-import { BaseForm, type FormProperties } from "./BaseForm";
-import { type ExclusionData, ExclusionInput } from "./ExclusionInput";
-import { type SData, SInput } from "./SInput";
-import { type TweakData, TweakInput } from "./TweakInput";
+import { i18nextDemo } from "../locale/i18n.js";
+import { BaseForm, type FormProperties } from "./BaseForm.jsx";
+import { type ExclusionData, ExclusionInput } from "./ExclusionInput.jsx";
+import { type SData, SInput } from "./SInput.jsx";
+import { type TweakData, TweakInput } from "./TweakInput.jsx";
 
 /**
  * Form data.

@@ -2,12 +2,12 @@ import AIDCToolkitIcon from "@aidc-toolkit/core/resource/icon.svg?react";
 import { Home as HomeIcon, RestartAlt as RestartAltIcon } from "@mui/icons-material";
 import { AppBar, Box, Icon, IconButton, Menu, Toolbar, Typography } from "@mui/material";
 import { createContext, type ReactElement, useContext, useRef, useState } from "react";
-import packageConfig from "../package.json";
-import { GS1_IDENTIFIER_MENU_ITEM, type GS1IdentifierFormProperties } from "./gs1identifier/menu-item";
-import { i18nextDemo } from "./locale/i18n";
-import type { MenuItemPropertiesArray } from "./menu-item";
-import { MenuItems } from "./MenuItems";
-import { STRING_MENU_ITEM, type StringFormProperties } from "./string/menu-item";
+import packageConfig from "../package.json" with { type: "json" };
+import { GS1_IDENTIFIER_MENU_ITEM, type GS1IdentifierFormProperties } from "./gs1identifier/menu-item.js";
+import { i18nextDemo } from "./locale/i18n.js";
+import type { MenuItemPropertiesArray } from "./menu-item.js";
+import { MenuItems } from "./MenuItems.jsx";
+import { STRING_MENU_ITEM, type StringFormProperties } from "./string/menu-item.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 

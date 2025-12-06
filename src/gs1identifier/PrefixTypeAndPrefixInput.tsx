@@ -1,8 +1,8 @@
 import { gs1NS, type IdentifierType, IdentifierTypes, type PrefixType, PrefixTypes } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n";
-import { RadioInput } from "../RadioInput";
-import { TextInput } from "../TextInput";
+import { i18nextDemo } from "../locale/i18n.js";
+import { RadioInput } from "../RadioInput.jsx";
+import { TextInput } from "../TextInput.jsx";
 
 /**
  * Prefix type and prefix input data.

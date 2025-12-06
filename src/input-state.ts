@@ -1,6 +1,6 @@
 import type { PropertyKeys } from "@aidc-toolkit/core";
 import type { Dispatch, SetStateAction } from "react";
-import type { Primitive, TypeString } from "./type";
+import type { Primitive, TypeString } from "./type.js";
 
 /**
  * Map a primitive type and boolean is required to input value type.

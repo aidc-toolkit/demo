@@ -1,6 +1,6 @@
 import { I18nEnvironments } from "@aidc-toolkit/core";
 import { type ReactElement, type ReactNode, useEffect, useState } from "react";
-import { i18nDemoInit, i18nextDemo } from "./locale/i18n";
+import { i18nDemoInit, i18nextDemo } from "./locale/i18n.js";
 
 /**
  * I18n wrapper properties.

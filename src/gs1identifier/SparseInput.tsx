@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
-import { BooleanInput } from "../BooleanInput";
-import { i18nextDemo } from "../locale/i18n";
+import { BooleanInput } from "../BooleanInput.jsx";
+import { i18nextDemo } from "../locale/i18n.js";
 
 /**
  * Sparse data.

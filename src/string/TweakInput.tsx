@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n";
-import { TextInput } from "../TextInput";
+import { i18nextDemo } from "../locale/i18n.js";
+import { TextInput } from "../TextInput.jsx";
 
 /**
  * Tweak data.

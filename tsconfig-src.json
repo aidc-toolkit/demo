@@ -1,6 +1,6 @@
 {
-  "extends": "@aidc-toolkit/dev/tsconfig.json",
-  "include": ["src/**/*"],
+  "extends": "@aidc-toolkit/dev/tsconfig-template.json",
+  "include": ["./src/**/*"],
   "compilerOptions": {
     // Modules.
     "types": ["vite-plugin-svgr/client"],

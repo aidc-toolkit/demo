@@ -7,27 +7,27 @@ import {
     type SerializableNumericIdentifierType
 } from "@aidc-toolkit/gs1";
 import { BarcodeReader as BarcodeReaderIcon } from "@mui/icons-material";
-import type { FormDescriptor } from "../form-descriptor";
-import type { MenuItemProperties } from "../menu-item";
-import type { FormProperties as IdentifierFormProperties } from "./BaseForm";
-import type { FormProperties as GTINFormProperties } from "./GTIN";
-import { GTIN12ZeroExpandForm } from "./GTIN12ZeroExpandForm";
-import { GTIN12ZeroSuppressForm } from "./GTIN12ZeroSuppressForm";
-import { GTIN14ConvertToForm } from "./GTIN14ConvertToForm";
-import { GTIN14ValidateForm } from "./GTIN14ValidateForm";
-import { GTINNormalizeForm } from "./GTINNormalizeForm";
-import { GTINValidateAnyForm } from "./GTINValidateAnyForm";
-import type { FormProperties as NonGTINNumericIdentifierFormProperties } from "./NonGTINNumericIdentifier";
-import { NonNumericCreateForm } from "./NonNumericCreateForm";
-import type { FormProperties as NonNumericIdentifierFormProperties } from "./NonNumericIdentifier";
-import { NumericCreateAllForm } from "./NumericCreateAllForm";
-import { NumericCreateForm } from "./NumericCreateForm";
-import { NumericCreateSequenceForm } from "./NumericCreateSequenceForm";
-import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier";
-import { SerializableNumericConcatenateForm } from "./SerializableNumericConcatenateForm";
-import { SerializableNumericCreateForm } from "./SerializableNumericCreateForm";
-import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier";
-import { ValidateForm } from "./ValidateForm";
+import type { FormDescriptor } from "../form-descriptor.js";
+import type { MenuItemProperties } from "../menu-item.js";
+import type { FormProperties as IdentifierFormProperties } from "./BaseForm.jsx";
+import type { FormProperties as GTINFormProperties } from "./GTIN.jsx";
+import { GTIN12ZeroExpandForm } from "./GTIN12ZeroExpandForm.jsx";
+import { GTIN12ZeroSuppressForm } from "./GTIN12ZeroSuppressForm.jsx";
+import { GTIN14ConvertToForm } from "./GTIN14ConvertToForm.jsx";
+import { GTIN14ValidateForm } from "./GTIN14ValidateForm.jsx";
+import { GTINNormalizeForm } from "./GTINNormalizeForm.jsx";
+import { GTINValidateAnyForm } from "./GTINValidateAnyForm.jsx";
+import type { FormProperties as NonGTINNumericIdentifierFormProperties } from "./NonGTINNumericIdentifier.jsx";
+import { NonNumericCreateForm } from "./NonNumericCreateForm.jsx";
+import type { FormProperties as NonNumericIdentifierFormProperties } from "./NonNumericIdentifier.jsx";
+import { NumericCreateAllForm } from "./NumericCreateAllForm.jsx";
+import { NumericCreateForm } from "./NumericCreateForm.jsx";
+import { NumericCreateSequenceForm } from "./NumericCreateSequenceForm.jsx";
+import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier.jsx";
+import { SerializableNumericConcatenateForm } from "./SerializableNumericConcatenateForm.jsx";
+import { SerializableNumericCreateForm } from "./SerializableNumericCreateForm.jsx";
+import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier.jsx";
+import { ValidateForm } from "./ValidateForm.jsx";
 
 const IdentifierFormDescriptors: ReadonlyArray<FormDescriptor<IdentifierFormProperties<IdentifierType>>> = [
     ValidateForm

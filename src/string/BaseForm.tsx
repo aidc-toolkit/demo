@@ -1,8 +1,8 @@
 import type { CharacterSetCreator, CharacterSetValidator } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { BaseForm as DemoBaseForm, type FormProperties as DemoFormProperties } from "../BaseForm";
-import { i18nextDemo } from "../locale/i18n";
+import { BaseForm as DemoBaseForm, type FormProperties as DemoFormProperties } from "../BaseForm.jsx";
+import { i18nextDemo } from "../locale/i18n.js";
 
 /**
  * Form properties. All string forms require these properties to be set.

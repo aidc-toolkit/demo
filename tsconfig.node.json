@@ -1,7 +1,0 @@
-{
-  "extends": "@aidc-toolkit/dev/tsconfig.json",
-  "include": ["eslint.config.ts", "vite.config.ts"],
-  "compilerOptions": {
-    "lib": ["ES2022"]
-  }
-}

@@ -1,13 +1,13 @@
 import { PrefixManager } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import type { ValueData } from "../string/ValueInput";
-import { BaseForm } from "./BaseForm";
-import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput";
-import { type SerialComponentData, SerialComponentInput } from "./SerialComponentInput";
-import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier";
-import { type SparseData, SparseInput } from "./SparseInput";
-import { ValueInput } from "./ValueInput";
+import type { ValueData } from "../string/ValueInput.jsx";
+import { BaseForm } from "./BaseForm.jsx";
+import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.jsx";
+import { type SerialComponentData, SerialComponentInput } from "./SerialComponentInput.jsx";
+import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier.jsx";
+import { type SparseData, SparseInput } from "./SparseInput.jsx";
+import { ValueInput } from "./ValueInput.jsx";
 
 /**
  * Form data.

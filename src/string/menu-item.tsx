@@ -1,13 +1,13 @@
 import { AI39_CREATOR, AI64_VALIDATOR, AI82_CREATOR } from "@aidc-toolkit/gs1";
 import { ALPHABETIC_CREATOR, ALPHANUMERIC_CREATOR, HEXADECIMAL_CREATOR, NUMERIC_CREATOR } from "@aidc-toolkit/utility";
 import { Abc as AbcIcon } from "@mui/icons-material";
-import type { FormDescriptor } from "../form-descriptor";
-import type { MenuItemProperties } from "../menu-item";
-import type { FormProperties as StringFormProperties } from "./BaseForm";
-import { CreateForm } from "./CreateForm";
-import { CreateSequenceForm } from "./CreateSequenceForm";
-import { ValidateForm } from "./ValidateForm";
-import { ValueForm } from "./ValueForm";
+import type { FormDescriptor } from "../form-descriptor.js";
+import type { MenuItemProperties } from "../menu-item.js";
+import type { FormProperties as StringFormProperties } from "./BaseForm.jsx";
+import { CreateForm } from "./CreateForm.jsx";
+import { CreateSequenceForm } from "./CreateSequenceForm.jsx";
+import { ValidateForm } from "./ValidateForm.jsx";
+import { ValueForm } from "./ValueForm.jsx";
 
 /**
  * String forms properties. Used to build first-level sub-menu.
