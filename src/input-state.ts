@@ -14,37 +14,37 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
     /**
      * Element name.
      */
-    private readonly _name: PropertyKeys<TFormData, TPrimitive>;
+    readonly #name: PropertyKeys<TFormData, TPrimitive>;
 
     /**
      * Input type.
      */
-    private readonly _type: TTypeString;
+    readonly #type: TTypeString;
 
     /**
      * True if input is required.
      */
-    private readonly _isRequired: IsRequired;
+    readonly #isRequired: IsRequired;
 
     /**
      * Default string value.
      */
-    private readonly _defaultStringValue: string;
+    readonly #defaultStringValue: string;
 
     /**
      * String value.
      */
-    private readonly _stringValue: string;
+    readonly #stringValue: string;
 
     /**
      * Error message.
      */
-    private readonly _errorMessage: string | undefined;
+    readonly #errorMessage: string | undefined;
 
     /**
      * React set state callback.
      */
-    private _setState!: Dispatch<SetStateAction<InputState<TFormData, TTypeString, TPrimitive, IsRequired>>>;
+    #setState!: Dispatch<SetStateAction<InputState<TFormData, TTypeString, TPrimitive, IsRequired>>>;
 
     /**
      * Constructor.
@@ -68,12 +68,12 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
      * Error message.
      */
     constructor(name: PropertyKeys<TFormData, TPrimitive>, type: TTypeString, isRequired: IsRequired, defaultStringValue: string, stringValue: string | undefined, errorMessage: string | undefined) {
-        this._name = name;
-        this._type = type;
-        this._isRequired = isRequired;
-        this._defaultStringValue = defaultStringValue;
-        this._stringValue = stringValue !== undefined && stringValue !== "" ? stringValue : defaultStringValue;
-        this._errorMessage = errorMessage;
+        this.#name = name;
+        this.#type = type;
+        this.#isRequired = isRequired;
+        this.#defaultStringValue = defaultStringValue;
+        this.#stringValue = stringValue !== undefined && stringValue !== "" ? stringValue : defaultStringValue;
+        this.#errorMessage = errorMessage;
     }
 
     /**
@@ -83,7 +83,7 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
      * React set state callback.
      */
     saveSetState(setState: Dispatch<SetStateAction<InputState<TFormData, TTypeString, TPrimitive, IsRequired>>>): void {
-        this._setState = setState;
+        this.#setState = setState;
     }
 
     /**
@@ -125,35 +125,35 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
      * Get the element name.
      */
     get name(): PropertyKeys<TFormData, TPrimitive> {
-        return this._name;
+        return this.#name;
     }
 
     /**
      * Get the input type.
      */
     get type(): TTypeString {
-        return this._type;
+        return this.#type;
     }
 
     /**
      * Determine if input is required.
      */
     get isRequired(): IsRequired {
-        return this._isRequired;
+        return this.#isRequired;
     }
 
     /**
      * Get the default string value.
      */
     get defaultStringValue(): string {
-        return this._defaultStringValue;
+        return this.#defaultStringValue;
     }
 
     /**
      * Get the string value.
      */
     get stringValue(): string {
-        return this._stringValue;
+        return this.#stringValue;
     }
 
     /**
@@ -172,13 +172,13 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
      * Get the error message.
      */
     get errorMessage(): string | undefined {
-        return this._errorMessage;
+        return this.#errorMessage;
     }
 
     /**
      * Get the React set state callback.
      */
     get setState(): Dispatch<SetStateAction<InputState<TFormData, TTypeString, TPrimitive, IsRequired>>> {
-        return this._setState;
+        return this.#setState;
     }
 }
