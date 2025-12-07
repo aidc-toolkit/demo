@@ -40,8 +40,8 @@
   },
   "dependencies": {
     "@aidc-toolkit/core": "1.0.27-alpha.202512062221",
-    "@aidc-toolkit/gs1": "1.0.27-alpha.202512062338",
-    "@aidc-toolkit/utility": "1.0.27-alpha.202512062337",
+    "@aidc-toolkit/gs1": "1.0.27-alpha.202512071317",
+    "@aidc-toolkit/utility": "1.0.27-alpha.202512071317",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.6",
