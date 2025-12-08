@@ -1,4 +1,4 @@
-import { GTINCreator, IdentifierTypes } from "@aidc-toolkit/gs1";
+import { GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.js";
@@ -31,7 +31,7 @@ export function GTINNormalizeForm(properties: FormProperties): ReactElement {
      * Normalized GTIN.
      */
     function onProcess(formData: FormData): string {
-        return GTINCreator.normalize(formData.identifier);
+        return GTINValidator.normalize(formData.identifier);
     }
 
     return <BaseForm

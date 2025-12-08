@@ -1,4 +1,4 @@
-import { GTINCreator, IdentifierTypes } from "@aidc-toolkit/gs1";
+import { GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.js";
@@ -37,7 +37,7 @@ export function GTIN14ConvertToForm(properties: FormProperties): ReactElement {
      * GTIN-14.
      */
     function onProcess(formData: FormData): string {
-        return GTINCreator.convertToGTIN14(formData.indicatorDigit, formData.identifier);
+        return GTINValidator.convertToGTIN14(formData.indicatorDigit, formData.identifier);
     }
 
     return <BaseForm

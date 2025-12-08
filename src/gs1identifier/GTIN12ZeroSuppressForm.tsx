@@ -1,4 +1,4 @@
-import { GTINCreator, IdentifierTypes } from "@aidc-toolkit/gs1";
+import { GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.js";
@@ -31,7 +31,7 @@ export function GTIN12ZeroSuppressForm(properties: FormProperties): ReactElement
      * Zero-suppressed GTIN-12.
      */
     function onProcess(formData: FormData): string {
-        return GTINCreator.zeroSuppress(formData.identifier);
+        return GTINValidator.zeroSuppress(formData.identifier);
     }
 
     return <BaseForm
