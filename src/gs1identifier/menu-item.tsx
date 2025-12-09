@@ -3,8 +3,7 @@ import {
     IdentifierTypes,
     IdentifierValidators,
     type NonGTINNumericIdentifierType,
-    type NumericIdentifierType,
-    type SerializableNumericIdentifierType
+    type NumericIdentifierType
 } from "@aidc-toolkit/gs1";
 import { BarcodeReader as BarcodeReaderIcon } from "@mui/icons-material";
 import type { FormDescriptor } from "../form-descriptor.js";
@@ -20,13 +19,18 @@ import { GTINValidateAnyForm } from "./GTINValidateAnyForm.jsx";
 import type { FormProperties as NonGTINNumericIdentifierFormProperties } from "./NonGTINNumericIdentifier.jsx";
 import { NonNumericCreateForm } from "./NonNumericCreateForm.jsx";
 import type { FormProperties as NonNumericIdentifierFormProperties } from "./NonNumericIdentifier.jsx";
+import type {
+    FormProperties as NonSerializableNumericIdentifierFormProperties
+} from "./NonSerializableNumericIdentifier.jsx";
 import { NumericCreateAllForm } from "./NumericCreateAllForm.jsx";
 import { NumericCreateForm } from "./NumericCreateForm.jsx";
 import { NumericCreateSequenceForm } from "./NumericCreateSequenceForm.jsx";
 import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier.jsx";
 import { SerializableNumericConcatenateForm } from "./SerializableNumericConcatenateForm.jsx";
 import { SerializableNumericCreateForm } from "./SerializableNumericCreateForm.jsx";
-import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier.jsx";
+import type {
+    FormProperties as SerializableNumericIdentifierFormProperties
+} from "./SerializableNumericIdentifier.jsx";
 import { ValidateForm } from "./ValidateForm.jsx";
 
 const IdentifierFormDescriptors: ReadonlyArray<FormDescriptor<IdentifierFormProperties<IdentifierType>>> = [
@@ -57,6 +61,10 @@ const NonGTINNumericIdentifierFormDescriptors: ReadonlyArray<FormDescriptor<NonG
     ...NumericIdentifierFormDescriptors
 ];
 
+const NonSerializableNumericIdentifierFormDescriptors: ReadonlyArray<FormDescriptor<NonSerializableNumericIdentifierFormProperties>> = [
+    ...NonGTINNumericIdentifierFormDescriptors
+];
+
 const SerializableNumericIdentifierFormDescriptors: ReadonlyArray<FormDescriptor<SerializableNumericIdentifierFormProperties> | null> = [
     ...NonGTINNumericIdentifierFormDescriptors,
     null,
@@ -81,7 +89,7 @@ const GTIN_SUB_MENU_ITEMS: MenuItemProperties<GTINFormProperties> = {
     }
 };
 
-const GLN_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProperties<Exclude<NonGTINNumericIdentifierType, SerializableNumericIdentifierType>>> = {
+const GLN_SUB_MENU_ITEMS: MenuItemProperties<NonSerializableNumericIdentifierFormProperties> = {
     title: IdentifierTypes.GLN,
     formGroupDescriptor: {
         formProperties: {
@@ -89,11 +97,11 @@ const GLN_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormPropert
             validatorsOrValidator: IdentifierValidators.GLN,
             getCreator: prefixManager => prefixManager.glnCreator
         },
-        FormDescriptors: NumericIdentifierFormDescriptors
+        FormDescriptors: NonSerializableNumericIdentifierFormDescriptors
     }
 };
 
-const SSCC_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProperties<Exclude<NonGTINNumericIdentifierType, SerializableNumericIdentifierType>>> = {
+const SSCC_SUB_MENU_ITEMS: MenuItemProperties<NonSerializableNumericIdentifierFormProperties> = {
     title: IdentifierTypes.SSCC,
     formGroupDescriptor: {
         formProperties: {
@@ -101,7 +109,7 @@ const SSCC_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProper
             validatorsOrValidator: IdentifierValidators.SSCC,
             getCreator: prefixManager => prefixManager.ssccCreator
         },
-        FormDescriptors: NumericIdentifierFormDescriptors
+        FormDescriptors: NonSerializableNumericIdentifierFormDescriptors
     }
 };
 
@@ -129,7 +137,7 @@ const GIAI_SUB_MENU_ITEMS: MenuItemProperties<NonNumericIdentifierFormProperties
     }
 };
 
-const GSRN_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProperties<Exclude<NonGTINNumericIdentifierType, SerializableNumericIdentifierType>>> = {
+const GSRN_SUB_MENU_ITEMS: MenuItemProperties<NonSerializableNumericIdentifierFormProperties> = {
     title: IdentifierTypes.GSRN,
     formGroupDescriptor: {
         formProperties: {
@@ -137,7 +145,7 @@ const GSRN_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProper
             validatorsOrValidator: IdentifierValidators.GSRN,
             getCreator: prefixManager => prefixManager.gsrnCreator
         },
-        FormDescriptors: NumericIdentifierFormDescriptors
+        FormDescriptors: NonSerializableNumericIdentifierFormDescriptors
     }
 };
 
@@ -165,7 +173,7 @@ const GINC_SUB_MENU_ITEMS: MenuItemProperties<NonNumericIdentifierFormProperties
     }
 };
 
-const GSIN_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProperties<Exclude<NonGTINNumericIdentifierType, SerializableNumericIdentifierType>>> = {
+const GSIN_SUB_MENU_ITEMS: MenuItemProperties<NonSerializableNumericIdentifierFormProperties> = {
     title: IdentifierTypes.GSIN,
     formGroupDescriptor: {
         formProperties: {
@@ -173,7 +181,7 @@ const GSIN_SUB_MENU_ITEMS: MenuItemProperties<NonGTINNumericIdentifierFormProper
             validatorsOrValidator: IdentifierValidators.GSIN,
             getCreator: prefixManager => prefixManager.gsinCreator
         },
-        FormDescriptors: NumericIdentifierFormDescriptors
+        FormDescriptors: NonSerializableNumericIdentifierFormDescriptors
     }
 };
 
@@ -217,7 +225,7 @@ const GMN_SUB_MENU_ITEMS: MenuItemProperties<NonNumericIdentifierFormProperties>
  * GS1 identifier form properties.
  */
 export type GS1IdentifierFormProperties =
-    GTINFormProperties | NonGTINNumericIdentifierFormProperties<Exclude<NonGTINNumericIdentifierType, SerializableNumericIdentifierType>> | SerializableNumericIdentifierFormProperties | NonNumericIdentifierFormProperties;
+    GTINFormProperties | NonSerializableNumericIdentifierFormProperties | SerializableNumericIdentifierFormProperties | NonNumericIdentifierFormProperties;
 
 /**
  * Top-level GS1 identifier menu item.

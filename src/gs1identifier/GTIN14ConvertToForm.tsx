@@ -1,4 +1,4 @@
-import { GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
+import { type GTINType, GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import { i18nextDemo } from "../locale/i18n.js";
@@ -10,7 +10,7 @@ import { type IdentifierData, IdentifierInput } from "./IdentifierInput.jsx";
 /**
  * Form data.
  */
-interface FormData extends IdentifierData<typeof IdentifierTypes.GTIN> {
+interface FormData extends IdentifierData<GTINType> {
     /**
      * Indicator digit.
      */
