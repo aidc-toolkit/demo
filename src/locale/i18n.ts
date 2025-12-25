@@ -1,4 +1,4 @@
-import { i18nCoreInit, type I18nEnvironment } from "@aidc-toolkit/core";
+import { type I18nEnvironment, i18nFinalizeInit } from "@aidc-toolkit/core";
 import { gs1Resources, i18nGS1Init } from "@aidc-toolkit/gs1";
 import { i18nUtilityInit, utilityResources } from "@aidc-toolkit/utility";
 import i18next, { type i18n } from "i18next";
@@ -35,12 +35,9 @@ export const i18nextDemo: i18n = i18next.createInstance();
  *
  * @param debug
  * Debug setting.
- *
- * @returns
- * Void promise.
  */
 export async function i18nDemoInit(environment: I18nEnvironment, debug = false): Promise<void> {
     await i18nUtilityInit(environment, debug);
     await i18nGS1Init(environment, debug);
-    await i18nCoreInit(i18nextDemo, environment, debug, demoNS, utilityResources, gs1Resources, demoResources);
+    await i18nFinalizeInit(i18nextDemo, environment, debug, demoNS, utilityResources, gs1Resources, demoResources);
 }
