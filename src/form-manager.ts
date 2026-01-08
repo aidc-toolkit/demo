@@ -150,7 +150,7 @@ export class FormManager<TFormData extends object> {
 
             if (stringValue !== "") {
                 // Search for non-digit character if type is number.
-                if (inputState.type === "number" && /\D/.test(stringValue)) {
+                if (inputState.type === "number" && /\D/u.test(stringValue)) {
                     errorMessage = i18nextDemo.t("Demo.valueIsNotANumber");
                 }
             } else if (inputState.isRequired) {
