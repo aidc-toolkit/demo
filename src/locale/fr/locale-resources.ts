@@ -92,4 +92,4 @@ export default {
         referenceLabel: "Référence",
         referenceHint: "Référence à ajouter au préfixe."
     }
-} as const;
+};
