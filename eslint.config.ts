@@ -15,8 +15,9 @@ export default defineConfig([
             "react-refresh": reactRefresh
         },
         rules: {
-            "no-alert": "off",
-            "no-console": "off",
+            "no-console": ["error", {
+                allow: ["error"]
+            }],
 
             "react-refresh/only-export-components": [
                 "warn",
