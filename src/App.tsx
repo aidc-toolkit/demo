@@ -2,7 +2,7 @@ import AIDCToolkitIcon from "@aidc-toolkit/core/resource/icon.svg?react";
 import { Home as HomeIcon, RestartAlt as RestartAltIcon } from "@mui/icons-material";
 import { AppBar, Box, Icon, IconButton, Menu, Toolbar, Typography } from "@mui/material";
 import { createContext, type ReactElement, useContext, useRef, useState } from "react";
-import packageConfig from "../package.json" with { type: "json" };
+import packageConfiguration from "../package.json" with { type: "json" };
 import { GS1_IDENTIFIER_MENU_ITEM, type GS1IdentifierFormProperties } from "./gs1identifier/menu-item.js";
 import { i18nextDemo } from "./locale/i18n.js";
 import type { MenuItemPropertiesArray } from "./menu-item.js";
@@ -156,7 +156,7 @@ export function App(): ReactElement {
                         component="div"
                     >
                         {i18nextDemo.t("Demo.demoVersion", {
-                            version: packageConfig.version
+                            version: packageConfiguration.version
                         })}
                     </Typography>
                 </Toolbar>
