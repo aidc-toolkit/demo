@@ -1,6 +1,6 @@
 {
   "name": "@aidc-toolkit/demo",
-  "version": "1.0.33-beta",
+  "version": "1.0.34-alpha",
   "description": "Demonstration of AIDC Toolkit",
   "type": "module",
   "private": true,
@@ -20,13 +20,15 @@
   },
   "scripts": {
     "lint": "eslint",
-    "build:doc": "vite build",
+    "build:base": "tsc --project tsconfig-src.json --noEmit && vite build",
+    "build:alpha": "npm run build:base && tsc --project tsconfig-config.json --noEmit",
+    "build:doc": "npm run build:base",
     "server": "vite",
     "server-preview": "npm run build:doc && vite preview"
   },
   "devDependencies": {
-    "@aidc-toolkit/dev": "1.0.33-beta",
-    "@types/react": "^19.2.8",
+    "@aidc-toolkit/dev": "1.0.34-alpha.202601201753",
+    "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
     "eslint-plugin-react-hooks": "^7.0.1",
@@ -37,9 +39,9 @@
     "vite-plugin-svgr": "^4.5.0"
   },
   "dependencies": {
-    "@aidc-toolkit/core": "1.0.33-beta",
-    "@aidc-toolkit/gs1": "1.0.33-beta",
-    "@aidc-toolkit/utility": "1.0.33-beta",
+    "@aidc-toolkit/core": "1.0.34-alpha.202601201753",
+    "@aidc-toolkit/gs1": "1.0.34-alpha.202601201755",
+    "@aidc-toolkit/utility": "1.0.34-alpha.202601201754",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.7",
