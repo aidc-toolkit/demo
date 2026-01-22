@@ -1,6 +1,6 @@
 {
   "name": "@aidc-toolkit/demo",
-  "version": "1.0.37-beta",
+  "version": "1.0.38-alpha",
   "description": "Demonstration of AIDC Toolkit",
   "type": "module",
   "private": true,
@@ -27,7 +27,7 @@
     "server-preview": "npm run build:doc && vite preview"
   },
   "devDependencies": {
-    "@aidc-toolkit/dev": "1.0.35-beta",
+    "@aidc-toolkit/dev": "1.0.36-alpha.202601222331",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
@@ -39,9 +39,9 @@
     "vite-plugin-svgr": "^4.5.0"
   },
   "dependencies": {
-    "@aidc-toolkit/core": "1.0.36-beta",
-    "@aidc-toolkit/gs1": "1.0.37-beta",
-    "@aidc-toolkit/utility": "1.0.37-beta",
+    "@aidc-toolkit/core": "1.0.37-alpha.202601222331",
+    "@aidc-toolkit/gs1": "1.0.38-alpha.202601222333",
+    "@aidc-toolkit/utility": "1.0.38-alpha.202601222332",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.7",
