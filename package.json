@@ -1,6 +1,6 @@
 {
   "name": "@aidc-toolkit/demo",
-  "version": "1.0.36-beta",
+  "version": "1.0.37-alpha",
   "description": "Demonstration of AIDC Toolkit",
   "type": "module",
   "private": true,
@@ -40,8 +40,8 @@
   },
   "dependencies": {
     "@aidc-toolkit/core": "1.0.36-beta",
-    "@aidc-toolkit/gs1": "1.0.36-beta",
-    "@aidc-toolkit/utility": "1.0.36-beta",
+    "@aidc-toolkit/gs1": "1.0.37-alpha.202601221904",
+    "@aidc-toolkit/utility": "1.0.37-alpha.202601221904",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.7",
