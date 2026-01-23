@@ -64,7 +64,9 @@ export function App(): ReactElement {
      * Go to the home page (root) of the application.
      */
     function home(): void {
-        window.location.href = "/";
+        const demoPathIndex = window.location.href.search(/\/demo(?:\/|$)/u);
+
+        window.location.href = demoPathIndex !== -1 ? window.location.href.substring(0, demoPathIndex + 1) : `${window.location.origin}/`;
     }
 
     /**
