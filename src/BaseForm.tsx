@@ -15,7 +15,16 @@ import {
     TableRow
 } from "@mui/material";
 import type { ParseKeys } from "i18next";
-import { createContext, type FormEvent, type ReactElement, type ReactNode, useContext, useMemo, useState } from "react";
+import {
+    createContext,
+    type ReactElement,
+    type ReactNode,
+    type SubmitEvent,
+    type SyntheticEvent,
+    useContext,
+    useMemo,
+    useState
+} from "react";
 import { App } from "./App.jsx";
 import { FormManager, type ProcessResult } from "./form-manager.js";
 import { i18nextDemo } from "./locale/i18n.js";
@@ -146,7 +155,7 @@ export function BaseForm<TFormData extends object>(properties: BaseFormPropertie
      * @param event
      * Event.
      */
-    function onSubmit(event: FormEvent<HTMLFormElement>): void {
+    function onSubmit(event: SubmitEvent<HTMLFormElement>): void {
         // Default behaviour clears the form.
         event.preventDefault();
 
@@ -196,7 +205,7 @@ export function BaseForm<TFormData extends object>(properties: BaseFormPropertie
      * @param event
      * Event.
      */
-    function onReset(event: FormEvent<HTMLFormElement>): void {
+    function onReset(event: SyntheticEvent<HTMLFormElement>): void {
         event.preventDefault();
 
         formManager.reset();
