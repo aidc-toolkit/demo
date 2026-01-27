@@ -1,13 +1,15 @@
-import { I18NEnvironment } from "@aidc-toolkit/core";
-import aidcToolkitIcon from "@aidc-toolkit/core/resource/icon-256.png";
-import { createContext, type ReactElement, useContext, useEffect, useState } from "react";
-import { Container, Image, Nav, Navbar } from "react-bootstrap";
+import AIDCToolkitIcon from "@aidc-toolkit/core/resource/icon.svg?react";
+import { Home as HomeIcon, RestartAlt as RestartAltIcon } from "@mui/icons-material";
+import { AppBar, Box, Icon, IconButton, Menu, Toolbar, Typography } from "@mui/material";
+import { createContext, type ReactElement, useContext, useRef, useState } from "react";
+import packageConfiguration from "../package.json" with { type: "json" };
+import { GS1_IDENTIFIER_MENU_ITEM, type GS1IdentifierFormProperties } from "./gs1identifier/menu-item.js";
+import { i18nextDemo } from "./locale/i18n.js";
+import type { MenuItemPropertiesArray } from "./menu-item.js";
+import { MenuItems } from "./MenuItems.jsx";
+import { STRING_MENU_ITEM, type StringFormProperties } from "./string/menu-item.js";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import packageConfig from "../package.json";
-import { Menu as GS1IDKeyMenu } from "./gs1idkey/Menu.tsx";
-import { i18nDemoInit, i18nextDemo } from "./locale/i18n.ts";
-import "bootstrap/dist/css/bootstrap.css";
-import { Menu as StringMenu } from "./string/Menu.tsx";
 
 /**
  * Application context.
@@ -21,27 +23,7 @@ interface Context {
     /**
      * Demo element.
      */
-    demoElement?: ReactElement | undefined;
-}
-
-/**
- * Application state.
- */
-interface State {
-    /**
-     * True if internationalization has been initialized.
-     */
-    isI18nInitialized: boolean;
-
-    /**
-     * True if navigation bar is expanded.
-     */
-    navbarExpanded: boolean;
-
-    /**
-     * Demo element, set by menu item selection.
-     */
-    demoElement?: ReactElement | undefined;
+    demoElement: ReactElement | undefined;
 }
 
 /**
@@ -53,113 +35,154 @@ interface State {
 export function App(): ReactElement {
     const appContext = useContext(App.Context);
 
-    const [state, setState] = useState<State>({
-        isI18nInitialized: i18nextDemo.isInitialized,
-        navbarExpanded: false
-    });
+    // Cached input values must be preserved across calls.
+    const inputValuesMap = appContext.inputValuesMap;
+
+    // Demo element is maintained in state and shared in context.
+    const [demoElement, setDemoElement] = useState(appContext.demoElement);
+
+    const [menuOpen, setMenuOpen] = useState(true);
+
+    const [openMenuPath, setOpenMenuPath] = useState("");
 
     /**
-     * Set the navigation bar expanded state.
-     *
-     * @param navbarExpanded
-     * True if navigation bar is expanded.
+     * Open the menu.
      */
-    function setNavbarExpanded(navbarExpanded: boolean): void {
-        setState(state => ({
-            ...state,
-            navbarExpanded
-        }));
+    function openMenu(): void {
+        setMenuOpen(true);
     }
 
     /**
-     * Reset the application by clearing all cached input values and the demo element.
+     * Close the menu.
+     */
+    function closeMenu(): void {
+        // Can't close the menu if there is no demo element.
+        setMenuOpen(demoElement === undefined);
+    }
+
+    /**
+     * Go to the home page (root) of the application.
+     */
+    function home(): void {
+        const demoPathIndex = window.location.href.search(/\/demo(?:\/|$)/u);
+
+        window.location.href = demoPathIndex !== -1 ? window.location.href.substring(0, demoPathIndex + 1) : `${window.location.origin}/`;
+    }
+
+    /**
+     * Reset the application.
      */
     function reset(): void {
-        appContext.inputValuesMap.clear();
+        // Clear cached input values.
+        inputValuesMap.clear();
 
-        setState(state => ({
-            ...state,
-            demoElement: undefined
-        }));
+        // Clear demo element.
+        setDemoElement(undefined);
+
+        // Reset menu.
+        openMenu();
+        setOpenMenuPath("");
     }
 
-    useEffect(() => {
-        if (!state.isI18nInitialized) {
-            i18nDemoInit(I18NEnvironment.Browser).then(() => {
-                // Force refresh.
-                setState(state => ({
-                    ...state,
-                    isI18nInitialized: true
-                }));
-
-                document.title = i18nextDemo.t("App.title");
-            }).catch((e: unknown) => {
-                console.error(e);
-                alert(e);
-            });
+    const menuItems: MenuItemPropertiesArray<StringFormProperties<boolean> | GS1IdentifierFormProperties> = [
+        {
+            icon: <HomeIcon />,
+            titleResourceName: "App.home",
+            f: home
+        },
+        STRING_MENU_ITEM,
+        GS1_IDENTIFIER_MENU_ITEM,
+        {
+            icon: <RestartAltIcon />,
+            titleResourceName: "App.reset",
+            f: reset
         }
-    });
+    ];
 
-    return state.isI18nInitialized ?
-        <App.Context.Provider value={{
-            ...appContext,
-            get demoElement(): ReactElement | undefined {
-                return state.demoElement;
-            },
-            set demoElement(demoElement: ReactElement | undefined) {
-                setState(state => ({
-                    ...state,
-                    // Force complete collapse of navigation bar.
-                    navbarExpanded: false,
-                    demoElement
-                }));
-            }
+    const menuButtonRef = useRef(null);
+
+    // Create new context with managed demo element.
+    const context = new class implements Context {
+        /**
+         * @inheritDoc
+         */
+        get inputValuesMap(): Map<string, string> {
+            return inputValuesMap;
+        }
+
+        /**
+         * @inheritDoc
+         */
+        get demoElement(): ReactElement | undefined {
+            return demoElement;
+        }
+
+        /**
+         * @inheritDoc
+         */
+        set demoElement(value: ReactElement | undefined) {
+            setDemoElement(value);
+
+            // Hide the menu if demo element is set.
+            setMenuOpen(value === undefined);
+        }
+    }();
+
+    return <App.Context.Provider value={context}>
+        <Box sx={{
+            flexGrow: 1
         }}>
-            <Navbar
-                className="d-flex"
-                expand="md"
-                expanded={state.navbarExpanded}
-                onToggle={(expanded) => {
-                    setNavbarExpanded(expanded);
-                }}
-            >
-                <Container>
-                    <Navbar.Brand href="https://github.com/aidc-toolkit">
-                        <Image
-                            src={aidcToolkitIcon}
-                            className="logo d-inline-block align-center"
-                            alt={i18nextDemo.t("App.logoAlt")}
-                        />
-                        {i18nextDemo.t("App.titleVersion", {
-                            version: packageConfig.version
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton
+                        id="aidcToolkitIcon"
+                        ref={menuButtonRef}
+                        edge="start"
+                        color="inherit"
+                        sx={{
+                            mr: 2
+                        }}
+                        onClick={openMenu}
+                    >
+                        <Icon component={AIDCToolkitIcon} />
+                    </IconButton>
+                    <Typography
+                        component="div"
+                        sx={{
+                            flexGrow: 1
+                        }}
+                    >
+                        {i18nextDemo.t("App.title")}
+                    </Typography>
+                    <Typography
+                        component="div"
+                    >
+                        {i18nextDemo.t("Demo.demoVersion", {
+                            version: packageConfiguration.version
                         })}
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            <StringMenu />
-                        </Nav>
-                        <Nav className="me-auto">
-                            <GS1IDKeyMenu />
-                        </Nav>
-                        <Nav className="ms-auto">
-                            <Nav.Link onClick={() => {
-                                reset();
-                            }}>
-                                {i18nextDemo.t("App.reset")}
-                            </Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-            {state.demoElement}
-        </App.Context.Provider> :
-        <></>;
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Menu
+                anchorEl={() => menuButtonRef.current}
+                open={menuOpen}
+                onClose={closeMenu}
+            >
+                <MenuItems
+                    menuItems={menuItems}
+                    openMenuPath={openMenuPath}
+                    setOpenMenuPath={setOpenMenuPath}
+                />
+            </Menu>
+            {demoElement}
+        </Box>
+    </App.Context.Provider>;
 }
 
 /**
  * Context.
  */
 App.Context = createContext<Context>({
-    inputValuesMap: new Map()
+    inputValuesMap: new Map(),
+    demoElement: undefined
 });

@@ -1,8 +1,16 @@
-import type { Exclusion } from "@aidc-toolkit/utility";
 import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.ts";
-import * as String from "./String.tsx";
+import { i18nextDemo } from "../locale/i18n.js";
+import { BaseForm, type FormProperties } from "./BaseForm.jsx";
+import { type ExclusionData, ExclusionInput } from "./ExclusionInput.jsx";
+import { type LengthData, LengthInput } from "./LengthInput.jsx";
+import { type TweakData, TweakInput } from "./TweakInput.jsx";
+import { type ValueData, ValueInput } from "./ValueInput.jsx";
+
+/**
+ * Form data.
+ */
+type FormData = LengthData & ValueData & ExclusionData & TweakData;
 
 /**
  * Create string form.
@@ -13,54 +21,38 @@ import * as String from "./String.tsx";
  * @returns
  * React element.
  */
-export function CreateForm(properties: String.FormProperties): ReactElement {
-    let length: number;
-    let value: number;
-    let exclusion: Exclusion;
-    let tweak: number | undefined;
-
+export function CreateForm(properties: FormProperties<false>): ReactElement {
     /**
      * Process the form.
+     *
+     * @param formData
+     * Form data.
      *
      * @returns
      * Created string.
      */
-    function onProcess(): string {
-        return properties.creator.create(length, value, exclusion, tweak);
+    function onProcess(formData: FormData): string {
+        return properties.validatorOrCreator.create(formData.length, formData.value, formData.exclusion, formData.tweak);
     }
 
-    return <String.BaseForm
+    return <BaseForm
         {...properties}
         subtitleResourceName={CreateForm.resourceName}
         onProcess={onProcess}
         resultName="s"
     >
-        <String.LengthInput
-            onProcess={(inputValue) => {
-                length = inputValue;
-            }}
-        />
-        <String.ValueInput
+        <LengthInput />
+        <ValueInput
             hint={i18nextDemo.t("String.valueHint", {
                 name: i18nextDemo.t(properties.characterSetResourceName)
             })}
-            onProcess={(inputValue) => {
-                value = inputValue;
-            }}
         />
-        <String.ExclusionInput
+        <ExclusionInput
             hint={i18nextDemo.t("String.exclusionHint")}
-            exclusionSupport={properties.creator.exclusionSupport}
-            onProcess={(inputValue) => {
-                exclusion = inputValue;
-            }}
+            exclusionSupport={properties.validatorOrCreator.exclusionSupport}
         />
-        <String.TweakInput
-            onProcess={(inputValue) => {
-                tweak = inputValue;
-            }}
-        />
-    </String.BaseForm>;
+        <TweakInput />
+    </BaseForm>;
 }
 
 CreateForm.resourceName = "String.createSubtitle" as ParseKeys;

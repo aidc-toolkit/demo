@@ -1,17 +1,12 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
-.logo {
-  height: 4em;
-  padding: 0.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 0.5em red);
+#aidcToolkitIcon {
+    transition: filter 300ms;
+    & :hover {
+        box-shadow: 0 0 0.5em red;
+    }
 }

@@ -1,13 +1,13 @@
 {
   "name": "@aidc-toolkit/demo",
-  "version": "0.9.17-beta",
+  "version": "1.0.44",
   "description": "Demonstration of AIDC Toolkit",
   "type": "module",
   "private": true,
-  "homepage": "https://aidc-toolkit.com/",
+  "homepage": "https://aidc-toolkit.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aidc-toolkit/gs1.git"
+    "url": "git+https://github.com/aidc-toolkit/demo.git"
   },
   "bugs": {
     "url": "https://github.com/aidc-toolkit/gs1/issues"
@@ -20,30 +20,34 @@
   },
   "scripts": {
     "lint": "eslint",
-    "build:core": "tsc --build && vite build",
-    "build:dev": "npm run build:core",
-    "build:doc": "npm run build:core -- $*",
+    "build:base": "tsc --project tsconfig-src.json --noEmit && vite build",
+    "build:alpha": "npm run build:base && tsc --project tsconfig-config.json --noEmit",
+    "build:doc": "npm run build:base",
     "server": "vite",
-    "server-preview": "npm run build:core && vite preview"
+    "server-preview": "npm run build:doc && vite preview"
   },
   "devDependencies": {
-    "@aidc-toolkit/dev": "alpha",
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.5.1",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.2.0",
-    "vite": "^6.3.5"
+    "@aidc-toolkit/dev": "^1.0.40",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "globals": "^17.2.0",
+    "typescript-plugin-css-modules": "^5.2.0",
+    "vite": "^7.3.1",
+    "vite-plugin-svgr": "^4.5.0"
   },
   "dependencies": {
-    "@aidc-toolkit/core": "alpha",
-    "@aidc-toolkit/gs1": "alpha",
-    "@aidc-toolkit/utility": "alpha",
-    "bootstrap": "^5.3.6",
-    "i18next": "^25.2.1",
-    "react": "^19.1.0",
-    "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.1.0"
+    "@aidc-toolkit/core": "^1.0.41",
+    "@aidc-toolkit/gs1": "^1.0.43",
+    "@aidc-toolkit/utility": "^1.0.42",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.7",
+    "@mui/material": "^7.3.7",
+    "bootstrap": "^5.3.8",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   }
 }
