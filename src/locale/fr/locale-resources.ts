@@ -22,7 +22,7 @@ export default {
         exclusionAllNumericLabel: "Tout numérique",
         exclusionHint: "Type de chaîne à exclure.",
         tweakLabel: "Réglage",
-        tweakHint: "Si fourni, la valeur numérique de la chaîne \"réglé\" par cette valeur à l'aide d'un transformateur de cryptage.",
+        tweakHint: "Si fourni, la valeur numérique de la chaîne « réglé » par cette valeur à l'aide d'un transformateur de cryptage.",
         validateSubtitle: "Valider",
         stringToValidate: "Chaîne {{name, toLowerCase}} à valider.",
         minimumLengthLabel: "Longueur minimale",

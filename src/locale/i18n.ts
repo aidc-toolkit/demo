@@ -1,4 +1,4 @@
-import { i18nCoreInit, type I18nEnvironment, i18nInit } from "@aidc-toolkit/core";
+import { i18nCoreInit, i18nInit, type I18nLanguageDetector } from "@aidc-toolkit/core";
 import { i18nGS1Init } from "@aidc-toolkit/gs1";
 import { i18nUtilityInit } from "@aidc-toolkit/utility";
 import i18next, { type i18n, type Resource } from "i18next";
@@ -30,8 +30,8 @@ export const i18nextDemo: i18n = i18next.createInstance();
 /**
  * Initialize internationalization.
  *
- * @param environment
- * Environment in which the application is running.
+ * @param languageDetector
+ * Language detector.
  *
  * @param debug
  * Debug setting.
@@ -39,6 +39,6 @@ export const i18nextDemo: i18n = i18next.createInstance();
  * @returns
  * Demo resource bundle.
  */
-export async function i18nDemoInit(environment: I18nEnvironment, debug = false): Promise<Resource> {
-    return i18nInit(i18nextDemo, environment, debug, demoNS, demoResourceBundle, i18nCoreInit, i18nUtilityInit, i18nGS1Init);
+export async function i18nDemoInit(languageDetector: I18nLanguageDetector, debug = false): Promise<Resource> {
+    return i18nInit(i18nextDemo, languageDetector, debug, demoNS, demoResourceBundle, i18nCoreInit, i18nUtilityInit, i18nGS1Init);
 }
