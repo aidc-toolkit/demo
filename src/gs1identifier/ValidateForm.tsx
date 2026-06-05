@@ -2,7 +2,6 @@ import {
     ContentCharacterSets,
     GTIN_BASE_TYPES,
     type IdentifierType,
-    type IdentifierValidation,
     type IdentifierValidator,
     type IdentifierValidatorsEntry,
     isGTINValidators,
@@ -67,7 +66,7 @@ export function ValidateForm<TIdentifierType extends IdentifierType>(properties:
             {} satisfies NumericIdentifierValidation :
             {
                 exclusion: formData.exclusion
-            } satisfies NonNumericIdentifierValidation) as IdentifierValidation;
+            } satisfies NonNumericIdentifierValidation);
 
         getValidator(properties.validatorsOrValidator, formData.prefixType).validate(formData.identifier, validation);
 
