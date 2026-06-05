@@ -109,6 +109,9 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
 
                 case "number":
                     value = parseInt(stringValue, 10);
+                    if (isNaN(value)) {
+                        value = "";
+                    }
                     break;
 
                 case "boolean":
