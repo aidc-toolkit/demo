@@ -1,6 +1,6 @@
 {
   "name": "@aidc-toolkit/demo",
-  "version": "1.0.52-beta",
+  "version": "1.0.53-alpha",
   "description": "Demonstration of AIDC Toolkit",
   "type": "module",
   "private": true,
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@aidc-toolkit/dev": "1.0.47-beta",
-    "@types/react": "^19.2.16",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
     "eslint-plugin-react-hooks": "^7.1.1",
