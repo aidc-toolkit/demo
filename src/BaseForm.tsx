@@ -226,10 +226,10 @@ export function BaseForm<TFormData extends object>(properties: BaseFormPropertie
                 subheader={subtitle}
                 slotProps={{
                     title: {
-                        textAlign: "center"
+                        align: "center"
                     },
                     subheader: {
-                        textAlign: "center"
+                        align: "center"
                     }
                 }}
             />
