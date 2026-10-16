@@ -51,9 +51,8 @@
     "react-dom": "^19.3.1"
   },
   "allowScripts": {
-    "esbuild@0.27.7": true,
-    "esbuild@0.28.2": true,
-    "fsevents@2.3.3": true,
-    "@parcel/watcher@2.6.0": true
+    "esbuild": true,
+    "fsevents": true,
+    "@parcel/watcher": true
   }
 }
