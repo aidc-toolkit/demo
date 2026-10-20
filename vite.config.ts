@@ -7,7 +7,7 @@ export default defineConfig({
     base: "",
     plugins: [react(), svgr()],
     build: {
-        rollupOptions: {
+        rolldownOptions: {
             external: [/^node:\w+/u]
         },
         chunkSizeWarningLimit: 1024
