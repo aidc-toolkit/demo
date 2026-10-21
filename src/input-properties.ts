@@ -1,4 +1,4 @@
-import type { PropertyKeys } from "@aidc-toolkit/core";
+import type { PickStringKeyPropertyType } from "@aidc-toolkit/core";
 
 /**
  * Input properties. Highly specific inputs may pick individual properties.
@@ -7,7 +7,7 @@ export interface InputProperties<TFormData extends object, TInput> {
     /**
      * Element name.
      */
-    readonly name: PropertyKeys<TFormData, TInput>;
+    readonly name: PickStringKeyPropertyType<TFormData, TInput>;
 
     /**
      * Label.
