@@ -14,7 +14,6 @@ import {
     TablePagination,
     TableRow
 } from "@mui/material";
-import type { ParseKeys } from "i18next";
 import {
     createContext,
     type ReactElement,
@@ -27,7 +26,7 @@ import {
 } from "react";
 import { App } from "./App.jsx";
 import { FormManager, type ProcessResult } from "./form-manager.js";
-import { i18nextDemo } from "./locale/i18n.js";
+import { type DemoParseKeys, i18nextDemoT } from "./locale/i18n.js";
 
 /**
  * Form properties. All forms require at least these properties to be set.
@@ -36,7 +35,7 @@ export interface FormProperties<TFormData extends object> {
     /**
      * Form subtitle resource name.
      */
-    readonly subtitleResourceName: ParseKeys;
+    readonly subtitleResourceName: DemoParseKeys;
 
     /**
      * Callback to process the form.
@@ -216,7 +215,7 @@ export function BaseForm<TFormData extends object>(properties: BaseFormPropertie
         setPage(0);
     }
 
-    const subtitle = i18nextDemo.t(properties.subtitleResourceName);
+    const subtitle = i18nextDemoT(properties.subtitleResourceName);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type must match.
     return <BaseForm.Context.Provider value={formManager as unknown as FormManager<never>}>
@@ -258,7 +257,7 @@ export function BaseForm<TFormData extends object>(properties: BaseFormPropertie
                         }}
                     >
                         <Button type="reset" color="secondary">
-                            {i18nextDemo.t("App.reset")}
+                            {i18nextDemoT("App.reset")}
                         </Button>
                         <Button type="submit" color="primary">
                             {subtitle}

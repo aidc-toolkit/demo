@@ -1,11 +1,12 @@
 import { PrefixManager, PrefixTypes, PrefixValidator, type SerializableNumericIdentifierType } from "@aidc-toolkit/gs1";
-import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.js";
+import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
 import { BaseForm } from "./BaseForm.jsx";
 import { type IdentifierData, IdentifierInput } from "./IdentifierInput.jsx";
 import { type SerialComponentData, SerialComponentInput } from "./SerialComponentInput.jsx";
-import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier.jsx";
+import type {
+    FormProperties as SerializableNumericIdentifierFormProperties
+} from "./SerializableNumericIdentifier.jsx";
 
 /**
  * Form data.
@@ -45,10 +46,10 @@ export function SerializableNumericConcatenateForm(properties: SerializableNumer
     >
         <IdentifierInput
             identifierType={properties.identifierType}
-            label={i18nextDemo.t("GS1.baseIdentifierLabel", {
+            label={i18nextDemoT("GS1.baseIdentifierLabel", {
                 identifierType: properties.identifierType
             })}
-            hint={i18nextDemo.t("GS1.baseIdentifierHint", {
+            hint={i18nextDemoT("GS1.baseIdentifierHint", {
                 identifierType: properties.identifierType
             })}
         />
@@ -56,4 +57,4 @@ export function SerializableNumericConcatenateForm(properties: SerializableNumer
     </BaseForm>;
 }
 
-SerializableNumericConcatenateForm.resourceName = "GS1.concatenateSerializedSubtitle" as ParseKeys;
+SerializableNumericConcatenateForm.resourceName = "GS1.concatenateSerializedSubtitle" as DemoParseKeys;

@@ -1,7 +1,7 @@
 import { FormGroup } from "@mui/material";
 import type { ReactElement } from "react";
 import type { InputProperties } from "../input-properties.js";
-import { i18nextDemo } from "../locale/i18n.js";
+import { i18nextDemoT } from "../locale/i18n.js";
 import { TextInput } from "../TextInput.jsx";
 
 /**
@@ -55,14 +55,14 @@ export function StartValueAndCountInput<TFormData extends StartValueAndCountData
         <TextInput
             {...properties.startValue}
             name="startValue"
-            label={i18nextDemo.t("String.startValueLabel")}
+            label={i18nextDemoT("String.startValueLabel")}
             type="number"
             isRequired
         />
         <TextInput
             {...properties.count}
             name="count"
-            label={i18nextDemo.t("String.countLabel")}
+            label={i18nextDemoT("String.countLabel")}
             type="number"
             isRequired
         />

@@ -1,14 +1,22 @@
-import { i18nCoreInit, i18nInit, type I18nLanguageDetector } from "@aidc-toolkit/core";
+import { i18nCoreInit, i18nextInstance, i18nInit, type I18nLanguageDetector } from "@aidc-toolkit/core";
 import { i18nGS1Init } from "@aidc-toolkit/gs1";
 import { i18nUtilityInit } from "@aidc-toolkit/utility";
-import i18next, { type i18n, type Resource } from "i18next";
+import type { ParseKeys, Resource } from "i18next";
 import enLocaleResources from "./en/locale-resources.js";
 import frLocaleResources from "./fr/locale-resources.js";
 
-const demoNS = "aidct_demo";
+/**
+ * Demo namespace.
+ */
+export const demoNS = "aidct_demo";
 
 /**
- * Locale strings type is extracted from the English locale strings object.
+ * Demo parse keys.
+ */
+export type DemoParseKeys = ParseKeys<typeof demoNS>;
+
+/**
+ * Locale resources type is extracted from the English locale strings object.
  */
 export type DemoLocaleResources = typeof enLocaleResources;
 
@@ -24,8 +32,10 @@ const demoResourceBundle = {
     }
 };
 
-// Explicit type is necessary because type can't be inferred without additional references.
-export const i18nextDemo: i18n = i18next.createInstance();
+/**
+ * Demo i18next translator function.
+ */
+export const i18nextDemoT = i18nextInstance.getFixedT(null, demoNS);
 
 /**
  * Initialize internationalization.
@@ -40,5 +50,5 @@ export const i18nextDemo: i18n = i18next.createInstance();
  * Demo resource bundle.
  */
 export async function i18nDemoInit(languageDetector: I18nLanguageDetector, debug = false): Promise<Resource> {
-    return i18nInit(i18nextDemo, languageDetector, debug, demoNS, demoResourceBundle, i18nCoreInit, i18nUtilityInit, i18nGS1Init);
+    return i18nInit(languageDetector, debug, demoResourceBundle, i18nCoreInit, i18nUtilityInit, i18nGS1Init);
 }

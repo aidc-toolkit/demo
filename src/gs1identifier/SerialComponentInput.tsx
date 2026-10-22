@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.js";
+import { i18nextDemoT } from "../locale/i18n.js";
 import { TextInput } from "../TextInput.jsx";
 
 /**
@@ -21,8 +21,8 @@ export interface SerialComponentData {
 export function SerialComponentInput(): ReactElement {
     return <TextInput
         name="serialComponent"
-        label={i18nextDemo.t("GS1.serialComponentLabel")}
-        hint={i18nextDemo.t("GS1.serialComponentHint")}
+        label={i18nextDemoT("GS1.serialComponentLabel")}
+        hint={i18nextDemoT("GS1.serialComponentHint")}
         type="string"
         isRequired
     />;
