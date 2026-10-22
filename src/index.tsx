@@ -2,10 +2,10 @@ import { I18nLanguageDetectors } from "@aidc-toolkit/core";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.jsx";
-import { i18nDemoInit, i18nextDemo } from "./locale/i18n.js";
+import { i18nDemoInit, i18nextDemoT } from "./locale/i18n.js";
 
 i18nDemoInit(I18nLanguageDetectors.Browser).then(() => {
-    document.title = `${i18nextDemo.t("App.title")} - ${i18nextDemo.t("Demo.demo")}`;
+    document.title = `${i18nextDemoT("App.title")} - ${i18nextDemoT("Demo.demo")}`;
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Root element must be defined for app to work.
     createRoot(document.getElementById("root")!).render(

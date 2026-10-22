@@ -1,7 +1,6 @@
 import { type GTINType, GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
-import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.js";
+import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
 import { BaseForm } from "./BaseForm.jsx";
 import type { FormProperties } from "./GTIN.jsx";
 import { type IdentifierData, IdentifierInput } from "./IdentifierInput.jsx";
@@ -43,10 +42,10 @@ export function GTIN14ValidateForm(properties: FormProperties): ReactElement {
     >
         <IdentifierInput
             identifierType={IdentifierTypes.GTIN}
-            label={i18nextDemo.t("GS1.gtin14Label")}
-            hint={i18nextDemo.t("GS1.gtin14ToBeValidatedHint")}
+            label={i18nextDemoT("GS1.gtin14Label")}
+            hint={i18nextDemoT("GS1.gtin14ToBeValidatedHint")}
         />
     </BaseForm>;
 }
 
-GTIN14ValidateForm.resourceName = "GS1.validateGTIN14Subtitle" as ParseKeys;
+GTIN14ValidateForm.resourceName = "GS1.validateGTIN14Subtitle" as DemoParseKeys;

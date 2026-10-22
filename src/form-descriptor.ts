@@ -1,5 +1,5 @@
-import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
+import type { DemoParseKeys } from "./locale/i18n.js";
 
 /**
  * Form descriptor.
@@ -8,7 +8,7 @@ export interface FormDescriptor<T extends object> {
     /**
      * Form resource name.
      */
-    readonly resourceName: ParseKeys;
+    readonly resourceName: DemoParseKeys;
 
     /**
      * Form.
