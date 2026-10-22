@@ -3,7 +3,7 @@ import { Home as HomeIcon, RestartAlt as RestartAltIcon } from "@mui/icons-mater
 import { AppBar, Box, Icon, IconButton, Menu, Toolbar, Typography } from "@mui/material";
 import { createContext, type ReactElement, useContext, useRef, useState } from "react";
 import { GS1_IDENTIFIER_MENU_ITEM, type GS1IdentifierFormProperties } from "./gs1identifier/menu-item.js";
-import { i18nextDemo } from "./locale/i18n.js";
+import { i18nextDemoT } from "./locale/i18n.js";
 import type { MenuItemPropertiesArray } from "./menu-item.js";
 import { MenuItems } from "./MenuItems.jsx";
 import { STRING_MENU_ITEM, type StringFormProperties } from "./string/menu-item.js";
@@ -152,12 +152,12 @@ export function App(): ReactElement {
                             flexGrow: 1
                         }}
                     >
-                        {i18nextDemo.t("App.title")}
+                        {i18nextDemoT("App.title")}
                     </Typography>
                     <Typography
                         component="div"
                     >
-                        {i18nextDemo.t("Demo.demoVersion", {
+                        {i18nextDemoT("Demo.demoVersion", {
                             version: VERSION
                         })}
                     </Typography>

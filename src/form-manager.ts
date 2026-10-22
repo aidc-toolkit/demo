@@ -1,6 +1,6 @@
 import type { PickStringKeyPropertyType } from "@aidc-toolkit/core";
 import { InputState, type InputValue } from "./input-state.js";
-import { i18nextDemo } from "./locale/i18n.js";
+import { i18nextDemoT } from "./locale/i18n.js";
 import type { Primitive, TypeString } from "./type.js";
 
 /**
@@ -151,10 +151,10 @@ export class FormManager<TFormData extends object> {
             if (stringValue !== "") {
                 // Search for non-digit character if type is number.
                 if (inputState.type === "number" && /\D/u.test(stringValue)) {
-                    errorMessage = i18nextDemo.t("Demo.valueIsNotANumber");
+                    errorMessage = i18nextDemoT("Demo.valueIsNotANumber");
                 }
             } else if (inputState.isRequired) {
-                errorMessage = i18nextDemo.t("Demo.valueIsRequired");
+                errorMessage = i18nextDemoT("Demo.valueIsRequired");
             }
 
             if (errorMessage === undefined) {

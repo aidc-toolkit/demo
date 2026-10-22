@@ -1,7 +1,6 @@
 import { type GTINLevel, GTINLevels, type GTINType, GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
-import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.js";
+import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
 import { RadioInput } from "../RadioInput.jsx";
 import { BaseForm } from "./BaseForm.jsx";
 import type { FormProperties } from "./GTIN.jsx";
@@ -27,7 +26,7 @@ interface FormData extends IdentifierData<GTINType> {
  * React element.
  */
 export function GTINValidateAnyForm(properties: FormProperties): ReactElement {
-    const gtinLevelNames = [i18nextDemo.t("GS1.levelAnyLabel"), i18nextDemo.t("GS1.levelRetailConsumerLabel"), i18nextDemo.t("GS1.levelOtherThanRetailConsumerLabel")] as const;
+    const gtinLevelNames = [i18nextDemoT("GS1.levelAnyLabel"), i18nextDemoT("GS1.levelRetailConsumerLabel"), i18nextDemoT("GS1.levelOtherThanRetailConsumerLabel")] as const;
 
     /**
      * Process the form.
@@ -54,17 +53,17 @@ export function GTINValidateAnyForm(properties: FormProperties): ReactElement {
         />
         <RadioInput
             name="gtinLevel"
-            label={i18nextDemo.t("GS1.levelLabel")}
-            hint={i18nextDemo.t("GS1.levelHint")}
+            label={i18nextDemoT("GS1.levelLabel")}
+            hint={i18nextDemoT("GS1.levelHint")}
             type="number"
             values={[GTINLevels.Any, GTINLevels.RetailConsumer, GTINLevels.OtherThanRetailConsumer]}
             names={[
-                i18nextDemo.t("GS1.levelAnyLabel"),
-                i18nextDemo.t("GS1.levelRetailConsumerLabel"),
-                i18nextDemo.t("GS1.levelOtherThanRetailConsumerLabel")
+                i18nextDemoT("GS1.levelAnyLabel"),
+                i18nextDemoT("GS1.levelRetailConsumerLabel"),
+                i18nextDemoT("GS1.levelOtherThanRetailConsumerLabel")
             ]}
         />
     </BaseForm>;
 }
 
-GTINValidateAnyForm.resourceName = "GS1.validateAnySubtitle" as ParseKeys;
+GTINValidateAnyForm.resourceName = "GS1.validateAnySubtitle" as DemoParseKeys;
