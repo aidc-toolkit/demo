@@ -9,6 +9,9 @@ import type { FormProperties } from "./GTIN.jsx";
  * Form data.
  */
 interface FormData {
+    /**
+     * Zero-suppressed GTIN-12.
+     */
     zeroSuppressedGTIN12: string;
 }
 
