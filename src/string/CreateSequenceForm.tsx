@@ -1,7 +1,6 @@
 import { Sequence } from "@aidc-toolkit/utility";
-import type { ParseKeys } from "i18next";
 import { type ReactElement, useState } from "react";
-import { i18nextDemo } from "../locale/i18n.js";
+import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
 import { BaseForm, type FormProperties } from "./BaseForm.jsx";
 import { type ExclusionData, ExclusionInput } from "./ExclusionInput.jsx";
 import { type LengthData, LengthInput } from "./LengthInput.jsx";
@@ -49,22 +48,22 @@ export function CreateSequenceForm(properties: FormProperties<false>): ReactElem
         <LengthInput />
         <StartValueAndCountInput
             startValue={{
-                hint: i18nextDemo.t("String.startValueHint", {
-                    name: i18nextDemo.t(properties.characterSetResourceName)
+                hint: i18nextDemoT("String.startValueHint", {
+                    name: i18nextDemoT(properties.characterSetResourceName)
                 })
             }}
             count={{
-                hint: i18nextDemo.t("String.countHint", {
-                    name: i18nextDemo.t(properties.characterSetResourceName)
+                hint: i18nextDemoT("String.countHint", {
+                    name: i18nextDemoT(properties.characterSetResourceName)
                 })
             }}
         />
         <ExclusionInput
-            hint={i18nextDemo.t("String.exclusionHint")}
+            hint={i18nextDemoT("String.exclusionHint")}
             exclusionSupport={properties.validatorOrCreator.exclusionSupport}
         />
         <TweakInput />
     </BaseForm>;
 }
 
-CreateSequenceForm.resourceName = "String.createSequenceSubtitle" as ParseKeys;
+CreateSequenceForm.resourceName = "String.createSequenceSubtitle" as DemoParseKeys;
