@@ -146,7 +146,7 @@ export class FormManager<TFormData extends object> {
         for (const [name, inputState] of this.#inputStatesMap.entries()) {
             const stringValue = inputState.stringValue.trim();
 
-            let errorMessage: string | undefined = undefined;
+            let errorMessage;
 
             if (stringValue !== "") {
                 // Search for non-digit character if type is number.
