@@ -1,4 +1,4 @@
-import type { PickStringKeyPropertyType } from "@aidc-toolkit/core";
+import type { PropertyKeys } from "@aidc-toolkit/core";
 import type { Dispatch, SetStateAction } from "react";
 import type { Primitive, TypeString } from "./type.js";
 
@@ -14,7 +14,7 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
     /**
      * Element name.
      */
-    readonly #name: PickStringKeyPropertyType<TFormData, TPrimitive>;
+    readonly #name: PropertyKeys<TFormData, TPrimitive>;
 
     /**
      * Input type.
@@ -67,7 +67,7 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
      * @param errorMessage
      * Error message.
      */
-    constructor(name: PickStringKeyPropertyType<TFormData, TPrimitive>, type: TTypeString, isRequired: IsRequired, defaultStringValue: string, stringValue: string | undefined, errorMessage: string | undefined) {
+    constructor(name: PropertyKeys<TFormData, TPrimitive>, type: TTypeString, isRequired: IsRequired, defaultStringValue: string, stringValue: string | undefined, errorMessage: string | undefined) {
         this.#name = name;
         this.#type = type;
         this.#isRequired = isRequired;
@@ -127,7 +127,7 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
     /**
      * Get the element name.
      */
-    get name(): PickStringKeyPropertyType<TFormData, TPrimitive> {
+    get name(): PropertyKeys<TFormData, TPrimitive> {
         return this.#name;
     }
 

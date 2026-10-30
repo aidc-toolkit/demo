@@ -11,8 +11,9 @@ import {
     PrefixTypes
 } from "@aidc-toolkit/gs1";
 import { Exclusions } from "@aidc-toolkit/utility";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { type ExclusionData, ExclusionInput } from "../string/ExclusionInput.jsx";
 import { BaseForm, type FormProperties } from "./BaseForm.jsx";
 import { type IdentifierData, IdentifierInput } from "./IdentifierInput.jsx";
@@ -85,10 +86,10 @@ export function ValidateForm<TIdentifierType extends IdentifierType>(properties:
             identifierType={properties.identifierType}
         />
         <ExclusionInput
-            hint={i18nextDemoT("GS1.exclusionHint")}
+            hint={i18nextDemo.t("GS1.exclusionHint")}
             exclusionSupport={isNumeric ? [Exclusions.None] : [Exclusions.None, Exclusions.AllNumeric]}
         />
     </BaseForm>;
 }
 
-ValidateForm.resourceName = "String.validateSubtitle" as DemoParseKeys;
+ValidateForm.resourceName = "String.validateSubtitle" as ParseKeys;

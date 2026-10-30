@@ -1,6 +1,7 @@
 import { type GTINType, GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { BaseForm } from "./BaseForm.jsx";
 import type { FormProperties } from "./GTIN.jsx";
 import { type IdentifierData, IdentifierInput } from "./IdentifierInput.jsx";
@@ -41,10 +42,10 @@ export function GTIN12ZeroSuppressForm(properties: FormProperties): ReactElement
     >
         <IdentifierInput
             identifierType={IdentifierTypes.GTIN}
-            label={i18nextDemoT("GS1.gtin12Label")}
-            hint={i18nextDemoT("GS1.gtin12ToBeZeroSuppressedHint")}
+            label={i18nextDemo.t("GS1.gtin12Label")}
+            hint={i18nextDemo.t("GS1.gtin12ToBeZeroSuppressedHint")}
         />
     </BaseForm>;
 }
 
-GTIN12ZeroSuppressForm.resourceName = "GS1.zeroSuppressGTIN12Subtitle" as DemoParseKeys;
+GTIN12ZeroSuppressForm.resourceName = "GS1.zeroSuppressGTIN12Subtitle" as ParseKeys;

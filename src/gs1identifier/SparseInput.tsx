@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import { BooleanInput } from "../BooleanInput.jsx";
-import { i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 
 /**
  * Sparse data.
@@ -21,7 +21,7 @@ export interface SparseData {
 export function SparseInput(): ReactElement {
     return <BooleanInput
         name="sparse"
-        label={i18nextDemoT("GS1.sparseLabel")}
-        hint={i18nextDemoT("GS1.sparseHint")}
+        label={i18nextDemo.t("GS1.sparseLabel")}
+        hint={i18nextDemo.t("GS1.sparseHint")}
     />;
 }

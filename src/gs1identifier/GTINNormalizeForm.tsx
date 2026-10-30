@@ -1,6 +1,7 @@
 import { type GTINType, GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { BaseForm } from "./BaseForm.jsx";
 import type { FormProperties } from "./GTIN.jsx";
 import { type IdentifierData, IdentifierInput } from "./IdentifierInput.jsx";
@@ -41,10 +42,10 @@ export function GTINNormalizeForm(properties: FormProperties): ReactElement {
     >
         <IdentifierInput
             identifierType={IdentifierTypes.GTIN}
-            label={i18nextDemoT("GS1.gtinLabel")}
-            hint={i18nextDemoT("GS1.gtinToBeNormalizedHint")}
+            label={i18nextDemo.t("GS1.gtinLabel")}
+            hint={i18nextDemo.t("GS1.gtinToBeNormalizedHint")}
         />
     </BaseForm>;
 }
 
-GTINNormalizeForm.resourceName = "GS1.normalizeGTINSubtitle" as DemoParseKeys;
+GTINNormalizeForm.resourceName = "GS1.normalizeGTINSubtitle" as ParseKeys;

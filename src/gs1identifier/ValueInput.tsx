@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { ValueInput as StringValueInput } from "../string/ValueInput.jsx";
 
 /**
@@ -10,6 +10,6 @@ import { ValueInput as StringValueInput } from "../string/ValueInput.jsx";
  */
 export function ValueInput(): ReactElement {
     return <StringValueInput
-        hint={i18nextDemoT("GS1.valueHint")}
+        hint={i18nextDemo.t("GS1.valueHint")}
     />;
 }

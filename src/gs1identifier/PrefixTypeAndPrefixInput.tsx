@@ -1,6 +1,6 @@
 import { gs1NS, type IdentifierType, IdentifierTypes, type PrefixType, PrefixTypes } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
-import { i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { RadioInput } from "../RadioInput.jsx";
 import { TextInput } from "../TextInput.jsx";
 
@@ -60,18 +60,18 @@ export function PrefixTypeAndPrefixInput(properties: PrefixTypeAndPrefixInputPro
     return <>
         <RadioInput
             name="prefixType"
-            label={i18nextDemoT("GS1.prefixTypeLabel")}
-            hint={i18nextDemoT("GS1.prefixTypeHint")}
+            label={i18nextDemo.t("GS1.prefixTypeLabel")}
+            hint={i18nextDemo.t("GS1.prefixTypeHint")}
             type="string"
             values={prefixTypes}
             names={{
-                [PrefixTypes.GS1CompanyPrefix]: i18nextDemoT("Prefix.gs1CompanyPrefix", {
+                [PrefixTypes.GS1CompanyPrefix]: i18nextDemo.t("Prefix.gs1CompanyPrefix", {
                     ns: gs1NS
                 }),
-                [PrefixTypes.UPCCompanyPrefix]: i18nextDemoT("Prefix.upcCompanyPrefix", {
+                [PrefixTypes.UPCCompanyPrefix]: i18nextDemo.t("Prefix.upcCompanyPrefix", {
                     ns: gs1NS
                 }),
-                [PrefixTypes.GS18Prefix]: i18nextDemoT("Prefix.gs18Prefix", {
+                [PrefixTypes.GS18Prefix]: i18nextDemo.t("Prefix.gs18Prefix", {
                     ns: gs1NS
                 })
             }}
@@ -81,8 +81,8 @@ export function PrefixTypeAndPrefixInput(properties: PrefixTypeAndPrefixInputPro
                 <></> :
                 <TextInput
                     name="prefix"
-                    label={i18nextDemoT("GS1.prefixLabel")}
-                    hint={i18nextDemoT("GS1.prefixHint")}
+                    label={i18nextDemo.t("GS1.prefixLabel")}
+                    hint={i18nextDemo.t("GS1.prefixHint")}
                     type="string"
                     isRequired
                 />
