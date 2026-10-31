@@ -1,6 +1,6 @@
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
 import type { FormGroupDescriptor } from "./form-descriptor.js";
-import type { DemoParseKeys } from "./locale/i18n.js";
 
 /**
  * Array of menu item properties or null. If null, a separator line is rendered.
@@ -20,7 +20,7 @@ interface BaseMenuItemProperties {
     /**
      * Title resource name. Either this or title must be provided.
      */
-    readonly titleResourceName?: DemoParseKeys;
+    readonly titleResourceName?: ParseKeys;
 
     /**
      * Title. Either this or title resource name must be provided.

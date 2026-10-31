@@ -1,7 +1,8 @@
 import { type NumericIdentifierType, PrefixManager } from "@aidc-toolkit/gs1";
 import { Sequence } from "@aidc-toolkit/utility";
+import type { ParseKeys } from "i18next";
 import { type ReactElement, useState } from "react";
-import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { type StartValueAndCountData, StartValueAndCountInput } from "../string/StartValueAndCountInput.jsx";
 import { BaseForm } from "./BaseForm.jsx";
 import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier.jsx";
@@ -52,14 +53,14 @@ export function NumericCreateSequenceForm<TNumericIdentifierType extends Numeric
         />
         <StartValueAndCountInput
             startValue={{
-                hint: i18nextDemoT("GS1.startValueHint")
+                hint: i18nextDemo.t("GS1.startValueHint")
             }}
             count={{
-                hint: i18nextDemoT("GS1.countHint")
+                hint: i18nextDemo.t("GS1.countHint")
             }}
         />
         <SparseInput />
     </BaseForm>;
 }
 
-NumericCreateSequenceForm.resourceName = "String.createSequenceSubtitle" as DemoParseKeys;
+NumericCreateSequenceForm.resourceName = "String.createSequenceSubtitle" as ParseKeys;

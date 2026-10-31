@@ -1,5 +1,6 @@
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { BaseForm, type FormProperties } from "./BaseForm.jsx";
 import { type ExclusionData, ExclusionInput } from "./ExclusionInput.jsx";
 import { type LengthData, LengthInput } from "./LengthInput.jsx";
@@ -42,16 +43,16 @@ export function CreateForm(properties: FormProperties<false>): ReactElement {
     >
         <LengthInput />
         <ValueInput
-            hint={i18nextDemoT("String.valueHint", {
-                name: i18nextDemoT(properties.characterSetResourceName)
+            hint={i18nextDemo.t("String.valueHint", {
+                name: i18nextDemo.t(properties.characterSetResourceName)
             })}
         />
         <ExclusionInput
-            hint={i18nextDemoT("String.exclusionHint")}
+            hint={i18nextDemo.t("String.exclusionHint")}
             exclusionSupport={properties.validatorOrCreator.exclusionSupport}
         />
         <TweakInput />
     </BaseForm>;
 }
 
-CreateForm.resourceName = "String.createSubtitle" as DemoParseKeys;
+CreateForm.resourceName = "String.createSubtitle" as ParseKeys;

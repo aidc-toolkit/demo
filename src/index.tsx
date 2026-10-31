@@ -3,7 +3,7 @@ import i18next from "i18next";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.jsx";
-import { i18nDemoInit, i18nextDemoT } from "./locale/i18n.js";
+import { i18nDemoInit, i18nextDemo } from "./locale/i18n.js";
 
 i18nDemoInit(i18next.use(i18nCoreBrowserLanguageDetector)).then(() => {
     document.title = `${i18nextDemoT("App.title")} - ${i18nextDemoT("Demo.demo")}`;

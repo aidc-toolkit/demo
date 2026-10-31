@@ -5,7 +5,7 @@ import {
 import { Divider, MenuItem, Typography } from "@mui/material";
 import { type ReactNode, useContext } from "react";
 import { App } from "./App.jsx";
-import { i18nextDemoT } from "./locale/i18n.js";
+import { i18nextDemo } from "./locale/i18n.js";
 import type { MenuItemProperties } from "./menu-item.js";
 
 /**
@@ -73,7 +73,7 @@ export function MenuItems<T extends object>(properties: MenuItemsProperties<T>):
         if (menuItemProperties !== null) {
             const icon = menuItemProperties.icon;
             const titleResourceName = menuItemProperties.titleResourceName;
-            const title = menuItemProperties.title ?? i18nextDemoT(titleResourceName ?? "App.title");
+            const title = menuItemProperties.title ?? i18nextDemo.t(titleResourceName ?? "App.title");
 
             const menuItemKey = `${menuPath}${titleResourceName ?? title}`;
             const subMenuPath = `${menuItemKey}/`;

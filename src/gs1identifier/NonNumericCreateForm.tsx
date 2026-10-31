@@ -1,6 +1,7 @@
 import { PrefixManager } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { TextInput } from "../TextInput.jsx";
 import { BaseForm } from "./BaseForm.jsx";
 import type { FormProperties as NonNumericIdentifierFormProperties } from "./NonNumericIdentifier.jsx";
@@ -51,12 +52,12 @@ export function NonNumericCreateForm(properties: NonNumericIdentifierFormPropert
         />
         <TextInput
             name="reference"
-            label={i18nextDemoT("GS1.referenceLabel")}
-            hint={i18nextDemoT("GS1.referenceHint")}
+            label={i18nextDemo.t("GS1.referenceLabel")}
+            hint={i18nextDemo.t("GS1.referenceHint")}
             type="string"
             isRequired
         />
     </BaseForm>;
 }
 
-NonNumericCreateForm.resourceName = "String.createSubtitle" as DemoParseKeys;
+NonNumericCreateForm.resourceName = "String.createSubtitle" as ParseKeys;

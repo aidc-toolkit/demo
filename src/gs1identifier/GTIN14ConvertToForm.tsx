@@ -1,6 +1,7 @@
 import { type GTINType, GTINValidator, IdentifierTypes } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { TextInput } from "../TextInput.jsx";
 import { BaseForm } from "./BaseForm.jsx";
 import type { FormProperties } from "./GTIN.jsx";
@@ -47,17 +48,17 @@ export function GTIN14ConvertToForm(properties: FormProperties): ReactElement {
     >
         <TextInput
             name="indicatorDigit"
-            label={i18nextDemoT("GS1.indicatorDigitLabel")}
-            hint={i18nextDemoT("GS1.indicatorDigitHint")}
+            label={i18nextDemo.t("GS1.indicatorDigitLabel")}
+            hint={i18nextDemo.t("GS1.indicatorDigitHint")}
             type="string"
             isRequired
         />
         <IdentifierInput
             identifierType={IdentifierTypes.GTIN}
-            label={i18nextDemoT("GS1.gtinLabel")}
-            hint={i18nextDemoT("GS1.gtinToBeConvertedToGTIN14Hint")}
+            label={i18nextDemo.t("GS1.gtinLabel")}
+            hint={i18nextDemo.t("GS1.gtinToBeConvertedToGTIN14Hint")}
         />
     </BaseForm>;
 }
 
-GTIN14ConvertToForm.resourceName = "GS1.convertToGTIN14Subtitle" as DemoParseKeys;
+GTIN14ConvertToForm.resourceName = "GS1.convertToGTIN14Subtitle" as ParseKeys;

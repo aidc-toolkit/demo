@@ -5,10 +5,7 @@ import type { i18n, ParseKeys, Resource, TFunction } from "i18next";
 import enLocaleResources from "./en/locale-resources.js";
 import frLocaleResources from "./fr/locale-resources.js";
 
-/**
- * Demo namespace.
- */
-export const demoNS = "aidct_demo";
+const demoNS = "aidct_demo";
 
 /**
  * Locale resources type is extracted from the English locale resources object.

@@ -1,13 +1,11 @@
 import { PrefixManager } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import type { DemoParseKeys } from "../locale/i18n.js";
 import type { ValueData } from "../string/ValueInput.jsx";
 import { BaseForm } from "./BaseForm.jsx";
 import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.jsx";
 import { type SerialComponentData, SerialComponentInput } from "./SerialComponentInput.jsx";
-import type {
-    FormProperties as SerializableNumericIdentifierFormProperties
-} from "./SerializableNumericIdentifier.jsx";
+import type { FormProperties as SerializableNumericIdentifierFormProperties } from "./SerializableNumericIdentifier.jsx";
 import { type SparseData, SparseInput } from "./SparseInput.jsx";
 import { ValueInput } from "./ValueInput.jsx";
 
@@ -55,4 +53,4 @@ export function SerializableNumericCreateForm(properties: SerializableNumericIde
     </BaseForm>;
 }
 
-SerializableNumericCreateForm.resourceName = "GS1.createSerializedSubtitle" as DemoParseKeys;
+SerializableNumericCreateForm.resourceName = "GS1.createSerializedSubtitle" as ParseKeys;

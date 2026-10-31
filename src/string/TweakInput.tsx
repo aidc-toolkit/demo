@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { i18nextDemoT } from "../locale/i18n.js";
+import { i18nextDemo } from "../locale/i18n.js";
 import { TextInput } from "../TextInput.jsx";
 
 /**
@@ -21,8 +21,8 @@ export interface TweakData {
 export function TweakInput(): ReactElement {
     return <TextInput
         name="tweak"
-        label={i18nextDemoT("String.tweakLabel")}
-        hint={i18nextDemoT("String.tweakHint")}
+        label={i18nextDemo.t("String.tweakLabel")}
+        hint={i18nextDemo.t("String.tweakHint")}
         type="number"
         isRequired={false}
     />;

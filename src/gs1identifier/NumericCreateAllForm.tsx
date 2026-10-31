@@ -1,6 +1,6 @@
 import { type NumericIdentifierType, PrefixManager } from "@aidc-toolkit/gs1";
+import type { ParseKeys } from "i18next";
 import { type ReactElement, useState } from "react";
-import type { DemoParseKeys } from "../locale/i18n.js";
 import { BaseForm } from "./BaseForm.jsx";
 import type { FormProperties as NumericIdentifierFormProperties } from "./NumericIdentifier.jsx";
 import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./PrefixTypeAndPrefixInput.jsx";
@@ -53,4 +53,4 @@ export function NumericCreateAllForm<TNumericIdentifierType extends NumericIdent
     </BaseForm>;
 }
 
-NumericCreateAllForm.resourceName = "GS1.createAllSubtitle" as DemoParseKeys;
+NumericCreateAllForm.resourceName = "GS1.createAllSubtitle" as ParseKeys;
