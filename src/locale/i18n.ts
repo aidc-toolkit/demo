@@ -11,24 +11,39 @@ import frLocaleResources from "./fr/locale-resources.js";
 export const demoNS = "aidct_demo";
 
 /**
- * Demo parse keys.
- */
-export type DemoParseKeys = ParseKeys<typeof demoNS>;
-
-/**
  * Locale resources type is extracted from the English locale resources object.
  */
 export type DemoLocaleResources = typeof enLocaleResources;
+
+/**
+ * Core locale resources augmentation.
+ */
+declare module "@aidc-toolkit/core" {
+    /**
+     * Internationalization locale resources.
+     */
+    export interface I18nLocaleResources {
+        /**
+         * Demo locale resources.
+         */
+        [demoNS]: DemoLocaleResources;
+    }
+}
+
+/**
+ * Demo parse keys.
+ */
+export type DemoParseKeys = ParseKeys<typeof demoNS>;
 
 /**
  * Demo resource bundle.
  */
 const demoResourceBundle = {
     en: {
-        aidct_demo: enLocaleResources
+        [demoNS]: enLocaleResources
     },
     fr: {
-        aidct_demo: frLocaleResources
+        [demoNS]: frLocaleResources
     }
 };
 
