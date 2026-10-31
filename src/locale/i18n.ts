@@ -1,37 +1,59 @@
-import { i18nCoreInit, i18nInit, type I18nLanguageDetector } from "@aidc-toolkit/core";
+import { i18nCoreInit, i18nInit } from "@aidc-toolkit/core";
 import { i18nGS1Init } from "@aidc-toolkit/gs1";
 import { i18nUtilityInit } from "@aidc-toolkit/utility";
-import i18next, { type i18n, type Resource } from "i18next";
+import type { i18n, ParseKeys, Resource, TFunction } from "i18next";
 import enLocaleResources from "./en/locale-resources.js";
 import frLocaleResources from "./fr/locale-resources.js";
 
 const demoNS = "aidct_demo";
 
 /**
- * Locale strings type is extracted from the English locale strings object.
+ * Locale resources type is extracted from the English locale resources object.
  */
 export type DemoLocaleResources = typeof enLocaleResources;
+
+/**
+ * Core locale resources augmentation.
+ */
+declare module "@aidc-toolkit/core" {
+    /**
+     * Internationalization locale resources.
+     */
+    export interface I18nLocaleResources {
+        /**
+         * Demo locale resources.
+         */
+        [demoNS]: DemoLocaleResources;
+    }
+}
+
+/**
+ * Demo parse keys.
+ */
+export type DemoParseKeys = ParseKeys<typeof demoNS>;
 
 /**
  * Demo resource bundle.
  */
 const demoResourceBundle = {
     en: {
-        aidct_demo: enLocaleResources
+        [demoNS]: enLocaleResources
     },
     fr: {
-        aidct_demo: frLocaleResources
+        [demoNS]: frLocaleResources
     }
 };
 
-// Explicit type is necessary because type can't be inferred without additional references.
-export const i18nextDemo: i18n = i18next.createInstance();
+/**
+ * Demo i18next translator function.
+ */
+export let i18nextDemoT: TFunction<typeof demoNS>;
 
 /**
  * Initialize internationalization.
  *
- * @param languageDetector
- * Language detector.
+ * @param i18next
+ * Internationalization instance.
  *
  * @param debug
  * Debug setting.
@@ -39,6 +61,9 @@ export const i18nextDemo: i18n = i18next.createInstance();
  * @returns
  * Demo resource bundle.
  */
-export async function i18nDemoInit(languageDetector: I18nLanguageDetector, debug = false): Promise<Resource> {
-    return i18nInit(i18nextDemo, languageDetector, debug, demoNS, demoResourceBundle, i18nCoreInit, i18nUtilityInit, i18nGS1Init);
+export async function i18nDemoInit(i18next: i18n, debug = false): Promise<Resource> {
+    // Bind translator function to i18next.
+    i18nextDemoT = i18next.getFixedT(null, demoNS);
+
+    return i18nInit(i18next, debug, demoResourceBundle, i18nCoreInit, i18nUtilityInit, i18nGS1Init);
 }
