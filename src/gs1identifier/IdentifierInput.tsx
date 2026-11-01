@@ -2,7 +2,7 @@ import type { Optional } from "@aidc-toolkit/core";
 import type { IdentifierType } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
 import type { InputProperties } from "../input-properties.js";
-import { i18nextDemo } from "../locale/i18n.js";
+import { i18nextDemoT } from "../locale/i18n.js";
 import { TextInput } from "../TextInput.jsx";
 
 /**
@@ -39,7 +39,7 @@ export function IdentifierInput<TIdentifierType extends IdentifierType, TFormDat
         {...properties}
         name="identifier"
         label={properties.label ?? properties.identifierType}
-        hint={properties.hint ?? i18nextDemo.t("GS1.identifierHint", {
+        hint={properties.hint ?? i18nextDemoT("GS1.identifierHint", {
             identifierType: properties.identifierType
         })}
         type="string"

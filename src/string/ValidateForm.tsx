@@ -1,7 +1,6 @@
 import { FormGroup } from "@mui/material";
-import type { ParseKeys } from "i18next";
 import type { ReactElement } from "react";
-import { i18nextDemo } from "../locale/i18n.js";
+import { type DemoParseKeys, i18nextDemoT } from "../locale/i18n.js";
 import { TextInput } from "../TextInput.jsx";
 import { BaseForm, type FormProperties } from "./BaseForm.jsx";
 import { type ExclusionData, ExclusionInput } from "./ExclusionInput.jsx";
@@ -57,8 +56,8 @@ export function ValidateForm(properties: FormProperties<true>): ReactElement {
         onProcess={onProcess}
     >
         <SInput
-            hint={i18nextDemo.t("String.stringToValidate", {
-                name: i18nextDemo.t(properties.characterSetResourceName)
+            hint={i18nextDemoT("String.stringToValidate", {
+                name: i18nextDemoT(properties.characterSetResourceName)
             })}
         />
         <FormGroup
@@ -70,28 +69,28 @@ export function ValidateForm(properties: FormProperties<true>): ReactElement {
         >
             <TextInput
                 name="minimumLength"
-                label={i18nextDemo.t("String.minimumLengthLabel")}
-                hint={i18nextDemo.t("String.minimumLengthHint", {
-                    name: i18nextDemo.t(properties.characterSetResourceName)
+                label={i18nextDemoT("String.minimumLengthLabel")}
+                hint={i18nextDemoT("String.minimumLengthHint", {
+                    name: i18nextDemoT(properties.characterSetResourceName)
                 })}
                 type="number"
                 isRequired={false}
             />
             <TextInput
                 name="maximumLength"
-                label={i18nextDemo.t("String.maximumLengthLabel")}
-                hint={i18nextDemo.t("String.maximumLengthHint", {
-                    name: i18nextDemo.t(properties.characterSetResourceName)
+                label={i18nextDemoT("String.maximumLengthLabel")}
+                hint={i18nextDemoT("String.maximumLengthHint", {
+                    name: i18nextDemoT(properties.characterSetResourceName)
                 })}
                 type="number"
                 isRequired={false}
             />
         </FormGroup>
         <ExclusionInput
-            hint={i18nextDemo.t("String.exclusionHint")}
+            hint={i18nextDemoT("String.exclusionHint")}
             exclusionSupport={properties.validatorOrCreator.exclusionSupport}
         />
     </BaseForm>;
 }
 
-ValidateForm.resourceName = "String.validateSubtitle" as ParseKeys;
+ValidateForm.resourceName = "String.validateSubtitle" as DemoParseKeys;
