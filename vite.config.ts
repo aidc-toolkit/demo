@@ -1,11 +1,11 @@
-import react from "@vitejs/plugin-react";
+import reactPlugin from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import svgr from "vite-plugin-svgr";
+import svgrPlugin from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
 export default defineConfig({
     base: "",
-    plugins: [react(), svgr()],
+    plugins: [reactPlugin(), svgrPlugin()],
     build: {
         rolldownOptions: {
             external: [/^node:\w+/u]
