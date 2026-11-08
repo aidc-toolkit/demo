@@ -13,7 +13,7 @@ export interface FormProperties<IsValidatorOnly extends boolean> {
     readonly characterSetResourceName: DemoParseKeys;
 
     /**
-     * If true, only validator is supported.
+     * True if form supports validator only.
      */
     readonly isValidatorOnly: IsValidatorOnly;
 

@@ -57,7 +57,7 @@ export default {
         valueHint: "Valeur numérique à convertir en référence.",
         exclusionHint: "Type de référence à exclure.",
         sparseLabel: "Clairsemé",
-        sparseHint: "Si cette valeur est vraie, la valeur est mappée sur une séquence clairsemée résistante à la découverte.",
+        sparseHint: "Vrai si la valeur doit être mappée vers une séquence creuse résistante à la découverte.",
         startValueHint: "Début des valeurs numériques à convertir en références.",
         countHint: "Nombre de valeurs numériques à convertir en références.",
         createAllSubtitle: "Créer tout",

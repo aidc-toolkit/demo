@@ -57,7 +57,7 @@ export default {
         valueHint: "Numeric value to be converted to reference.",
         exclusionHint: "Type of reference to be excluded.",
         sparseLabel: "Sparse",
-        sparseHint: "If true, the value is mapped to a sparse sequence resistant to discovery.",
+        sparseHint: "True if the value should be mapped to a sparse sequence resistant to discovery.",
         startValueHint: "Start of numeric values to be converted to references.",
         countHint: "Count of numeric values to be converted to references.",
         createAllSubtitle: "Create all",
