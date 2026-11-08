@@ -125,42 +125,42 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
     }
 
     /**
-     * Get the element name.
+     * Element name.
      */
     get name(): PickStringKeyPropertyType<TFormData, TPrimitive> {
         return this.#name;
     }
 
     /**
-     * Get the input type.
+     * Input type.
      */
     get type(): TTypeString {
         return this.#type;
     }
 
     /**
-     * Determine if input is required.
+     * True if input is required.
      */
     get isRequired(): IsRequired {
         return this.#isRequired;
     }
 
     /**
-     * Get the default string value.
+     * Default string value.
      */
     get defaultStringValue(): string {
         return this.#defaultStringValue;
     }
 
     /**
-     * Get the string value.
+     * String value.
      */
     get stringValue(): string {
         return this.#stringValue;
     }
 
     /**
-     * Get the value.
+     * Value.
      */
     get value(): InputValue<TPrimitive, IsRequired> {
         if (this.isRequired && this.stringValue === "") {
@@ -172,14 +172,14 @@ export class InputState<TFormData extends object, TTypeString extends TypeString
     }
 
     /**
-     * Get the error message.
+     * Error message.
      */
     get errorMessage(): string | undefined {
         return this.#errorMessage;
     }
 
     /**
-     * Get the React set state callback.
+     * React set state callback.
      */
     get setState(): Dispatch<SetStateAction<InputState<TFormData, TTypeString, TPrimitive, IsRequired>>> {
         return this.#setState;
