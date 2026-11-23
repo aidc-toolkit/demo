@@ -71,8 +71,8 @@ export function RadioInput<TFormData extends object, TTypeString extends "string
                     formManager.saveInputValue(inputState, inputState.valueOf(event.target.value));
                 }}
             >
-                {properties.values.map(radioValue =>
-                    <FormControlLabel
+                {properties.values.map(
+                    radioValue => <FormControlLabel
                         key={`${properties.name}-${radioValue}`}
                         value={String(radioValue)}
                         control={<Radio checked={radioValue === value} />}

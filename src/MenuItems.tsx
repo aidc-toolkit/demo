@@ -119,8 +119,8 @@ export function MenuItems<T extends object>(properties: MenuItemsProperties<T>):
                             // Check for pre-constructed sub-menu.
                             "subMenuItems" in menuItemProperties ?
                                 menuItemProperties.subMenuItems :
-                                menuItemProperties.formGroupDescriptor.FormDescriptors.map(FormDescriptor =>
-                                    FormDescriptor !== null ?
+                                menuItemProperties.formGroupDescriptor.FormDescriptors.map(
+                                    FormDescriptor => FormDescriptor !== null ?
                                         {
                                             titleResourceName: FormDescriptor.resourceName,
                                             f: () => {
