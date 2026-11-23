@@ -47,12 +47,12 @@ interface PrefixTypeAndPrefixInputProperties {
 export function PrefixTypeAndPrefixInput(properties: PrefixTypeAndPrefixInputProperties): ReactElement {
     let prefixTypes: PrefixType[];
 
-    if (properties.excludePrefix && properties.identifierType !== IdentifierTypes.GTIN) {
-        // GTIN has validations specific to the prefix type.
-        prefixTypes = [PrefixTypes.GS1CompanyPrefix];
-    } else if (properties.identifierType === IdentifierTypes.GTIN) {
-        // Only GTIN supports GS1-8 Prefix.
+    if (properties.identifierType === IdentifierTypes.GTIN) {
+        // GTIN supports all prefix types for all operations.
         prefixTypes = [PrefixTypes.GS1CompanyPrefix, PrefixTypes.UPCCompanyPrefix, PrefixTypes.GS18Prefix];
+    } else if (properties.excludePrefix) {
+        // Not a GTIN and prefix is excluded, so must be a GS1 Company Prefix.
+        prefixTypes = [PrefixTypes.GS1CompanyPrefix];
     } else {
         prefixTypes = [PrefixTypes.GS1CompanyPrefix, PrefixTypes.UPCCompanyPrefix];
     }
