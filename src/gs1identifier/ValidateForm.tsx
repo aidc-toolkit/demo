@@ -1,9 +1,8 @@
 import {
     ContentCharacterSets,
-    GTIN_BASE_TYPES,
     type IdentifierType,
     type IdentifierValidator,
-    type IdentifierValidatorsEntry,
+    type IdentifierValidators,
     isGTINValidators,
     type NonNumericIdentifierValidation,
     type NumericIdentifierValidation,
@@ -30,8 +29,8 @@ import { type PrefixTypeAndPrefixData, PrefixTypeAndPrefixInput } from "./Prefix
  * @returns
  * Identifier validator.
  */
-function getValidator<TIdentifierType extends IdentifierType>(validatorsOrValidator: IdentifierValidatorsEntry<TIdentifierType>, prefixType: PrefixType): IdentifierValidator {
-    return isGTINValidators(validatorsOrValidator) ? validatorsOrValidator[GTIN_BASE_TYPES[prefixType]] : validatorsOrValidator;
+function getValidator<TIdentifierType extends IdentifierType>(validatorsOrValidator: typeof IdentifierValidators[TIdentifierType], prefixType: PrefixType): IdentifierValidator {
+    return isGTINValidators(validatorsOrValidator) ? validatorsOrValidator[prefixType] : validatorsOrValidator;
 }
 
 /**

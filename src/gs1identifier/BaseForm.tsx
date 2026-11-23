@@ -1,9 +1,4 @@
-import type {
-    IdentifierType,
-    IdentifierTypeCreator,
-    IdentifierValidatorsEntry,
-    PrefixManager
-} from "@aidc-toolkit/gs1";
+import type { IdentifierCreators, IdentifierType, IdentifierValidators, PrefixManager } from "@aidc-toolkit/gs1";
 import type { ReactElement } from "react";
 import { BaseForm as DemoBaseForm, type FormProperties as DemoFormProperties } from "../BaseForm.jsx";
 
@@ -19,7 +14,7 @@ export interface FormProperties<TIdentifierType extends IdentifierType> {
     /**
      * Validators (GTIN) or validator (non-GTIN).
      */
-    readonly validatorsOrValidator: IdentifierValidatorsEntry<TIdentifierType>;
+    readonly validatorsOrValidator: typeof IdentifierValidators[TIdentifierType];
 
     /**
      * Get creator from prefix manager.
@@ -30,7 +25,7 @@ export interface FormProperties<TIdentifierType extends IdentifierType> {
      * @returns
      * Identifier creator.
      */
-    readonly getCreator: (prefixManager: PrefixManager) => IdentifierTypeCreator<TIdentifierType>;
+    readonly getCreator: (prefixManager: PrefixManager) => IdentifierCreators[TIdentifierType];
 }
 
 /**
